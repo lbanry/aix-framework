@@ -1,0 +1,20 @@
+{
+  "name": "aix-framework",
+  "version": "0.1.0",
+  "description": "A system-agnostic AI Experience Framework for improving human-AI collaboration.",
+  "type": "module",
+  "bin": {
+    "aix": "./src/cli.js"
+  },
+  "scripts": {
+    "aix": "node ./src/cli.js",
+    "test:project": "node ./src/cli.js run examples/project-contract.yaml",
+    "prompt:project": "node ./src/cli.js prompt examples/project-contract.yaml",
+    "test:rag": "node ./src/cli.js run examples/rag-contract.yaml"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "commander": "^14.0.3",
+    "yaml": "^2.8.3"
+  }
+}

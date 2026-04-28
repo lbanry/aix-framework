@@ -1,0 +1,33 @@
+# AIX Framework
+
+AIX (AI Experience) Framework is an open-source system for improving how humans and AI agents work together.
+
+It introduces a **contract-driven approach** to replace traditional prompting.
+
+---
+
+## Why AIX?
+
+Prompting is inconsistent because intent, context, and constraints are implicit.
+
+AIX makes them explicit.
+
+---
+
+## Core Idea
+
+Every AI interaction is a contract:
+
+- Intent
+- Context
+- Constraints
+- Execution
+- Validation
+
+---
+
+## Quick Start
+
+```bash
+npm install
+npm run prompt:project

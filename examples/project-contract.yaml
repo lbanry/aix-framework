@@ -1,0 +1,48 @@
+intent:
+  objective: Improve or complete a defined project outcome using AI assistance.
+  success_criteria:
+    - The desired outcome is clearly defined
+    - The AI understands the relevant context
+    - Constraints are explicit
+    - The final output can be reviewed or validated by the human
+
+context:
+  project: Example Project
+  inputs:
+    - Project description
+    - Existing notes or files
+    - Relevant decisions
+  prior_decisions:
+    - The framework should remain project-agnostic
+    - The human remains responsible for final judgment
+
+constraints:
+  rules:
+    - Do not assume missing critical information
+    - Ask for clarification only when necessary
+    - Preserve human intent over automated optimization
+  tools_allowed:
+    - Chat interface
+    - Search
+    - File analysis
+    - Code generation
+  disallowed:
+    - Unsupported claims
+    - Unvalidated final decisions
+    - Ignoring stated constraints
+
+execution:
+  mode: analyze
+  output_format: structured_summary
+  verbosity: medium
+
+validation:
+  checks:
+    - intent_is_clear
+    - context_is_sufficient
+    - constraints_are_respected
+    - output_matches_success_criteria
+  definition_of_done:
+    - Human can understand the result
+    - Human can act on the result
+    - Remaining uncertainty is clearly stated

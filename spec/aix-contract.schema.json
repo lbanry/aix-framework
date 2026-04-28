@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "required": ["intent", "context", "constraints", "execution", "validation"],
+  "properties": {
+    "intent": {
+      "type": "object",
+      "required": ["objective", "success_criteria"],
+      "properties": {
+        "objective": { "type": "string" },
+        "success_criteria": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "project": { "type": "string" },
+        "inputs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "prior_decisions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tools_allowed": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "disallowed": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "required": ["mode", "output_format"],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["plan", "analyze", "generate", "execute", "validate", "refine"]
+        },
+        "output_format": { "type": "string" },
+        "verbosity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "definition_of_done": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}
