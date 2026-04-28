@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import { runAIX } from "./run.js";
 import { generatePrompt } from "./prompt.js";
+import { inspectContract } from "./inspect.js";
 
 const program = new Command();
 
@@ -25,6 +26,14 @@ program
   .description("Generate an AI-ready prompt from an AIX contract")
   .action(async (contractPath) => {
     await generatePrompt(contractPath);
+  });
+
+program
+  .command("inspect")
+  .argument("<contract>", "Path to an AIX contract YAML file")
+  .description("Inspect an AIX contract for clarity, completeness, and execution risk")
+  .action(async (contractPath) => {
+    await inspectContract(contractPath);
   });
 
 program.parse();
