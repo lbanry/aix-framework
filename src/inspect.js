@@ -1,5 +1,3 @@
-
-
 import fs from "fs";
 import YAML from "yaml";
 import { validateContract } from "./validate.js";
@@ -13,6 +11,10 @@ function printWarn(message) {
   console.log(`⚠ ${message}`);
 }
 
+function printInsight(message) {
+  console.log(`→ ${message}`);
+}
+
 function isWeakText(value = "") {
   const weakTerms = ["improve", "better", "optimize", "help", "stuff", "things", "good"];
   const lower = value.toLowerCase();
@@ -21,6 +23,10 @@ function isWeakText(value = "") {
     value.trim().length < 20 ||
     weakTerms.some((term) => lower === term || lower.includes(` ${term} `))
   );
+}
+
+function lacksActionableLanguage(value = "") {
+  return !value.match(/(create|generate|analyze|summarize|compare|design|build|plan|validate|refine)/i);
 }
 
 export async function inspectContract(contractPath) {
@@ -43,14 +49,22 @@ export async function inspectContract(contractPath) {
 
   console.log("\nIntent");
   if (isWeakText(normalized.intent.objective)) {
-    printWarn("Objective may be too vague. Define the desired outcome more concretely.");
+    printWarn("Objective may be too vague.");
+    printInsight("Clarify what the AI should produce, not just what should be improved.");
     warnings += 1;
   } else {
     printPass("Objective is defined.");
   }
 
+  if (lacksActionableLanguage(normalized.intent.objective)) {
+    printWarn("Objective may lack a clear action verb.");
+    printInsight("Use verbs like analyze, generate, summarize, compare, design, build, plan, validate, or refine.");
+    warnings += 1;
+  }
+
   if (normalized.intent.success_criteria.length < 2) {
-    printWarn("Success criteria may be too thin. Add at least two measurable or reviewable criteria.");
+    printWarn("Success criteria may be too thin.");
+    printInsight("Add at least two criteria that can be reviewed by a human.");
     warnings += 1;
   } else {
     printPass("Success criteria are present.");
@@ -65,22 +79,29 @@ export async function inspectContract(contractPath) {
   }
 
   if (!normalized.context.inputs.length) {
-    printWarn("No inputs are listed. Add source material, files, links, notes, data, or examples.");
+    printWarn("No inputs are listed.");
+    printInsight("Add source material such as files, links, notes, code, data, examples, or decisions.");
     warnings += 1;
   } else {
     printPass("Inputs are listed.");
   }
 
+  if (normalized.context.inputs.length === 1) {
+    printInsight("Single input detected. Consider adding supporting context, examples, or prior decisions.");
+  }
+
   console.log("\nConstraints");
   if (!normalized.constraints.rules.length) {
-    printWarn("No rules are defined. Add boundaries the AI must follow.");
+    printWarn("No rules are defined.");
+    printInsight("Rules reduce drift and help preserve human intent.");
     warnings += 1;
   } else {
     printPass("Rules are defined.");
   }
 
   if (!normalized.constraints.disallowed.length) {
-    printWarn("No disallowed behaviors are defined. Consider adding failure modes to avoid.");
+    printWarn("No disallowed behaviors are defined.");
+    printInsight("Add failure modes to prevent predictable bad outputs.");
     warnings += 1;
   } else {
     printPass("Disallowed behaviors are defined.");
@@ -104,6 +125,7 @@ export async function inspectContract(contractPath) {
   console.log("\nValidation");
   if (!normalized.validation.checks.length) {
     printWarn("No validation checks are listed.");
+    printInsight("Add checks that confirm correctness, not just completion.");
     warnings += 1;
   } else {
     printPass("Validation checks are listed.");
@@ -111,6 +133,7 @@ export async function inspectContract(contractPath) {
 
   if (!normalized.validation.definition_of_done.length) {
     printWarn("Definition of done is missing.");
+    printInsight("Define when the system should stop iterating.");
     warnings += 1;
   } else {
     printPass("Definition of done is listed.");
@@ -118,8 +141,57 @@ export async function inspectContract(contractPath) {
 
   console.log("\nSummary");
   if (warnings === 0) {
-    printPass("Contract is strong enough for AI-assisted execution.");
+    printPass("Strong contract. Ready for execution.");
   } else {
-    printWarn(`${warnings} improvement area(s) found. Refine the contract before execution for better AIX quality.`);
+    printWarn(`${warnings} improvement area(s) found.`);
+    printInsight("Refine contract → re-run inspect → then generate prompt.");
+  }
+
+  console.log("\nSuggested Improvements");
+
+  if (isWeakText(normalized.intent.objective)) {
+    console.log("- Rewrite the objective so it names the action, input, output, and intended use.");
+    console.log('  Example: "Analyze [input] to produce [specific output] for [use case]."');
+  }
+
+  if (lacksActionableLanguage(normalized.intent.objective)) {
+    console.log("- Start the objective with a concrete action verb such as analyze, generate, summarize, compare, design, build, plan, validate, or refine.");
+  }
+
+  if (normalized.intent.success_criteria.length < 2) {
+    console.log("- Add at least two success criteria that can be reviewed by a human.");
+    console.log('  Example: "The output preserves the key points from the input."');
+    console.log('  Example: "The result is specific enough to act on without additional interpretation."');
+  }
+
+  if (!normalized.context.inputs.length) {
+    console.log("- Add at least one concrete input, such as a document, link, dataset, transcript, brief, code file, or note.");
+  }
+
+  if (normalized.context.inputs.length === 1) {
+    console.log("- Consider adding supporting context, such as prior decisions, examples, constraints, or target audience.");
+  }
+
+  if (!normalized.constraints.rules.length) {
+    console.log("- Add rules that shape how the AI should work.");
+    console.log('  Example: "Do not invent information not supported by the provided inputs."');
+    console.log('  Example: "State assumptions clearly before making recommendations."');
+  }
+
+  if (!normalized.constraints.disallowed.length) {
+    console.log("- Add disallowed behaviors to prevent predictable failure modes.");
+    console.log('  Example: "Do not ignore stated constraints."');
+    console.log('  Example: "Do not present speculation as fact."');
+  }
+
+  if (!normalized.validation.checks.length) {
+    console.log("- Add validation checks that confirm correctness, not just completion.");
+    console.log('  Example: "Confirm the output directly addresses the objective."');
+    console.log('  Example: "Confirm the output respects every listed constraint."');
+  }
+
+  if (!normalized.validation.definition_of_done.length) {
+    console.log("- Add a definition of done so the system knows when to stop iterating.");
+    console.log('  Example: "The human can act on the result without asking for a full rewrite."');
   }
 }

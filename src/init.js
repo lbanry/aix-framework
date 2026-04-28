@@ -77,8 +77,8 @@ function assertValidFilename(filename) {
 export async function initContract(filename, options = {}) {
   try {
     assertValidFilename(filename);
-    const { force = false, dryRun = false } = options;
 
+    const { force = false, dryRun = false } = options;
     const targetPath = path.resolve(filename);
     const targetDirectory = path.dirname(targetPath);
 
