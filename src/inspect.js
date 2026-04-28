@@ -155,7 +155,9 @@ export async function inspectContract(contractPath) {
   }
 
   if (lacksActionableLanguage(normalized.intent.objective)) {
-    console.log("- Start the objective with a concrete action verb such as analyze, generate, summarize, compare, design, build, plan, validate, or refine.");
+    console.log("- Suggested YAML fix:");
+    console.log("  intent:");
+    console.log('    objective: "Analyze [input] to produce [specific output] for [use case]."');
   }
 
   if (normalized.intent.success_criteria.length < 2) {
