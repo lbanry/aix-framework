@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { runAIX } from "./run.js";
 import { generatePrompt } from "./prompt.js";
 import { inspectContract } from "./inspect.js";
+import { initContract } from "./init.js";
 
 const program = new Command();
 
@@ -34,6 +35,14 @@ program
   .description("Inspect an AIX contract for clarity, completeness, and execution risk")
   .action(async (contractPath) => {
     await inspectContract(contractPath);
+  });
+
+program
+  .command("init")
+  .argument("<filename>", "Name of the contract file to create")
+  .description("Create a new AIX contract template with guided comments")
+  .action(async (filename) => {
+    await initContract(filename);
   });
 
 program.parse();
