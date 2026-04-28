@@ -1,8 +1,14 @@
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import Ajv from "ajv";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const schemaPath = path.resolve(__dirname, "../spec/aix-contract.schema.json");
+
 const schema = JSON.parse(
-  fs.readFileSync("./spec/aix-contract.schema.json", "utf8")
+  fs.readFileSync(schemaPath, "utf8")
 );
 
 const ajv = new Ajv({ allErrors: true });

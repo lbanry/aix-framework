@@ -1,5 +1,5 @@
 intent:
-  objective: Improve or complete a defined project outcome using AI assistance.
+  objective: Analyze a defined project outcome to produce a structured AI assistance plan.
   success_criteria:
     - The desired outcome is clearly defined
     - The AI understands the relevant context

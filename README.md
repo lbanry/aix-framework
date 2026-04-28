@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# aix-framework
-AIX (AI Experience) Framework is an open-source system for improving how humans and AI agents work together.
-=======
 # AIX Framework
 
 AIX (AI Experience) Framework is an open-source system for improving how humans and AI agents work together.
@@ -35,4 +31,22 @@ Every AI interaction is a contract:
 ```bash
 npm install
 npm run prompt:project
->>>>>>> 5eea321 (Pre-pull commit (sync with remote))
+```
+
+---
+
+## v0.1 Workflow
+
+```txt
+init -> inspect -> prompt
+```
+
+- `init` creates a valid AIX contract template.
+- `inspect` reviews the contract for clarity, completeness, and execution risk.
+- `prompt` generates an AI-ready prompt from the contract.
+
+---
+
+## End-of-Day Reports
+
+When the user asks for an EOD report, create a dated report under `docs/` and include it in the repo.
