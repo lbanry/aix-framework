@@ -18,6 +18,7 @@
   "files": [
     "src",
     "spec",
+    "interface",
     "examples",
     "docs",
     "README.md",

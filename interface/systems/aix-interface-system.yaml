@@ -1,0 +1,84 @@
+name: AIX Interface System
+version: 0.1.0
+tokens:
+  color:
+    - status.pass
+    - status.warning
+    - status.error
+    - surface.default
+    - text.primary
+  spacing:
+    - compact
+    - regular
+    - section
+components:
+  - id: ReadinessScore
+    purpose: Show the overall contract readiness before supporting details.
+    supports:
+      - readiness_score
+    states:
+      - strong
+      - warning
+      - blocked
+    rules:
+      - Pair the numeric score with a plain-language status.
+      - Place before detailed findings.
+  - id: ValidationStatus
+    purpose: Show whether schema validation passed or failed.
+    supports:
+      - schema_errors
+      - validation_state
+    states:
+      - pass
+      - fail
+    rules:
+      - Show failures before optional suggestions.
+      - Use direct language for validation failures.
+  - id: WarningList
+    purpose: Show execution risks that need human review.
+    supports:
+      - warnings
+    rules:
+      - Keep warnings separate from suggestions.
+      - Sort warnings before lower-priority guidance.
+  - id: SuggestionList
+    purpose: Show optional improvements that can strengthen the contract.
+    supports:
+      - suggestions
+    rules:
+      - Do not present optional suggestions as blockers.
+  - id: ActionBar
+    purpose: Present the next useful actions after review.
+    supports:
+      - next_actions
+    rules:
+      - Actions must follow the inspection summary.
+      - Prefer inspect, refine, prompt, and run actions.
+patterns:
+  - id: inspection_results
+    purpose: Help users decide whether a contract is ready for AI execution.
+    use_when:
+      - validation_review
+      - contract_inspection
+    required_components:
+      - ReadinessScore
+      - ValidationStatus
+      - WarningList
+      - SuggestionList
+      - ActionBar
+    information_order:
+      - readiness_score
+      - schema_errors
+      - warnings
+      - suggestions
+      - next_actions
+    rules:
+      - Show readiness before details.
+      - Keep errors, warnings, suggestions, and actions visually distinct.
+      - Do not generate custom screen structure when this pattern satisfies the requirement.
+    avoid_when:
+      - no_validation_result_available
+accessibility_rules:
+  - Do not rely on color alone to communicate status.
+  - Ensure each status has text that names the state.
+  - Keep action labels specific enough to be understood out of context.

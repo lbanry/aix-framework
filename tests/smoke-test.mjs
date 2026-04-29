@@ -78,4 +78,99 @@ assertSuccess(
   /AIX Execution Preparation[\s\S]*Prepared Prompt/
 );
 
+assertSuccess(
+  ["./src/cli.js", "interface", "inspect-system", "interface/systems/aix-interface-system.yaml"],
+  /Interface system is ready for orchestration/
+);
+
+const interfacePlan = run([
+  "./src/cli.js",
+  "interface",
+  "plan",
+  "interface/requirements/contract-inspection.yaml",
+  "--system",
+  "interface/systems/aix-interface-system.yaml",
+  "--research",
+  "interface/research/aix-findings.yaml"
+]);
+assert.equal(interfacePlan.status, 0, interfacePlan.stderr || interfacePlan.stdout);
+assert.match(interfacePlan.stdout, /screen_id: contract-inspection-review/);
+assert.match(interfacePlan.stdout, /ReadinessScore/);
+
+assertSuccess(
+  ["./src/cli.js", "interface", "inspect-plan", "interface/plans/contract-inspection.plan.yaml"],
+  /Interface plan is ready for prompt generation/
+);
+
+assertSuccess(
+  ["./src/cli.js", "interface", "prompt", "interface/plans/contract-inspection.plan.yaml"],
+  /Do not invent layout, components, or interactions/
+);
+
+const invalidInterfacePlanPath = new URL("./tmp-invalid-interface-plan.yaml", import.meta.url);
+fs.writeFileSync(invalidInterfacePlanPath, `screen_id: contract-inspection-review
+user_goal: Review readiness.
+task_type: validation_review
+system: AIX Interface System
+research_sources: []
+sections: []
+gaps: []
+validation_checks:
+  - Check readiness.
+generation_boundary: Do not invent UI.
+`);
+
+assertFailure(
+  ["./src/cli.js", "interface", "inspect-plan", "tests/tmp-invalid-interface-plan.yaml"],
+  /sections must contain at least 1 item/
+);
+fs.unlinkSync(invalidInterfacePlanPath);
+
+const missingComponentSystemPath = new URL("./tmp-missing-component-system.yaml", import.meta.url);
+fs.writeFileSync(missingComponentSystemPath, `name: Incomplete AIX Interface System
+version: 0.1.0
+tokens:
+  color:
+    - status.pass
+  spacing:
+    - regular
+components:
+  - id: ReadinessScore
+    purpose: Show readiness.
+    supports:
+      - readiness_score
+    rules:
+      - Show readiness first.
+patterns:
+  - id: inspection_results
+    purpose: Review inspection results.
+    use_when:
+      - validation_review
+    required_components:
+      - ReadinessScore
+      - ValidationStatus
+    information_order:
+      - readiness_score
+      - schema_errors
+    rules:
+      - Use approved components only.
+accessibility_rules:
+  - Do not rely on color alone.
+`);
+
+const gapPlan = run([
+  "./src/cli.js",
+  "interface",
+  "plan",
+  "interface/requirements/contract-inspection.yaml",
+  "--system",
+  "tests/tmp-missing-component-system.yaml",
+  "--research",
+  "interface/research/aix-findings.yaml"
+]);
+assert.equal(gapPlan.status, 0, gapPlan.stderr || gapPlan.stdout);
+assert.match(gapPlan.stdout, /No approved component supports required information 'schema_errors'/);
+assert.doesNotMatch(gapPlan.stdout, /\n\s+- ValidationStatus/);
+fs.unlinkSync(missingComponentSystemPath);
+
 console.log("AIX smoke tests passed.");

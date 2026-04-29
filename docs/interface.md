@@ -1,0 +1,47 @@
+# Interface Orchestration
+
+AIX interface orchestration turns UX requirements, research findings, and design-system rules into a traceable interface plan.
+
+The goal is orchestration before generation:
+
+```txt
+requirement + system + research -> interface plan -> inspected prompt
+```
+
+## Workflow
+
+```bash
+node ./src/cli.js interface inspect-system interface/systems/aix-interface-system.yaml
+node ./src/cli.js interface plan interface/requirements/contract-inspection.yaml --system interface/systems/aix-interface-system.yaml --research interface/research/aix-findings.yaml
+node ./src/cli.js interface inspect-plan interface/plans/contract-inspection.plan.yaml
+node ./src/cli.js interface prompt interface/plans/contract-inspection.plan.yaml
+```
+
+## Artifacts
+
+Interface systems define approved tokens, components, patterns, and accessibility rules.
+
+Research findings define user goals, pain points, implications, task coverage, and information coverage.
+
+Interface requirements define the screen goal, task type, risk level, required information, actions, and constraints.
+
+Interface plans define selected patterns and components, information hierarchy, research traceability, gaps, validation checks, and the generation boundary.
+
+## Included Proof Case
+
+The first included proof case is an AIX contract inspection review screen:
+
+- `interface/systems/aix-interface-system.yaml`
+- `interface/research/aix-findings.yaml`
+- `interface/requirements/contract-inspection.yaml`
+- `interface/plans/contract-inspection.plan.yaml`
+
+The plan prioritizes readiness, validation, warnings, suggestions, and next actions.
+
+## Design Boundary
+
+AIX should choose approved components and patterns first.
+
+If the system cannot satisfy a requirement, AIX lists a gap instead of inventing UI.
+
+Prompt generation should happen only after a valid interface plan exists.

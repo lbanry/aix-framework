@@ -73,6 +73,44 @@ validate -> normalize -> inspect summary -> prepare prompt
 
 It does not call an AI model.
 
+### interface inspect-system
+
+Validates whether an interface system can be used for orchestration.
+
+```bash
+node ./src/cli.js interface inspect-system interface/systems/aix-interface-system.yaml
+```
+
+### interface plan
+
+Creates a structured interface plan from a requirement, design system, and UX research findings.
+
+```bash
+node ./src/cli.js interface plan interface/requirements/contract-inspection.yaml --system interface/systems/aix-interface-system.yaml --research interface/research/aix-findings.yaml
+```
+
+Use `--out <file>` to write the generated plan. Existing files are not overwritten unless `--force` is also provided.
+
+### interface inspect-plan
+
+Checks whether an interface plan is ready for prompt generation.
+
+```bash
+node ./src/cli.js interface inspect-plan interface/plans/contract-inspection.plan.yaml
+```
+
+`inspect-plan` reports unresolved design-system gaps, missing research links, and invalid plan structure.
+
+### interface prompt
+
+Generates implementation guidance from an approved interface plan.
+
+```bash
+node ./src/cli.js interface prompt interface/plans/contract-inspection.plan.yaml
+```
+
+This command does not render UI. It preserves the orchestration boundary by instructing implementers to use the approved plan, patterns, and components.
+
 ## npm Scripts
 
 ```bash
@@ -90,4 +128,5 @@ When running from outside the project directory, use paths from your current loc
 
 ```bash
 node ./aix-framework/src/cli.js inspect aix-framework/examples/project-contract.yaml
+node ./aix-framework/src/cli.js interface inspect-system aix-framework/interface/systems/aix-interface-system.yaml
 ```

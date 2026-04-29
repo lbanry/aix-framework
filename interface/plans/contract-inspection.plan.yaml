@@ -1,0 +1,67 @@
+screen_id: contract-inspection-review
+user_goal: Understand whether an AIX contract is ready for AI execution and what to do next.
+task_type: validation_review
+risk_level: medium
+system: AIX Interface System
+research_sources:
+  - aix-readiness-before-action
+  - aix-separate-risk-from-guidance
+sections:
+  - id: readiness-score
+    title: Readiness
+    pattern: inspection_results
+    components:
+      - ReadinessScore
+    requirements:
+      - readiness_score
+    findings:
+      - aix-readiness-before-action
+    rationale: Show the readiness score first so the user can decide whether the contract is safe to advance.
+  - id: validation-status
+    title: Validation
+    pattern: inspection_results
+    components:
+      - ValidationStatus
+    requirements:
+      - schema_errors
+    findings:
+      - aix-readiness-before-action
+      - aix-separate-risk-from-guidance
+    rationale: Show validation state before optional guidance so blockers are not hidden.
+  - id: warnings
+    title: Warnings
+    pattern: inspection_results
+    components:
+      - WarningList
+    requirements:
+      - warnings
+    findings:
+      - aix-separate-risk-from-guidance
+    rationale: Keep execution risks distinct from optional suggestions.
+  - id: suggestions
+    title: Suggestions
+    pattern: inspection_results
+    components:
+      - SuggestionList
+    requirements:
+      - suggestions
+    findings:
+      - aix-separate-risk-from-guidance
+    rationale: Present optional improvements without treating them as blockers.
+  - id: next-actions
+    title: Next Actions
+    pattern: inspection_results
+    components:
+      - ActionBar
+    requirements:
+      - next_actions
+    findings:
+      - aix-readiness-before-action
+    rationale: Place actions after readiness and issues so the user acts with context.
+gaps: []
+validation_checks:
+  - Every required information item is mapped to an approved component.
+  - Each section references an approved pattern.
+  - Research-backed sections include finding IDs.
+  - Gaps are listed instead of inventing components.
+generation_boundary: Generate implementation guidance only from this plan; do not invent new layout, components, or interaction patterns.

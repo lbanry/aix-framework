@@ -1,0 +1,173 @@
+import fs from "fs";
+import YAML from "yaml";
+import { validateInterfaceArtifact } from "./validation.js";
+import { buildInterfacePlan, inspectInterfacePlan as inspectPlanReadiness } from "./planner.js";
+
+function readYaml(filePath) {
+  return YAML.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+function printErrors(title, errors) {
+  console.error(`\n${title}`);
+  errors.forEach((error) => {
+    console.error(`- ${error}`);
+  });
+}
+
+function assertValid(type, value) {
+  const validation = validateInterfaceArtifact(type, value);
+
+  if (!validation.valid) {
+    printErrors(`${type} failed validation:`, validation.humanErrors);
+    process.exit(1);
+  }
+}
+
+function writeYamlOrPrint(value, options = {}) {
+  const output = YAML.stringify(value);
+
+  if (options.out) {
+    if (fs.existsSync(options.out) && !options.force) {
+      console.error(`Output file already exists. Use --force to overwrite: ${options.out}`);
+      process.exit(1);
+    }
+
+    fs.writeFileSync(options.out, output, { flag: options.force ? "w" : "wx" });
+    console.log(`Wrote interface plan: ${options.out}`);
+    return;
+  }
+
+  console.log(output.trimEnd());
+}
+
+export async function inspectInterfaceSystem(systemPath) {
+  const system = readYaml(systemPath);
+  assertValid("system", system);
+
+  const componentIds = new Set(system.components.map((component) => component.id));
+  const gaps = [];
+
+  system.patterns.forEach((pattern) => {
+    pattern.required_components.forEach((componentId) => {
+      if (!componentIds.has(componentId)) {
+        gaps.push(`Pattern '${pattern.id}' references missing component '${componentId}'.`);
+      }
+    });
+  });
+
+  console.log("\nAIX Interface System Inspection");
+  console.log("-------------------------------");
+  console.log(`System: ${system.name} (${system.version})`);
+  console.log(`Components: ${system.components.length}`);
+  console.log(`Patterns: ${system.patterns.length}`);
+  console.log(`Accessibility rules: ${system.accessibility_rules.length}`);
+
+  if (gaps.length) {
+    console.log("\nGaps");
+    gaps.forEach((gap) => console.log(`- ${gap}`));
+    process.exit(1);
+  }
+
+  console.log("\nResult");
+  console.log("✓ Interface system is ready for orchestration.");
+}
+
+export async function planInterface(requirementPath, options = {}) {
+  if (!options.system || !options.research) {
+    console.error("Both --system and --research are required.");
+    process.exit(1);
+  }
+
+  const system = readYaml(options.system);
+  const research = readYaml(options.research);
+  const requirement = readYaml(requirementPath);
+
+  assertValid("system", system);
+  assertValid("research", research);
+  assertValid("requirement", requirement);
+
+  const plan = buildInterfacePlan(system, research, requirement);
+  assertValid("plan", plan);
+  writeYamlOrPrint(plan, options);
+}
+
+export async function inspectInterfacePlan(planPath) {
+  const plan = readYaml(planPath);
+  assertValid("plan", plan);
+
+  const inspection = inspectPlanReadiness(plan);
+
+  console.log("\nAIX Interface Plan Inspection");
+  console.log("-----------------------------");
+  console.log(`Screen: ${plan.screen_id}`);
+  console.log(`Task type: ${plan.task_type}`);
+  console.log(`Sections: ${plan.sections.length}`);
+  console.log(`Research sources: ${plan.research_sources.length}`);
+
+  if (inspection.warnings.length) {
+    console.log("\nWarnings");
+    inspection.warnings.forEach((warning) => console.log(`- ${warning}`));
+    process.exit(1);
+  }
+
+  console.log("\nResult");
+  console.log("✓ Interface plan is ready for prompt generation.");
+}
+
+function formatList(items = []) {
+  if (!items.length) return "- None";
+  return items.map((item) => `- ${item}`).join("\n");
+}
+
+export async function promptInterface(planPath) {
+  const plan = readYaml(planPath);
+  assertValid("plan", plan);
+
+  const inspection = inspectPlanReadiness(plan);
+  if (!inspection.valid) {
+    printErrors("Interface plan is not ready for prompt generation:", inspection.warnings);
+    process.exit(1);
+  }
+
+  const sections = plan.sections.map((section) => {
+    return `### ${section.title}
+Pattern: ${section.pattern}
+Components: ${section.components.join(", ")}
+Requirements: ${section.requirements.join(", ")}
+Research findings: ${section.findings.join(", ")}
+Rationale: ${section.rationale}`;
+  }).join("\n\n");
+
+  console.log(`You are creating an interface from an AIX interface plan.
+
+Follow the plan exactly. Use approved patterns and components first. Do not invent layout, components, or interactions beyond the stated generation boundary.
+
+## Screen
+
+ID: ${plan.screen_id}
+User goal: ${plan.user_goal}
+Task type: ${plan.task_type}
+Risk level: ${plan.risk_level}
+Design system: ${plan.system}
+
+## Research Sources
+
+${formatList(plan.research_sources)}
+
+## Sections
+
+${sections}
+
+## Gaps
+
+${formatList(plan.gaps)}
+
+## Validation Checks
+
+${formatList(plan.validation_checks)}
+
+## Generation Boundary
+
+${plan.generation_boundary}
+`);
+}

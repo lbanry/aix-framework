@@ -46,6 +46,10 @@ node ./src/cli.js inspect examples/project-contract.yaml --json
 node ./src/cli.js prompt examples/project-contract.yaml
 node ./src/cli.js prompt examples/project-contract.yaml --out prompt.md
 node ./src/cli.js run examples/project-contract.yaml
+node ./src/cli.js interface inspect-system interface/systems/aix-interface-system.yaml
+node ./src/cli.js interface plan interface/requirements/contract-inspection.yaml --system interface/systems/aix-interface-system.yaml --research interface/research/aix-findings.yaml
+node ./src/cli.js interface inspect-plan interface/plans/contract-inspection.plan.yaml
+node ./src/cli.js interface prompt interface/plans/contract-inspection.plan.yaml
 ```
 
 When running from outside the project directory, use paths from your current location:
@@ -93,6 +97,20 @@ init -> inspect -> prompt
 
 ---
 
+## Interface Orchestration
+
+AIX also supports design-system-aware interface planning:
+
+```txt
+inspect-system -> plan -> inspect-plan -> prompt
+```
+
+The interface workflow turns structured UX requirements, research findings, and design-system rules into a traceable interface plan. It chooses approved patterns and components first, flags gaps instead of inventing UI, and generates implementation guidance only after a valid plan exists.
+
+The first included proof case is an AIX contract inspection review screen.
+
+---
+
 ## Contract Fields
 
 An AIX contract has five core sections:
@@ -108,6 +126,7 @@ An AIX contract has five core sections:
 ## Documentation
 
 - [CLI reference](docs/cli.md)
+- [Interface orchestration](docs/interface.md)
 - [Contract schema](docs/schema.md)
 - [Examples](docs/examples.md)
 - [Principles](docs/principles.md)

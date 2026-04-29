@@ -1,0 +1,28 @@
+project: AIX Framework
+findings:
+  - id: aix-readiness-before-action
+    user_goal: Decide whether a contract is ready before generating or running a prompt.
+    pain_point: Users may act on generated AI output before understanding validation and readiness risk.
+    implication: Readiness, validation state, and blocking issues must appear before prompt or run actions.
+    supports_task_types:
+      - validation_review
+      - contract_inspection
+    supports_information:
+      - readiness_score
+      - schema_errors
+      - next_actions
+    evidence:
+      - AIX already uses inspect before prompt in its documented workflow.
+  - id: aix-separate-risk-from-guidance
+    user_goal: Understand what must be fixed versus what can be improved later.
+    pain_point: Mixing errors, warnings, and suggestions makes it harder to decide the next step.
+    implication: Validation failures, warnings, suggestions, and next actions should be separated.
+    supports_task_types:
+      - validation_review
+      - contract_inspection
+    supports_information:
+      - schema_errors
+      - warnings
+      - suggestions
+    evidence:
+      - Current inspect output separates validation, warnings, summary, and suggested improvements.

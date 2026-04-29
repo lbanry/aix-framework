@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- `interface` CLI namespace for design-system-aware interface orchestration.
+- Interface artifact schemas for systems, research findings, requirements, and plans.
+- AIX contract inspection review screen proof case.
+- Interface plan prompt generation with an explicit orchestration boundary.
+- Smoke tests for interface commands, invalid plans, and missing component gaps.
+
+### Changed
+
+- Package allowlist now includes the `interface/` example artifacts.
+
 ## v0.2.0
 
 ### Added

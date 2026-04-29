@@ -1,0 +1,21 @@
+screen:
+  id: contract-inspection-review
+  user_goal: Understand whether an AIX contract is ready for AI execution and what to do next.
+  task_type: validation_review
+  risk_level: medium
+  audience: AIX users reviewing contract readiness in the CLI or a future UI.
+  required_information:
+    - readiness_score
+    - schema_errors
+    - warnings
+    - suggestions
+    - next_actions
+  actions:
+    - refine_contract
+    - rerun_inspect
+    - generate_prompt
+    - prepare_run
+  constraints:
+    - Use approved AIX interface system components first.
+    - Keep readiness and validation state above generated prompt details.
+    - Flag missing system coverage as a gap instead of inventing components.
