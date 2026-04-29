@@ -12,6 +12,7 @@
 
 - Tightened the contract schema with required nested fields, non-empty arrays, non-empty strings, and unsupported-field rejection.
 - Improved schema validation output with human-readable error messages.
+- Updated `run` to prepare a complete local execution package instead of implying model execution.
 
 ### Removed
 

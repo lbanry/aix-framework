@@ -87,6 +87,7 @@ init -> inspect -> prompt
 - `init` creates a valid AIX contract template.
 - `inspect` reviews the contract for clarity, completeness, and execution risk.
 - `prompt` generates an AI-ready prompt from the contract.
+- `run` validates, normalizes, summarizes, and prepares the AI-ready prompt without calling an AI model.
 
 ---
 

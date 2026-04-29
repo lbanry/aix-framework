@@ -51,4 +51,9 @@ assertSuccess(
   /Analyze source material to produce a concise research summary/
 );
 
+assertSuccess(
+  ["./src/cli.js", "run", "examples/project-contract.yaml"],
+  /AIX Execution Preparation[\s\S]*Prepared Prompt/
+);
+
 console.log("AIX smoke tests passed.");
