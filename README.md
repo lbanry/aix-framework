@@ -54,6 +54,24 @@ node ./aix-framework/src/cli.js inspect aix-framework/examples/project-contract.
 
 ---
 
+## Examples
+
+The repo includes two valid example contracts:
+
+- `examples/project-contract.yaml` demonstrates a generic project-assistance contract.
+- `examples/research-contract.yaml` demonstrates a research-summary contract.
+
+Run them with:
+
+```bash
+npm run inspect:project
+npm run prompt:project
+npm run inspect:research
+npm run prompt:research
+```
+
+---
+
 ## v0.1 Workflow
 
 ```txt
