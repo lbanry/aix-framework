@@ -15,6 +15,10 @@ function printInsight(message) {
   console.log(`→ ${message}`);
 }
 
+function calculateReadinessScore(warnings, suggestions) {
+  return Math.max(0, 100 - warnings * 12 - suggestions * 3);
+}
+
 function isWeakText(value = "") {
   const weakTerms = ["improve", "better", "optimize", "help", "stuff", "things", "good"];
   const lower = value.toLowerCase();
@@ -46,6 +50,7 @@ export async function inspectContract(contractPath) {
 
   const normalized = normalizeContract(contract);
   let warnings = 0;
+  let suggestions = 0;
 
   console.log("\nIntent");
   if (isWeakText(normalized.intent.objective)) {
@@ -88,6 +93,7 @@ export async function inspectContract(contractPath) {
 
   if (normalized.context.inputs.length === 1) {
     printInsight("Single input detected. Consider adding supporting context, examples, or prior decisions.");
+    suggestions += 1;
   }
 
   console.log("\nConstraints");
@@ -140,60 +146,81 @@ export async function inspectContract(contractPath) {
   }
 
   console.log("\nSummary");
+  const readinessScore = calculateReadinessScore(warnings, suggestions);
+  console.log(`Contract readiness: ${readinessScore}/100`);
+
   if (warnings === 0) {
     printPass("Strong contract. Ready for execution.");
   } else {
-    printWarn(`${warnings} improvement area(s) found.`);
+    printWarn(`${warnings} warning(s) found.`);
     printInsight("Refine contract → re-run inspect → then generate prompt.");
   }
 
+  if (suggestions > 0) {
+    printInsight(`${suggestions} suggestion(s) available.`);
+  }
+
   console.log("\nSuggested Improvements");
+  let printedSuggestions = 0;
 
   if (isWeakText(normalized.intent.objective)) {
     console.log("- Rewrite the objective so it names the action, input, output, and intended use.");
     console.log('  Example: "Analyze [input] to produce [specific output] for [use case]."');
+    printedSuggestions += 1;
   }
 
   if (lacksActionableLanguage(normalized.intent.objective)) {
     console.log("- Suggested YAML fix:");
     console.log("  intent:");
     console.log('    objective: "Analyze [input] to produce [specific output] for [use case]."');
+    printedSuggestions += 1;
   }
 
   if (normalized.intent.success_criteria.length < 2) {
     console.log("- Add at least two success criteria that can be reviewed by a human.");
     console.log('  Example: "The output preserves the key points from the input."');
     console.log('  Example: "The result is specific enough to act on without additional interpretation."');
+    printedSuggestions += 1;
   }
 
   if (!normalized.context.inputs.length) {
     console.log("- Add at least one concrete input, such as a document, link, dataset, transcript, brief, code file, or note.");
+    printedSuggestions += 1;
   }
 
   if (normalized.context.inputs.length === 1) {
     console.log("- Consider adding supporting context, such as prior decisions, examples, constraints, or target audience.");
+    printedSuggestions += 1;
   }
 
   if (!normalized.constraints.rules.length) {
     console.log("- Add rules that shape how the AI should work.");
     console.log('  Example: "Do not invent information not supported by the provided inputs."');
     console.log('  Example: "State assumptions clearly before making recommendations."');
+    printedSuggestions += 1;
   }
 
   if (!normalized.constraints.disallowed.length) {
     console.log("- Add disallowed behaviors to prevent predictable failure modes.");
     console.log('  Example: "Do not ignore stated constraints."');
     console.log('  Example: "Do not present speculation as fact."');
+    printedSuggestions += 1;
   }
 
   if (!normalized.validation.checks.length) {
     console.log("- Add validation checks that confirm correctness, not just completion.");
     console.log('  Example: "Confirm the output directly addresses the objective."');
     console.log('  Example: "Confirm the output respects every listed constraint."');
+    printedSuggestions += 1;
   }
 
   if (!normalized.validation.definition_of_done.length) {
     console.log("- Add a definition of done so the system knows when to stop iterating.");
     console.log('  Example: "The human can act on the result without asking for a full rewrite."');
+    printedSuggestions += 1;
+  }
+
+  if (printedSuggestions === 0) {
+    console.log("- None.");
   }
 }
