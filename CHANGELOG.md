@@ -15,6 +15,8 @@
 - Improved schema validation output with human-readable error messages.
 - Updated `run` to prepare a complete local execution package instead of implying model execution.
 - Expanded README documentation links.
+- Added `inspect --json` for machine-readable inspection output.
+- Added `prompt --out` for writing generated prompts to files.
 
 ### Removed
 

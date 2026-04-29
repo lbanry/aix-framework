@@ -33,16 +33,96 @@ function lacksActionableLanguage(value = "") {
   return !value.match(/(create|generate|analyze|summarize|compare|design|build|plan|validate|refine)/i);
 }
 
-export async function inspectContract(contractPath) {
+function buildInspectionResult(contractPath, normalized) {
+  const warnings = [];
+  const suggestions = [];
+  const improvements = [];
+
+  if (isWeakText(normalized.intent.objective)) {
+    warnings.push("Objective may be too vague.");
+    improvements.push("Rewrite the objective so it names the action, input, output, and intended use.");
+  }
+
+  if (lacksActionableLanguage(normalized.intent.objective)) {
+    warnings.push("Objective may lack a clear action verb.");
+    improvements.push('Set intent.objective to an action-led sentence such as "Analyze [input] to produce [specific output] for [use case]."');
+  }
+
+  if (normalized.intent.success_criteria.length < 2) {
+    warnings.push("Success criteria may be too thin.");
+    improvements.push("Add at least two success criteria that can be reviewed by a human.");
+  }
+
+  if (!normalized.context.project || normalized.context.project === "Untitled Project") {
+    warnings.push("Project name is missing or generic.");
+  }
+
+  if (!normalized.context.inputs.length) {
+    warnings.push("No inputs are listed.");
+    improvements.push("Add at least one concrete input, such as a document, link, dataset, transcript, brief, code file, or note.");
+  }
+
+  if (normalized.context.inputs.length === 1) {
+    suggestions.push("Single input detected. Consider adding supporting context, examples, or prior decisions.");
+    improvements.push("Consider adding supporting context, such as prior decisions, examples, constraints, or target audience.");
+  }
+
+  if (!normalized.constraints.rules.length) {
+    warnings.push("No rules are defined.");
+    improvements.push("Add rules that shape how the AI should work.");
+  }
+
+  if (!normalized.constraints.disallowed.length) {
+    warnings.push("No disallowed behaviors are defined.");
+    improvements.push("Add disallowed behaviors to prevent predictable failure modes.");
+  }
+
+  if (!normalized.execution.mode) {
+    warnings.push("Execution mode is missing.");
+  }
+
+  if (!normalized.execution.output_format) {
+    warnings.push("Output format is missing.");
+  }
+
+  if (!normalized.validation.checks.length) {
+    warnings.push("No validation checks are listed.");
+    improvements.push("Add validation checks that confirm correctness, not just completion.");
+  }
+
+  if (!normalized.validation.definition_of_done.length) {
+    warnings.push("Definition of done is missing.");
+    improvements.push("Add a definition of done so the system knows when to stop iterating.");
+  }
+
+  return {
+    valid: true,
+    contractPath,
+    readinessScore: calculateReadinessScore(warnings.length, suggestions.length),
+    warnings,
+    suggestions,
+    improvements
+  };
+}
+
+export async function inspectContract(contractPath, options = {}) {
   const raw = fs.readFileSync(contractPath, "utf8");
   const contract = YAML.parse(raw);
 
   const validation = validateContract(contract);
 
-  console.log("\nAIX Contract Inspection");
-  console.log("-----------------------");
+  if (options.json && !validation.valid) {
+    console.log(JSON.stringify({
+      valid: false,
+      contractPath,
+      errors: validation.humanErrors
+    }, null, 2));
+    process.exit(1);
+  }
 
   if (!validation.valid) {
+    console.log("\nAIX Contract Inspection");
+    console.log("-----------------------");
     printWarn("Contract does not match the AIX schema.");
     validation.humanErrors.forEach((error) => {
       console.log(`- ${error}`);
@@ -51,6 +131,15 @@ export async function inspectContract(contractPath) {
   }
 
   const normalized = normalizeContract(contract);
+
+  if (options.json) {
+    console.log(JSON.stringify(buildInspectionResult(contractPath, normalized), null, 2));
+    return;
+  }
+
+  console.log("\nAIX Contract Inspection");
+  console.log("-----------------------");
+
   let warnings = 0;
   let suggestions = 0;
 

@@ -32,6 +32,7 @@ Validates a contract and reports contract quality.
 
 ```bash
 node ./src/cli.js inspect examples/project-contract.yaml
+node ./src/cli.js inspect examples/project-contract.yaml --json
 ```
 
 `inspect` is read-only. It reports:
@@ -41,6 +42,7 @@ node ./src/cli.js inspect examples/project-contract.yaml
 - warnings
 - suggestions
 - suggested improvements
+- machine-readable JSON when `--json` is used
 
 ### prompt
 
@@ -48,9 +50,12 @@ Generates an AI-ready prompt from a valid contract.
 
 ```bash
 node ./src/cli.js prompt examples/project-contract.yaml
+node ./src/cli.js prompt examples/project-contract.yaml --out prompt.md
 ```
 
 Use this when you want to copy the generated prompt into a chat or agent environment.
+
+When `--out` is used, the CLI writes the prompt to a file. Existing files are not overwritten unless `--force` is also provided.
 
 ### run
 

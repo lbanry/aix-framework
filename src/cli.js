@@ -24,17 +24,20 @@ program
 program
   .command("prompt")
   .argument("<contract>", "Path to an AIX contract YAML file")
+  .option("-o, --out <file>", "Write the generated prompt to a file")
+  .option("--force", "Overwrite the output file if it already exists")
   .description("Generate an AI-ready prompt from an AIX contract")
-  .action(async (contractPath) => {
-    await generatePrompt(contractPath);
+  .action(async (contractPath, options) => {
+    await generatePrompt(contractPath, options);
   });
 
 program
   .command("inspect")
   .argument("<contract>", "Path to an AIX contract YAML file")
+  .option("--json", "Output machine-readable JSON")
   .description("Inspect an AIX contract for clarity, completeness, and execution risk")
-  .action(async (contractPath) => {
-    await inspectContract(contractPath);
+  .action(async (contractPath, options) => {
+    await inspectContract(contractPath, options);
   });
 
 program

@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 
 function run(args, options = {}) {
   return spawnSync("node", args, {
@@ -46,10 +47,31 @@ assertFailure(
   /intent\.objective must not be empty/
 );
 
+const jsonInspect = run(["./src/cli.js", "inspect", "examples/project-contract.yaml", "--json"]);
+assert.equal(jsonInspect.status, 0, jsonInspect.stderr || jsonInspect.stdout);
+const inspection = JSON.parse(jsonInspect.stdout);
+assert.equal(inspection.valid, true);
+assert.equal(inspection.readinessScore, 100);
+
 assertSuccess(
   ["./src/cli.js", "prompt", "examples/research-contract.yaml"],
   /Analyze source material to produce a concise research summary/
 );
+
+const promptOut = new URL("./tmp-prompt-output.md", import.meta.url);
+if (fs.existsSync(promptOut)) {
+  fs.unlinkSync(promptOut);
+}
+
+assertSuccess(
+  ["./src/cli.js", "prompt", "examples/research-contract.yaml", "--out", "tests/tmp-prompt-output.md"],
+  /Wrote prompt: tests\/tmp-prompt-output\.md/
+);
+assert.match(
+  fs.readFileSync(promptOut, "utf8"),
+  /Analyze source material to produce a concise research summary/
+);
+fs.unlinkSync(promptOut);
 
 assertSuccess(
   ["./src/cli.js", "run", "examples/project-contract.yaml"],

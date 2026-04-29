@@ -8,7 +8,7 @@ function formatList(items = []) {
   return items.map((item) => `- ${item}`).join("\n");
 }
 
-export async function generatePrompt(contractPath) {
+export async function generatePrompt(contractPath, options = {}) {
   const raw = fs.readFileSync(contractPath, "utf8");
   const contract = YAML.parse(raw);
 
@@ -87,6 +87,17 @@ ${formatList(normalized.validation.definition_of_done)}
 6. Validate the output against the success criteria and definition of done.
 7. Clearly state any remaining uncertainty.
 `;
+
+  if (options.out) {
+    if (fs.existsSync(options.out) && !options.force) {
+      console.error(`Output file already exists. Use --force to overwrite: ${options.out}`);
+      process.exit(1);
+    }
+
+    fs.writeFileSync(options.out, prompt, { flag: options.force ? "w" : "wx" });
+    console.log(`Wrote prompt: ${options.out}`);
+    return;
+  }
 
   console.log(prompt);
 }

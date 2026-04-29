@@ -42,7 +42,9 @@ Commands can be run from any current working directory when paths are provided c
 ```bash
 node ./src/cli.js init my-contract.yaml
 node ./src/cli.js inspect examples/project-contract.yaml
+node ./src/cli.js inspect examples/project-contract.yaml --json
 node ./src/cli.js prompt examples/project-contract.yaml
+node ./src/cli.js prompt examples/project-contract.yaml --out prompt.md
 node ./src/cli.js run examples/project-contract.yaml
 ```
 
