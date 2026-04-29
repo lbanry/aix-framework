@@ -138,7 +138,8 @@ export function inspectInterfacePlan(plan) {
     return /accessib|color|contrast|keyboard|screen reader|status text/i.test(check);
   });
   const generationBoundaryIsExplicit = /do not invent|approved|boundary|plan/i.test(plan.generation_boundary);
-  const hasReadinessFirst = plan.sections[0]?.requirements.includes("readiness_score");
+  const usesReadiness = plan.sections.some((section) => section.requirements.includes("readiness_score"));
+  const hasReadinessFirst = !usesReadiness || plan.sections[0]?.requirements.includes("readiness_score");
   const actionSectionIndex = plan.sections.findIndex((section) => section.requirements.includes("next_actions"));
   const actionsComeLast = actionSectionIndex === -1 || actionSectionIndex === plan.sections.length - 1;
 

@@ -1,0 +1,26 @@
+screen:
+  id: paperclip-product-landing
+  user_goal: Understand Paperclip, trust its operating model, and start a local install.
+  task_type: product_marketing_landing
+  risk_level: medium
+  audience: Technical founders and builders coordinating multiple AI agents.
+  required_information:
+    - headline
+    - product_positioning
+    - primary_cta
+    - problem
+    - solution
+    - workflow
+    - capabilities
+    - integrations
+    - proof
+    - secondary_cta
+  actions:
+    - run_local_quickstart
+    - review_docs
+    - inspect_github
+  constraints:
+    - Use Paperclip's real product positioning from the repository.
+    - Do not claim Paperclip is an agent runtime or model provider.
+    - Prioritize practical operating proof over abstract AI language.
+    - Use approved landing-page components first.

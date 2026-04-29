@@ -107,6 +107,11 @@ assertSuccess(
   /Do not invent layout, components, or interactions/
 );
 
+assertSuccess(
+  ["./src/cli.js", "interface", "inspect-plan", "interface/plans/paperclip-landing.plan.yaml"],
+  /Overall score: 100\/100[\s\S]*Interface plan is ready for prompt generation/
+);
+
 const invalidInterfacePlanPath = new URL("./tmp-invalid-interface-plan.yaml", import.meta.url);
 fs.writeFileSync(invalidInterfacePlanPath, `screen_id: contract-inspection-review
 user_goal: Review readiness.

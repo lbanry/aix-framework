@@ -10,11 +10,13 @@
 - Interface plan prompt generation with an explicit orchestration boundary.
 - Smoke tests for interface commands, invalid plans, and missing component gaps.
 - Interface plan scorecard covering UX fit, design-system fit, research coverage, accessibility coverage, and generation readiness.
+- Paperclip product landing page prototype generated through the AIX interface orchestration workflow.
 
 ### Changed
 
 - Package allowlist now includes the `interface/` example artifacts.
 - Interface plan gaps now include severity, issue, and impact.
+- Interface plan inspection no longer applies contract-inspection hierarchy assumptions to unrelated screen types.
 
 ## v0.2.0
 

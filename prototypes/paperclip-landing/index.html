@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paperclip - Control Plane for Autonomous AI Companies</title>
+    <meta name="description" content="Paperclip orchestrates teams of AI agents with org charts, budgets, goals, governance, and audit trails.">
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #f4f4f5;
+        --muted: #a1a1aa;
+        --subtle: #71717a;
+        --paper: #09090b;
+        --panel: #111113;
+        --panel-2: #18181b;
+        --line: #2a2a2f;
+        --green: #2dd4bf;
+        --amber: #f4c430;
+        --blue: #60a5fa;
+        --red: #fb7185;
+        --max: 1180px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        letter-spacing: 0;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 4px;
+      }
+
+      .shell {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(9, 9, 11, 0.86);
+        backdrop-filter: blur(14px);
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 68px;
+        gap: 24px;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 152px;
+      }
+
+      .logo img {
+        width: 140px;
+        height: 32px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--ink);
+        color: var(--paper);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .button.secondary {
+        background: transparent;
+        color: var(--ink);
+      }
+
+      .hero {
+        min-height: calc(100vh - 68px);
+        display: grid;
+        align-items: center;
+        padding: 64px 0 38px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+        gap: 42px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 22px;
+        font-size: clamp(48px, 7vw, 92px);
+        line-height: 0.94;
+        font-weight: 850;
+      }
+
+      .hero-copy {
+        max-width: 650px;
+        color: #d4d4d8;
+        font-size: 20px;
+        line-height: 1.55;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 30px 0 26px;
+      }
+
+      .quickstart {
+        display: block;
+        width: min(100%, 520px);
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #050506;
+        color: #e4e4e7;
+        overflow-x: auto;
+        font: 600 14px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .hero-visual {
+        position: relative;
+        min-height: 420px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+
+      .hero-visual img {
+        width: 100%;
+        height: 100%;
+        min-height: 420px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .status-strip {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .status {
+        min-height: 78px;
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: rgba(9, 9, 11, 0.82);
+        backdrop-filter: blur(10px);
+      }
+
+      .status strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 18px;
+      }
+
+      .status span {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      section {
+        padding: 82px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-head {
+        max-width: 760px;
+        margin-bottom: 34px;
+      }
+
+      h2 {
+        margin-bottom: 14px;
+        font-size: clamp(32px, 5vw, 58px);
+        line-height: 1;
+      }
+
+      .section-head p {
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.55;
+      }
+
+      .compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 22px;
+      }
+
+      .panel h3 {
+        margin-bottom: 18px;
+        font-size: 22px;
+      }
+
+      .list {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .list li {
+        display: grid;
+        grid-template-columns: 16px minmax(0, 1fr);
+        gap: 12px;
+        color: #d4d4d8;
+        line-height: 1.45;
+      }
+
+      .mark {
+        width: 10px;
+        height: 10px;
+        margin-top: 7px;
+        border-radius: 50%;
+        background: var(--red);
+      }
+
+      .mark.good {
+        background: var(--green);
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .step-number {
+        color: var(--amber);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .panel p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .integrations {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .integration {
+        min-height: 118px;
+        display: grid;
+        place-items: center;
+        gap: 10px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--muted);
+        text-align: center;
+        font-size: 13px;
+      }
+
+      .integration img {
+        max-width: 34px;
+        max-height: 34px;
+      }
+
+      .proof {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--line);
+        overflow: hidden;
+      }
+
+      .proof-item {
+        min-height: 170px;
+        padding: 22px;
+        background: var(--panel);
+      }
+
+      .proof-item strong {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--ink);
+        font-size: 18px;
+      }
+
+      .proof-item p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .cta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.55fr);
+        gap: 28px;
+        align-items: center;
+        padding: 34px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .cta h2 {
+        margin-bottom: 14px;
+      }
+
+      .footer {
+        padding: 34px 0;
+        color: var(--subtle);
+        font-size: 14px;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .compare,
+        .cta {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-visual {
+          min-height: 360px;
+        }
+
+        .hero-visual img {
+          min-height: 360px;
+        }
+
+        .steps,
+        .grid,
+        .proof {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .integrations {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .shell {
+          width: min(100% - 28px, var(--max));
+        }
+
+        .nav-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 14px 0;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: space-between;
+          gap: 10px;
+          overflow-x: auto;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 44px;
+        }
+
+        .hero-copy {
+          font-size: 18px;
+        }
+
+        .status-strip {
+          position: static;
+          grid-template-columns: 1fr;
+          padding: 12px;
+          background: #050506;
+        }
+
+        .steps,
+        .grid,
+        .proof,
+        .integrations {
+          grid-template-columns: 1fr;
+        }
+
+        section {
+          padding: 58px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="shell nav-inner">
+        <a class="logo" href="#top" aria-label="Paperclip home">
+          <img src="assets/logo-dark.svg" alt="Paperclip">
+        </a>
+        <div class="nav-links">
+          <a href="#problem">Problem</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#start" class="button secondary">Quickstart</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="top">
+      <header class="hero">
+        <div class="shell hero-grid">
+          <div>
+            <p class="eyebrow">Open-source orchestration for zero-human companies</p>
+            <h1>Paperclip runs the company around your AI agents.</h1>
+            <p class="hero-copy">
+              Bring your own agents, give them goals, enforce budgets, and monitor work from one control plane built for autonomous AI companies.
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#start">Start locally</a>
+              <a class="button secondary" href="https://github.com/paperclipai/paperclip">View GitHub</a>
+            </div>
+            <code class="quickstart">npx paperclipai onboard --yes</code>
+          </div>
+
+          <div class="hero-visual" aria-label="Paperclip product preview">
+            <img src="assets/header.png" alt="Paperclip product interface preview showing the autonomous company dashboard">
+            <div class="status-strip" aria-label="Operational proof points">
+              <div class="status">
+                <strong>Org chart</strong>
+                <span>Agents have roles, managers, and reporting lines.</span>
+              </div>
+              <div class="status">
+                <strong>Budgets</strong>
+                <span>Token spend is tracked and capped per agent.</span>
+              </div>
+              <div class="status">
+                <strong>Heartbeats</strong>
+                <span>Agents wake on schedule, assignment, or mention.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section id="problem">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">The operating gap</p>
+            <h2>Task managers were not built for AI workforces.</h2>
+            <p>When agents become your employees, the missing layer is not another prompt. It is structure, supervision, cost control, and accountability.</p>
+          </div>
+          <div class="compare">
+            <div class="panel">
+              <h3>Without Paperclip</h3>
+              <ul class="list">
+                <li><span class="mark" aria-hidden="true"></span><span>Multiple agent terminals drift without shared context.</span></li>
+                <li><span class="mark" aria-hidden="true"></span><span>Recurring work depends on manual reminders and open tabs.</span></li>
+                <li><span class="mark" aria-hidden="true"></span><span>Runaway loops spend tokens before anyone notices.</span></li>
+                <li><span class="mark" aria-hidden="true"></span><span>Agent configs, tasks, approvals, and outcomes live in separate places.</span></li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>With Paperclip</h3>
+              <ul class="list">
+                <li><span class="mark good" aria-hidden="true"></span><span>Every task traces back to company, project, and goal context.</span></li>
+                <li><span class="mark good" aria-hidden="true"></span><span>Heartbeats trigger work on schedule, assignment, mention, or approval.</span></li>
+                <li><span class="mark good" aria-hidden="true"></span><span>Budgets, checkout, and governance constrain autonomous execution.</span></li>
+                <li><span class="mark good" aria-hidden="true"></span><span>One dashboard shows agents, issues, approvals, activity, and cost.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Operating model</p>
+            <h2>Manage business goals, not pull requests.</h2>
+            <p>Paperclip looks like a task manager, but underneath it models companies: employees, org charts, budgets, goals, approvals, and audit trails.</p>
+          </div>
+          <div class="steps">
+            <div class="panel">
+              <p class="step-number">01</p>
+              <h3>Define the company goal</h3>
+              <p>Set the mission, projects, and constraints. The work inherits the reason it exists.</p>
+            </div>
+            <div class="panel">
+              <p class="step-number">02</p>
+              <h3>Hire the AI team</h3>
+              <p>Connect Codex, Claude Code, OpenClaw, Cursor, shell processes, or HTTP agents.</p>
+            </div>
+            <div class="panel">
+              <p class="step-number">03</p>
+              <h3>Approve and supervise</h3>
+              <p>Review strategy, enforce budgets, resolve approvals, and inspect the audit trail.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="capabilities">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Control plane capabilities</p>
+            <h2>The infrastructure layer for agent companies.</h2>
+            <p>Paperclip does not replace your agents. It gives them a company to operate inside.</p>
+          </div>
+          <div class="grid">
+            <div class="panel">
+              <h3>Goal alignment</h3>
+              <p>Tasks carry goal ancestry so agents see the why, not just the ticket title.</p>
+            </div>
+            <div class="panel">
+              <h3>Atomic execution</h3>
+              <p>Checkout prevents duplicate ownership when multiple agents try to claim work.</p>
+            </div>
+            <div class="panel">
+              <h3>Persistent state</h3>
+              <p>Agents resume context across heartbeats instead of restarting from scratch.</p>
+            </div>
+            <div class="panel">
+              <h3>Budget control</h3>
+              <p>Monthly agent budgets and spend tracking reduce runaway token costs.</p>
+            </div>
+            <div class="panel">
+              <h3>Governance</h3>
+              <p>Board approvals, overrides, config revisions, and rollback keep autonomy accountable.</p>
+            </div>
+            <div class="panel">
+              <h3>Multi-company</h3>
+              <p>Run multiple autonomous companies from one deployment with data isolation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="integrations-title">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Bring your own agents</p>
+            <h2 id="integrations-title">If it can receive a heartbeat, it is hired.</h2>
+            <p>Paperclip coordinates agent runtimes through adapters. Your agents run where they already run and report back to the control plane.</p>
+          </div>
+          <div class="integrations">
+            <div class="integration"><img src="assets/openclaw.svg" alt=""><span>OpenClaw</span></div>
+            <div class="integration"><img src="assets/claude.svg" alt=""><span>Claude Code</span></div>
+            <div class="integration"><img src="assets/codex.svg" alt=""><span>Codex</span></div>
+            <div class="integration"><img src="assets/cursor.svg" alt=""><span>Cursor</span></div>
+            <div class="integration"><img src="assets/bash.svg" alt=""><span>Bash</span></div>
+            <div class="integration"><img src="assets/http.svg" alt=""><span>HTTP</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Trust model</p>
+            <h2>Open source, local-first, and governable.</h2>
+            <p>Paperclip is designed for operators who want autonomy with supervision, not unattended agent sprawl.</p>
+          </div>
+          <div class="proof">
+            <div class="proof-item">
+              <strong>Self-hosted</strong>
+              <p>Start locally with embedded Postgres and local file storage. No Paperclip account required.</p>
+            </div>
+            <div class="proof-item">
+              <strong>Auditable</strong>
+              <p>Issues, comments, decisions, tool calls, and activity live in one traceable record.</p>
+            </div>
+            <div class="proof-item">
+              <strong>Governed</strong>
+              <p>Strategy, hiring, and board overrides keep autonomous teams under human control.</p>
+            </div>
+            <div class="proof-item">
+              <strong>Cost aware</strong>
+              <p>Per-agent budgets and spend signals make operations measurable before scale hurts.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="start">
+        <div class="shell">
+          <div class="cta">
+            <div>
+              <p class="eyebrow">Try the control plane</p>
+              <h2>Run your first AI company locally.</h2>
+              <p class="hero-copy">Install Paperclip, create a company, connect an agent, and start supervising work from the dashboard.</p>
+            </div>
+            <div>
+              <code class="quickstart">npx paperclipai onboard --yes</code>
+              <div class="hero-actions">
+                <a class="button" href="https://github.com/paperclipai/paperclip">Open GitHub</a>
+                <a class="button secondary" href="https://paperclip.ing/docs">Read docs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell">Generated as an AIX interface orchestration prototype from the Paperclip repository positioning.</div>
+    </footer>
+  </body>
+</html>

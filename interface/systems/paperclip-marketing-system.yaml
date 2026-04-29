@@ -1,0 +1,103 @@
+name: Paperclip Marketing Interface System
+version: 0.1.0
+tokens:
+  color:
+    - ink
+    - paper
+    - zinc
+    - signal.green
+    - signal.amber
+    - signal.blue
+  spacing:
+    - compact
+    - regular
+    - section
+    - hero
+components:
+  - id: ProductHero
+    purpose: Establish the product category, offer, and primary action in the first viewport.
+    supports:
+      - headline
+      - product_positioning
+      - primary_cta
+    states:
+      - default
+    rules:
+      - Use the product name as the strongest first-viewport signal.
+      - Pair the headline with one concrete operational outcome.
+  - id: ProblemSolutionGrid
+    purpose: Contrast current agent-management pain with the Paperclip operating model.
+    supports:
+      - problem
+      - solution
+    rules:
+      - Keep problem statements specific to agent coordination, cost, context, and governance.
+      - Show the solution immediately beside the problem.
+  - id: OperatingModelSteps
+    purpose: Explain how the buyer starts using Paperclip.
+    supports:
+      - workflow
+    rules:
+      - Use three to five steps.
+      - Start with goals, then team configuration, then monitored execution.
+  - id: CapabilityMatrix
+    purpose: Show the core product capabilities without turning them into marketing fluff.
+    supports:
+      - capabilities
+    rules:
+      - Group capabilities by operational job.
+      - Keep labels short and scan-friendly.
+  - id: IntegrationStrip
+    purpose: Show that Paperclip coordinates multiple agent runtimes.
+    supports:
+      - integrations
+    rules:
+      - Use real supported runtimes from the Paperclip repo.
+      - Do not imply Paperclip replaces the agent runtime.
+  - id: TrustProofBand
+    purpose: Communicate deployment, control, and governance proof points.
+    supports:
+      - proof
+    rules:
+      - Include self-hosting, auditability, budget control, and approval gates.
+  - id: ConversionPanel
+    purpose: Close the page with the fastest path to trying Paperclip.
+    supports:
+      - secondary_cta
+    rules:
+      - Use the documented quickstart command.
+      - Make clear that no Paperclip account is required for local use.
+patterns:
+  - id: technical_product_landing
+    purpose: Sell an open-source technical product to builders who need to understand value and operating model quickly.
+    use_when:
+      - product_marketing_landing
+      - developer_tool_website
+    required_components:
+      - ProductHero
+      - ProblemSolutionGrid
+      - OperatingModelSteps
+      - CapabilityMatrix
+      - IntegrationStrip
+      - TrustProofBand
+      - ConversionPanel
+    information_order:
+      - headline
+      - product_positioning
+      - primary_cta
+      - problem
+      - solution
+      - workflow
+      - capabilities
+      - integrations
+      - proof
+      - secondary_cta
+    rules:
+      - Explain the operating model before listing every feature.
+      - Keep the page practical and technical, not abstract or decorative.
+      - Use approved components and flag missing product proof as a gap.
+accessibility_rules:
+  - Use semantic headings in descending order.
+  - Maintain visible focus states for all links and buttons.
+  - Do not rely on color alone for status or comparison.
+  - Provide text alternatives for product and integration images.

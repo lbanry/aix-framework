@@ -1,0 +1,48 @@
+project: Paperclip marketing website
+findings:
+  - id: paperclip-buyers-need-category-clarity
+    user_goal: Understand what Paperclip is before reading feature detail.
+    pain_point: Agent tooling terms overlap, so buyers may confuse Paperclip with an agent framework, workflow builder, or chatbot.
+    implication: The first viewport must state that Paperclip is a control plane for autonomous AI companies and clarify that agents run externally.
+    supports_task_types:
+      - product_marketing_landing
+    supports_information:
+      - headline
+      - product_positioning
+    evidence:
+      - Paperclip README explicitly says it is not an agent framework, workflow builder, prompt manager, or chatbot.
+  - id: paperclip-buyers-need-operational-proof
+    user_goal: Decide whether Paperclip solves real coordination risk.
+    pain_point: Buyers with multiple agents need confidence around cost control, governance, persistent state, and auditability.
+    implication: The page should pair claims with operational proof points such as budgets, approvals, audit trails, heartbeats, and atomic checkout.
+    supports_task_types:
+      - product_marketing_landing
+    supports_information:
+      - problem
+      - solution
+      - capabilities
+      - proof
+    evidence:
+      - Paperclip docs emphasize budgets, governance, goal hierarchy, activity audit trails, and heartbeat monitoring.
+  - id: paperclip-buyers-need-fast-start
+    user_goal: Try Paperclip locally without account friction.
+    pain_point: Technical buyers abandon vague landing pages if the install path is hidden.
+    implication: The primary and closing calls to action should show the documented local quickstart.
+    supports_task_types:
+      - product_marketing_landing
+    supports_information:
+      - primary_cta
+      - secondary_cta
+    evidence:
+      - Paperclip README provides npx paperclipai onboard --yes as the quickstart.
+  - id: paperclip-buyers-need-runtime-compatibility
+    user_goal: Know whether their existing agents can work with Paperclip.
+    pain_point: Buyers may assume Paperclip requires a specific agent runtime.
+    implication: The page should show compatible runtimes and explain bring-your-own-agent positioning.
+    supports_task_types:
+      - product_marketing_landing
+    supports_information:
+      - integrations
+      - workflow
+    evidence:
+      - Paperclip README lists OpenClaw, Claude Code, Codex, Cursor, Bash, and HTTP support.

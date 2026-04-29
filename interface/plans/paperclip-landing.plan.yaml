@@ -1,0 +1,130 @@
+screen_id: paperclip-product-landing
+user_goal: Understand Paperclip, trust its operating model, and start a local install.
+task_type: product_marketing_landing
+risk_level: medium
+system: Paperclip Marketing Interface System
+research_sources:
+  - paperclip-buyers-need-category-clarity
+  - paperclip-buyers-need-operational-proof
+  - paperclip-buyers-need-fast-start
+  - paperclip-buyers-need-runtime-compatibility
+sections:
+  - id: headline
+    title: Headline
+    pattern: technical_product_landing
+    components:
+      - ProductHero
+    requirements:
+      - headline
+    findings:
+      - paperclip-buyers-need-category-clarity
+    rationale: Use ProductHero to satisfy 'headline' within the
+      technical_product_landing pattern.
+  - id: product-positioning
+    title: Product Positioning
+    pattern: technical_product_landing
+    components:
+      - ProductHero
+    requirements:
+      - product_positioning
+    findings:
+      - paperclip-buyers-need-category-clarity
+    rationale: Use ProductHero to satisfy 'product_positioning' within the
+      technical_product_landing pattern.
+  - id: primary-cta
+    title: Primary Cta
+    pattern: technical_product_landing
+    components:
+      - ProductHero
+    requirements:
+      - primary_cta
+    findings:
+      - paperclip-buyers-need-fast-start
+    rationale: Use ProductHero to satisfy 'primary_cta' within the
+      technical_product_landing pattern.
+  - id: problem
+    title: Problem
+    pattern: technical_product_landing
+    components:
+      - ProblemSolutionGrid
+    requirements:
+      - problem
+    findings:
+      - paperclip-buyers-need-operational-proof
+    rationale: Use ProblemSolutionGrid to satisfy 'problem' within the
+      technical_product_landing pattern.
+  - id: solution
+    title: Solution
+    pattern: technical_product_landing
+    components:
+      - ProblemSolutionGrid
+    requirements:
+      - solution
+    findings:
+      - paperclip-buyers-need-operational-proof
+    rationale: Use ProblemSolutionGrid to satisfy 'solution' within the
+      technical_product_landing pattern.
+  - id: workflow
+    title: Workflow
+    pattern: technical_product_landing
+    components:
+      - OperatingModelSteps
+    requirements:
+      - workflow
+    findings:
+      - paperclip-buyers-need-runtime-compatibility
+    rationale: Use OperatingModelSteps to satisfy 'workflow' within the
+      technical_product_landing pattern.
+  - id: capabilities
+    title: Capabilities
+    pattern: technical_product_landing
+    components:
+      - CapabilityMatrix
+    requirements:
+      - capabilities
+    findings:
+      - paperclip-buyers-need-operational-proof
+    rationale: Use CapabilityMatrix to satisfy 'capabilities' within the
+      technical_product_landing pattern.
+  - id: integrations
+    title: Integrations
+    pattern: technical_product_landing
+    components:
+      - IntegrationStrip
+    requirements:
+      - integrations
+    findings:
+      - paperclip-buyers-need-runtime-compatibility
+    rationale: Use IntegrationStrip to satisfy 'integrations' within the
+      technical_product_landing pattern.
+  - id: proof
+    title: Proof
+    pattern: technical_product_landing
+    components:
+      - TrustProofBand
+    requirements:
+      - proof
+    findings:
+      - paperclip-buyers-need-operational-proof
+    rationale: Use TrustProofBand to satisfy 'proof' within the
+      technical_product_landing pattern.
+  - id: secondary-cta
+    title: Secondary Cta
+    pattern: technical_product_landing
+    components:
+      - ConversionPanel
+    requirements:
+      - secondary_cta
+    findings:
+      - paperclip-buyers-need-fast-start
+    rationale: Use ConversionPanel to satisfy 'secondary_cta' within the
+      technical_product_landing pattern.
+gaps: []
+validation_checks:
+  - Every required information item is mapped to an approved component.
+  - Each section references an approved pattern.
+  - Research-backed sections include finding IDs.
+  - Status is communicated with text and not color alone.
+  - Gaps are listed instead of inventing components.
+generation_boundary: Generate implementation guidance only from this plan; do
+  not invent new layout, components, or interaction patterns.
