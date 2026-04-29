@@ -8,6 +8,7 @@
   },
   "scripts": {
     "aix": "node ./src/cli.js",
+    "test": "node ./tests/smoke-test.mjs",
     "test:project": "node ./src/cli.js run examples/project-contract.yaml",
     "prompt:project": "node ./src/cli.js prompt examples/project-contract.yaml",
     "inspect:project": "node ./src/cli.js inspect examples/project-contract.yaml",

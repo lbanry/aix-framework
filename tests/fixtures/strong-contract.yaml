@@ -1,0 +1,36 @@
+intent:
+  objective: Analyze source material to produce a concise decision summary.
+  success_criteria:
+    - The output identifies the main finding
+    - The output states remaining uncertainty
+
+context:
+  project: Strong Contract Fixture
+  inputs:
+    - Source notes
+    - Prior decision memo
+  prior_decisions:
+    - Keep the output concise
+
+constraints:
+  rules:
+    - Use only provided inputs
+    - State assumptions clearly
+  tools_allowed:
+    - Chat interface
+  disallowed:
+    - Unsupported claims
+    - Hidden assumptions
+
+execution:
+  mode: analyze
+  output_format: structured_summary
+  verbosity: medium
+
+validation:
+  checks:
+    - output_matches_inputs
+    - assumptions_are_explicit
+  definition_of_done:
+    - The human can decide the next step
+    - Remaining uncertainty is visible

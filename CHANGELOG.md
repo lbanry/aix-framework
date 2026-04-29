@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- `npm test` smoke suite for valid, weak, and invalid contracts.
+- Test fixtures for strong, weak, and invalid contract inspection.
+- AIX principles documentation.
+
+### Changed
+
+- Tightened the contract schema with required nested fields, non-empty arrays, non-empty strings, and unsupported-field rejection.
+- Improved schema validation output with human-readable error messages.
+
+### Removed
+
+- Empty root `example.yaml`.
+
 ## v0.1.0
 
 Initial experimental release of the AIX Framework.

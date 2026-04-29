@@ -1,0 +1,26 @@
+intent:
+  objective: Improve project stuff.
+  success_criteria:
+    - The output is useful
+
+context:
+  project: Weak Contract Fixture
+  inputs:
+    - Project notes
+
+constraints:
+  rules:
+    - Be helpful
+  disallowed:
+    - Bad output
+
+execution:
+  mode: analyze
+  output_format: summary
+  verbosity: medium
+
+validation:
+  checks:
+    - output_is_reviewed
+  definition_of_done:
+    - Human says it is done

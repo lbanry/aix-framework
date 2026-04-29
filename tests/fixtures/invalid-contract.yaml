@@ -1,0 +1,19 @@
+intent:
+  objective: ""
+  success_criteria: []
+
+context:
+  project: ""
+  inputs: []
+
+constraints:
+  rules: []
+  disallowed: []
+
+execution:
+  mode: analyze
+  output_format: ""
+
+validation:
+  checks: []
+  definition_of_done: []

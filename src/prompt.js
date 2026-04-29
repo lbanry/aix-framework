@@ -16,7 +16,9 @@ export async function generatePrompt(contractPath) {
 
   if (!validation.valid) {
     console.error("\nContract failed validation:");
-    console.error(validation.errors);
+    validation.humanErrors.forEach((error) => {
+      console.error(`- ${error}`);
+    });
     process.exit(1);
   }
 

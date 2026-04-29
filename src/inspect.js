@@ -44,7 +44,9 @@ export async function inspectContract(contractPath) {
 
   if (!validation.valid) {
     printWarn("Contract does not match the AIX schema.");
-    console.log(validation.errors);
+    validation.humanErrors.forEach((error) => {
+      console.log(`- ${error}`);
+    });
     process.exit(1);
   }
 

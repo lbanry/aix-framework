@@ -70,6 +70,12 @@ npm run inspect:research
 npm run prompt:research
 ```
 
+Run the smoke test suite with:
+
+```bash
+npm test
+```
+
 ---
 
 ## v0.1 Workflow
