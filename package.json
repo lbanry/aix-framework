@@ -10,8 +10,7 @@
     "aix": "node ./src/cli.js",
     "test:project": "node ./src/cli.js run examples/project-contract.yaml",
     "prompt:project": "node ./src/cli.js prompt examples/project-contract.yaml",
-    "inspect:project": "node ./src/cli.js inspect examples/project-contract.yaml",
-    "test:rag": "node ./src/cli.js run examples/rag-contract.yaml"
+    "inspect:project": "node ./src/cli.js inspect examples/project-contract.yaml"
   },
   "dependencies": {
     "ajv": "^8.20.0",
