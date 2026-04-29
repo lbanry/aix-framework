@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.2.0
 
 ### Added
 
@@ -8,6 +8,9 @@
 - Test fixtures for strong, weak, and invalid contract inspection.
 - AIX principles documentation.
 - Dedicated CLI, schema, and examples documentation.
+- MIT license.
+- Package metadata for repository, keywords, and publishable files.
+- GitHub Actions test workflow.
 
 ### Changed
 
@@ -17,6 +20,7 @@
 - Expanded README documentation links.
 - Added `inspect --json` for machine-readable inspection output.
 - Added `prompt --out` for writing generated prompts to files.
+- Updated package version to `0.2.0`.
 
 ### Removed
 

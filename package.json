@@ -1,8 +1,29 @@
 {
   "name": "aix-framework",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A system-agnostic AI Experience Framework for improving human-AI collaboration.",
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lbanry/aix-framework.git"
+  },
+  "keywords": [
+    "ai",
+    "prompting",
+    "contracts",
+    "cli",
+    "validation"
+  ],
+  "files": [
+    "src",
+    "spec",
+    "examples",
+    "docs",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "bin": {
     "aix": "./src/cli.js"
   },
