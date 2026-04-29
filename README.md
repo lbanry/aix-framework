@@ -103,6 +103,16 @@ An AIX contract has five core sections:
 
 ---
 
+## Documentation
+
+- [CLI reference](docs/cli.md)
+- [Contract schema](docs/schema.md)
+- [Examples](docs/examples.md)
+- [Principles](docs/principles.md)
+- [Framework overview](docs/framework.md)
+
+---
+
 ## End-of-Day Reports
 
 When the user asks for an EOD report, create a dated report under `docs/` and include it in the repo.
