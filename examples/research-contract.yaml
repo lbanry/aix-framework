@@ -1,0 +1,47 @@
+intent:
+  objective: Analyze source material to produce a concise research summary for a human decision.
+  success_criteria:
+    - The summary identifies the main findings from the provided sources
+    - Claims are tied to the available inputs
+    - Uncertainty and missing context are clearly stated
+    - The human can use the output to decide the next step
+
+context:
+  project: Research Summary Example
+  inputs:
+    - Source notes or documents
+    - Relevant links or excerpts
+    - Prior decisions or open questions
+  prior_decisions:
+    - The AI should summarize evidence rather than invent conclusions
+    - The human remains responsible for final interpretation
+
+constraints:
+  rules:
+    - Use only information supported by the provided inputs
+    - Separate facts from assumptions
+    - Keep the output concise and reviewable
+  tools_allowed:
+    - Chat interface
+    - File analysis
+    - Search
+  disallowed:
+    - Unsupported claims
+    - Hidden assumptions
+    - Presenting speculation as fact
+
+execution:
+  mode: analyze
+  output_format: structured_summary
+  verbosity: medium
+
+validation:
+  checks:
+    - findings_match_inputs
+    - assumptions_are_explicit
+    - uncertainty_is_visible
+    - output_supports_human_decision
+  definition_of_done:
+    - The main findings are clear
+    - The limits of the source material are stated
+    - The human can choose a next step
