@@ -35,6 +35,25 @@ npm run prompt:project
 
 ---
 
+## CLI Commands
+
+Commands can be run from any current working directory when paths are provided correctly.
+
+```bash
+node ./src/cli.js init my-contract.yaml
+node ./src/cli.js inspect examples/project-contract.yaml
+node ./src/cli.js prompt examples/project-contract.yaml
+node ./src/cli.js run examples/project-contract.yaml
+```
+
+When running from outside the project directory, use paths from your current location:
+
+```bash
+node ./aix-framework/src/cli.js inspect aix-framework/examples/project-contract.yaml
+```
+
+---
+
 ## v0.1 Workflow
 
 ```txt
@@ -44,6 +63,18 @@ init -> inspect -> prompt
 - `init` creates a valid AIX contract template.
 - `inspect` reviews the contract for clarity, completeness, and execution risk.
 - `prompt` generates an AI-ready prompt from the contract.
+
+---
+
+## Contract Fields
+
+An AIX contract has five core sections:
+
+- `intent` defines the objective and success criteria.
+- `context` names the project and lists inputs or prior decisions.
+- `constraints` defines rules, allowed tools, and disallowed behaviors.
+- `execution` defines the mode, output format, and verbosity.
+- `validation` defines checks and the definition of done.
 
 ---
 
