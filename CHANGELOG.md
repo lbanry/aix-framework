@@ -11,6 +11,7 @@
 - Smoke tests for interface commands, invalid plans, and missing component gaps.
 - Interface plan scorecard covering UX fit, design-system fit, research coverage, accessibility coverage, and generation readiness.
 - Paperclip product landing page prototype generated through the AIX interface orchestration workflow.
+- Carbon-based Paperclip landing page prototype and reusable Carbon marketing interface system.
 
 ### Changed
 

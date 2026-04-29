@@ -1,0 +1,140 @@
+name: Carbon Marketing Interface System
+version: 0.1.0
+tokens:
+  color:
+    - background
+    - layer-01
+    - layer-02
+    - text-primary
+    - text-secondary
+    - border-subtle
+    - interactive
+    - focus
+    - support-success
+    - support-warning
+    - support-error
+  spacing:
+    - spacing-03
+    - spacing-05
+    - spacing-07
+    - spacing-09
+    - layout-03
+    - layout-05
+components:
+  - id: UIShellHeader
+    purpose: Provide persistent product orientation and top-level navigation.
+    supports:
+      - headline
+      - primary_cta
+    states:
+      - default
+      - focus
+    rules:
+      - Use a skip-to-main-content link before navigation.
+      - Keep primary navigation short and task-oriented.
+  - id: Button
+    purpose: Communicate actions users can take.
+    supports:
+      - primary_cta
+      - secondary_cta
+    states:
+      - primary
+      - secondary
+      - ghost
+      - focus
+      - disabled
+    rules:
+      - Button labels must express the action that will occur.
+      - Primary action appears before secondary actions on full-page designs.
+  - id: Link
+    purpose: Navigate to supporting information without competing with primary actions.
+    supports:
+      - secondary_cta
+      - proof
+    states:
+      - default
+      - visited
+      - focus
+    rules:
+      - Use links for navigation to docs, GitHub, and supporting references.
+  - id: Tile
+    purpose: Display modular feature, proof, and next-step content on the grid.
+    supports:
+      - product_positioning
+      - capabilities
+      - proof
+      - workflow
+    states:
+      - base
+      - clickable
+      - focus
+    rules:
+      - Use tiles as simple, foundational containers on the Carbon grid.
+      - Do not put multiple competing click targets inside clickable tiles.
+  - id: StructuredList
+    purpose: Compare related information in a clear, scan-friendly structure.
+    supports:
+      - problem
+      - solution
+    rules:
+      - Keep each row parallel so users can compare without reinterpreting labels.
+      - Do not rely on color alone to distinguish problem from solution.
+  - id: CodeSnippet
+    purpose: Present a command or code value users may copy.
+    supports:
+      - primary_cta
+      - secondary_cta
+    states:
+      - single-line
+      - focus
+    rules:
+      - Use only for commands or code-like text.
+      - Provide a visible label that explains the command outcome.
+  - id: Tag
+    purpose: Label runtimes, statuses, and supported technologies.
+    supports:
+      - integrations
+      - proof
+    states:
+      - gray
+      - blue
+      - green
+    rules:
+      - Use short nouns or product names.
+      - Do not use tags as paragraph replacements.
+patterns:
+  - id: carbon_technical_product_landing
+    purpose: Present a technical product using Carbon structure, tokens, and reusable components.
+    use_when:
+      - product_marketing_landing
+      - developer_tool_website
+    required_components:
+      - UIShellHeader
+      - Button
+      - Link
+      - Tile
+      - StructuredList
+      - CodeSnippet
+      - Tag
+    information_order:
+      - headline
+      - product_positioning
+      - primary_cta
+      - problem
+      - solution
+      - workflow
+      - capabilities
+      - integrations
+      - proof
+      - secondary_cta
+    rules:
+      - Use Carbon role-based tokens instead of hard-coded color semantics.
+      - Use the Carbon grid and tiles for modular content.
+      - Use structured lists for comparison and operational proof.
+      - Keep the experience practical, dense, and enterprise-readable.
+accessibility_rules:
+  - Include a skip-to-main-content link.
+  - Preserve visible focus states on navigation, buttons, links, code snippets, and tiles.
+  - Use semantic headings in descending order.
+  - Do not rely on color alone for comparison, state, or status.
+  - Provide text alternatives for product and integration imagery.
