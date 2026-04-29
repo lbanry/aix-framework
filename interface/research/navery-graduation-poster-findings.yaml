@@ -1,0 +1,61 @@
+project: The Navery graduation poster MVP
+findings:
+  - id: navery-buyers-need-offer-clarity
+    user_goal: Understand exactly what the $59 package includes before starting an order.
+    pain_point: Buyers may assume a physical print, shipping, unlimited revisions, or exact photo likeness is included.
+    implication: The page must present the digital-first offer, included revisions, print-ready files, and exclusions before checkout.
+    supports_task_types:
+      - consumer_mvp_landing
+      - test_order_flow
+    supports_information:
+      - headline
+      - product_offer
+      - included_package
+      - faq
+      - order_summary
+    evidence:
+      - The PRD defines $59 as a digital package and lists physical prints, shipping, 3D products, unlimited revisions, and likeness guarantees as not included.
+  - id: navery-buyers-need-style-confidence
+    user_goal: Choose a visual direction that fits the graduate and the gift occasion.
+    pain_point: AI-generated art can feel unpredictable unless buyers can compare style options before submitting photos.
+    implication: The style gallery should show four preview cards with descriptions and a clear single-select action.
+    supports_task_types:
+      - consumer_mvp_landing
+      - test_order_flow
+    supports_information:
+      - art_styles
+      - style_selection
+      - photo_uploads
+    evidence:
+      - The PRD requires Pop Art, Modern Illustration, Retro Poster, and Clean Editorial Collage with sample images and select buttons.
+  - id: navery-buyers-need-low-risk-test-order
+    user_goal: Submit enough information to test interest without entering payment details.
+    pain_point: Real payment, account creation, or complicated product configuration would slow MVP validation.
+    implication: The flow should use a dummy checkout, clear order summary, and local structured order record.
+    supports_task_types:
+      - test_order_flow
+      - consumer_mvp_landing
+    supports_information:
+      - intake_form
+      - primary_cta
+      - how_it_works
+      - photo_permission
+      - order_summary
+      - confirmation
+      - admin_order_record
+      - success_metrics
+    evidence:
+      - The PRD explicitly excludes real Stripe/payment processing, customer accounts, automated generation, and full 3D configuration.
+  - id: navery-buyers-need-upgrade-option-without-friction
+    user_goal: Express interest in physical or 3D keepsake upgrades without committing to pricing.
+    pain_point: Fully configuring print and 3D products too early would distract from validating the core digital poster offer.
+    implication: Upgrades should be framed as inquiry-based interest after digital proof approval.
+    supports_task_types:
+      - consumer_mvp_landing
+      - test_order_flow
+    supports_information:
+      - optional_upgrades
+      - upgrade_interest
+      - faq
+    evidence:
+      - The PRD says upgrades should be mentioned but inquiry-based instead of fully priced/configured.

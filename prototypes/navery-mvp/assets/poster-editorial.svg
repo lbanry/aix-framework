@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Clean editorial collage graduation poster sample</title>
+  <desc id="desc">A clean editorial graduation poster sample with premium layout blocks and photo-forward composition.</desc>
+  <rect width="900" height="1200" fill="#ffffff"/>
+  <rect x="72" y="72" width="756" height="1056" fill="#f4f4f4"/>
+  <rect x="118" y="118" width="312" height="430" fill="#c6c6c6"/>
+  <rect x="470" y="118" width="312" height="206" fill="#d0e2ff"/>
+  <rect x="470" y="342" width="312" height="206" fill="#e8daff"/>
+  <circle cx="274" cy="302" r="92" fill="#ffffff"/>
+  <rect x="200" y="414" width="148" height="54" fill="#ffffff"/>
+  <text x="118" y="690" font-family="Arial, sans-serif" font-size="82" font-weight="800" fill="#161616">AVERY</text>
+  <text x="118" y="760" font-family="Arial, sans-serif" font-size="38" font-weight="600" fill="#525252">WEST RIDGE ACADEMY</text>
+  <text x="118" y="820" font-family="Arial, sans-serif" font-size="34" font-weight="600" fill="#0f62fe">CLASS OF 2026</text>
+  <path d="M118 890h664v2H118z" stroke="#8d8d8d"/>
+  <text x="118" y="970" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#161616">PHOTO-FORWARD PREMIUM LAYOUT</text>
+</svg>

@@ -1,0 +1,37 @@
+screen:
+  id: navery-graduation-poster-mvp
+  user_goal: Validate paid interest in a $59 personalized digital graduation poster while collecting clean order briefs and optional upgrade interest.
+  task_type: consumer_mvp_landing
+  risk_level: medium
+  audience: Parents, grandparents, graduates, family members, and friends buying graduation gifts.
+  required_information:
+    - headline
+    - product_offer
+    - primary_cta
+    - art_styles
+    - included_package
+    - how_it_works
+    - optional_upgrades
+    - faq
+    - intake_form
+    - style_selection
+    - photo_uploads
+    - photo_permission
+    - upgrade_interest
+    - order_summary
+    - confirmation
+    - admin_order_record
+    - success_metrics
+  actions:
+    - start_poster_order
+    - choose_style
+    - submit_intake
+    - place_test_order
+    - store_order_record
+  constraints:
+    - Use Carbon-inspired structure and components.
+    - Make clear that the $59 offer is digital-first.
+    - Do not collect real card details or imply real payment processing.
+    - Do not build customer accounts, automated generation, shipping, or 3D configuration.
+    - Store a structured local order record matching the PRD fields.
+    - Mention physical print and 3D keepsake upgrades as inquiry-based only.

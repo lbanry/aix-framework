@@ -1,0 +1,210 @@
+screen_id: navery-graduation-poster-mvp
+user_goal: Validate paid interest in a $59 personalized digital graduation
+  poster while collecting clean order briefs and optional upgrade interest.
+task_type: consumer_mvp_landing
+risk_level: medium
+system: Carbon Marketing Interface System
+research_sources:
+  - navery-buyers-need-offer-clarity
+  - navery-buyers-need-style-confidence
+  - navery-buyers-need-low-risk-test-order
+  - navery-buyers-need-upgrade-option-without-friction
+sections:
+  - id: headline
+    title: Headline
+    pattern: carbon_technical_product_landing
+    components:
+      - UIShellHeader
+    requirements:
+      - headline
+    findings:
+      - navery-buyers-need-offer-clarity
+    rationale: Use UIShellHeader to satisfy 'headline' within the
+      carbon_technical_product_landing pattern.
+  - id: primary-cta
+    title: Primary Cta
+    pattern: carbon_technical_product_landing
+    components:
+      - UIShellHeader
+    requirements:
+      - primary_cta
+    findings:
+      - navery-buyers-need-low-risk-test-order
+    rationale: Use UIShellHeader to satisfy 'primary_cta' within the
+      carbon_technical_product_landing pattern.
+  - id: product-offer
+    title: Product Offer
+    pattern: carbon_technical_product_landing
+    components:
+      - Tile
+    requirements:
+      - product_offer
+    findings:
+      - navery-buyers-need-offer-clarity
+    rationale: Use Tile to satisfy 'product_offer' within the
+      carbon_technical_product_landing pattern.
+  - id: art-styles
+    title: Art Styles
+    pattern: carbon_technical_product_landing
+    components:
+      - Tile
+    requirements:
+      - art_styles
+    findings:
+      - navery-buyers-need-style-confidence
+    rationale: Use Tile to satisfy 'art_styles' within the
+      carbon_technical_product_landing pattern.
+  - id: included-package
+    title: Included Package
+    pattern: carbon_technical_product_landing
+    components:
+      - Tile
+    requirements:
+      - included_package
+    findings:
+      - navery-buyers-need-offer-clarity
+    rationale: Use Tile to satisfy 'included_package' within the
+      carbon_technical_product_landing pattern.
+  - id: how-it-works
+    title: How It Works
+    pattern: carbon_technical_product_landing
+    components:
+      - Tile
+    requirements:
+      - how_it_works
+    findings:
+      - navery-buyers-need-low-risk-test-order
+    rationale: Use Tile to satisfy 'how_it_works' within the
+      carbon_technical_product_landing pattern.
+  - id: optional-upgrades
+    title: Optional Upgrades
+    pattern: carbon_technical_product_landing
+    components:
+      - Tile
+    requirements:
+      - optional_upgrades
+    findings:
+      - navery-buyers-need-upgrade-option-without-friction
+    rationale: Use Tile to satisfy 'optional_upgrades' within the
+      carbon_technical_product_landing pattern.
+  - id: faq
+    title: Faq
+    pattern: carbon_technical_product_landing
+    components:
+      - Accordion
+    requirements:
+      - faq
+    findings:
+      - navery-buyers-need-offer-clarity
+      - navery-buyers-need-upgrade-option-without-friction
+    rationale: Use Accordion to satisfy 'faq' within the
+      carbon_technical_product_landing pattern.
+  - id: intake-form
+    title: Intake Form
+    pattern: carbon_technical_product_landing
+    components:
+      - Form
+    requirements:
+      - intake_form
+    findings:
+      - navery-buyers-need-low-risk-test-order
+    rationale: Use Form to satisfy 'intake_form' within the
+      carbon_technical_product_landing pattern.
+  - id: photo-uploads
+    title: Photo Uploads
+    pattern: carbon_technical_product_landing
+    components:
+      - FileUploader
+    requirements:
+      - photo_uploads
+    findings:
+      - navery-buyers-need-style-confidence
+    rationale: Use FileUploader to satisfy 'photo_uploads' within the
+      carbon_technical_product_landing pattern.
+  - id: photo-permission
+    title: Photo Permission
+    pattern: carbon_technical_product_landing
+    components:
+      - Checkbox
+    requirements:
+      - photo_permission
+    findings:
+      - navery-buyers-need-low-risk-test-order
+    rationale: Use Checkbox to satisfy 'photo_permission' within the
+      carbon_technical_product_landing pattern.
+  - id: order-summary
+    title: Order Summary
+    pattern: carbon_technical_product_landing
+    components:
+      - StructuredList
+    requirements:
+      - order_summary
+    findings:
+      - navery-buyers-need-offer-clarity
+      - navery-buyers-need-low-risk-test-order
+    rationale: Use StructuredList to satisfy 'order_summary' within the
+      carbon_technical_product_landing pattern.
+  - id: confirmation
+    title: Confirmation
+    pattern: carbon_technical_product_landing
+    components:
+      - Tile
+    requirements:
+      - confirmation
+    findings:
+      - navery-buyers-need-low-risk-test-order
+    rationale: Use Tile to satisfy 'confirmation' within the
+      carbon_technical_product_landing pattern.
+  - id: admin-order-record
+    title: Admin Order Record
+    pattern: carbon_technical_product_landing
+    components:
+      - CodeSnippet
+    requirements:
+      - admin_order_record
+    findings:
+      - navery-buyers-need-low-risk-test-order
+    rationale: Use CodeSnippet to satisfy 'admin_order_record' within the
+      carbon_technical_product_landing pattern.
+  - id: style-selection
+    title: Style Selection
+    pattern: carbon_technical_product_landing
+    components:
+      - RadioTile
+    requirements:
+      - style_selection
+    findings:
+      - navery-buyers-need-style-confidence
+    rationale: Use RadioTile to satisfy 'style_selection' within the
+      carbon_technical_product_landing pattern.
+  - id: upgrade-interest
+    title: Upgrade Interest
+    pattern: carbon_technical_product_landing
+    components:
+      - Tag
+    requirements:
+      - upgrade_interest
+    findings:
+      - navery-buyers-need-upgrade-option-without-friction
+    rationale: Use Tag to satisfy 'upgrade_interest' within the
+      carbon_technical_product_landing pattern.
+  - id: success-metrics
+    title: Success Metrics
+    pattern: carbon_technical_product_landing
+    components:
+      - StructuredList
+    requirements:
+      - success_metrics
+    findings:
+      - navery-buyers-need-low-risk-test-order
+    rationale: Use StructuredList to satisfy 'success_metrics' within the
+      carbon_technical_product_landing pattern.
+gaps: []
+validation_checks:
+  - Every required information item is mapped to an approved component.
+  - Each section references an approved pattern.
+  - Research-backed sections include finding IDs.
+  - Status is communicated with text and not color alone.
+  - Gaps are listed instead of inventing components.
+generation_boundary: Generate implementation guidance only from this plan; do
+  not invent new layout, components, or interaction patterns.

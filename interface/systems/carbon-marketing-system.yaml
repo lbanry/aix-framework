@@ -61,9 +61,15 @@ components:
     purpose: Display modular feature, proof, and next-step content on the grid.
     supports:
       - product_positioning
+      - product_offer
+      - art_styles
+      - included_package
+      - how_it_works
+      - optional_upgrades
       - capabilities
       - proof
       - workflow
+      - confirmation
     states:
       - base
       - clickable
@@ -76,6 +82,8 @@ components:
     supports:
       - problem
       - solution
+      - order_summary
+      - success_metrics
     rules:
       - Keep each row parallel so users can compare without reinterpreting labels.
       - Do not rely on color alone to distinguish problem from solution.
@@ -84,6 +92,7 @@ components:
     supports:
       - primary_cta
       - secondary_cta
+      - admin_order_record
     states:
       - single-line
       - focus
@@ -95,6 +104,7 @@ components:
     supports:
       - integrations
       - proof
+      - upgrade_interest
     states:
       - gray
       - blue
@@ -102,6 +112,74 @@ components:
     rules:
       - Use short nouns or product names.
       - Do not use tags as paragraph replacements.
+  - id: Form
+    purpose: Collect structured customer and product details.
+    supports:
+      - intake_form
+      - customer_details
+      - graduate_details
+      - delivery_deadline
+    states:
+      - default
+      - error
+      - focus
+    rules:
+      - Group related inputs under clear section headings.
+      - Required fields must have labels and validation messages.
+  - id: FileUploader
+    purpose: Collect customer images needed for custom artwork.
+    supports:
+      - photo_uploads
+    states:
+      - default
+      - selected
+      - error
+    rules:
+      - State the required photo count before upload.
+      - Do not imply exact likeness is guaranteed.
+  - id: Checkbox
+    purpose: Capture consent and optional upgrade interest.
+    supports:
+      - photo_permission
+      - upgrade_interest
+    states:
+      - checked
+      - unchecked
+      - focus
+    rules:
+      - Consent checkboxes must use explicit human-readable language.
+  - id: RadioTile
+    purpose: Let users select one visual style from a small set of options.
+    supports:
+      - style_selection
+      - art_styles
+    states:
+      - selected
+      - unselected
+      - focus
+    rules:
+      - Use single-select behavior when exactly one option is allowed.
+      - Each option must include a name, preview, and short description.
+  - id: Accordion
+    purpose: Present frequently asked questions in a compact, scannable format.
+    supports:
+      - faq
+    states:
+      - expanded
+      - collapsed
+      - focus
+    rules:
+      - Use question labels that match customer objections.
+      - Keep answers specific to MVP scope and exclusions.
+  - id: Notification
+    purpose: Confirm submission status and set expectations for next steps.
+    supports:
+      - confirmation
+    states:
+      - success
+      - informational
+    rules:
+      - Confirmation must say what happened and what happens next.
 patterns:
   - id: carbon_technical_product_landing
     purpose: Present a technical product using Carbon structure, tokens, and reusable components.
@@ -127,6 +205,18 @@ patterns:
       - integrations
       - proof
       - secondary_cta
+      - product_offer
+      - art_styles
+      - included_package
+      - how_it_works
+      - optional_upgrades
+      - faq
+      - intake_form
+      - photo_uploads
+      - photo_permission
+      - order_summary
+      - confirmation
+      - admin_order_record
     rules:
       - Use Carbon role-based tokens instead of hard-coded color semantics.
       - Use the Carbon grid and tiles for modular content.

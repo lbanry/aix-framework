@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Navery | Custom AI Graduation Posters</title>
+    <meta name="description" content="Personalized AI graduation posters with optional printed keepsakes. $59 digital-first MVP package.">
+    <style>
+      :root {
+        color-scheme: light;
+        --background: #ffffff;
+        --layer-01: #f4f4f4;
+        --layer-02: #e0e0e0;
+        --text-primary: #161616;
+        --text-secondary: #525252;
+        --border-subtle: #c6c6c6;
+        --interactive: #0f62fe;
+        --interactive-hover: #0353e9;
+        --focus: #0f62fe;
+        --support-success: #198038;
+        --support-warning: #f1c21b;
+        --support-error: #da1e28;
+        --accent-magenta: #ee5396;
+        --accent-purple: #8a3ffc;
+        --spacing-03: 0.5rem;
+        --spacing-05: 1rem;
+        --spacing-07: 2rem;
+        --spacing-09: 4rem;
+        --layout-05: 6rem;
+        font-family: "IBM Plex Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--background);
+        color: var(--text-primary);
+        letter-spacing: 0;
+      }
+
+      a,
+      button {
+        color: inherit;
+        font: inherit;
+      }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      textarea:focus-visible,
+      select:focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 2px;
+      }
+
+      .skip-link {
+        position: fixed;
+        left: 1rem;
+        top: -5rem;
+        z-index: 20;
+        padding: 0.75rem 1rem;
+        background: var(--interactive);
+        color: white;
+      }
+
+      .skip-link:focus {
+        top: 1rem;
+      }
+
+      .shell {
+        width: min(100%, 1584px);
+        margin: 0 auto;
+        padding: 0 var(--spacing-07);
+      }
+
+      .ui-shell {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        min-height: 3rem;
+        display: flex;
+        align-items: stretch;
+        background: #161616;
+        color: white;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        min-width: 16rem;
+        padding: 0 var(--spacing-05);
+        border-right: 1px solid #393939;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .brand span {
+        color: var(--accent-magenta);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .nav-links a {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 var(--spacing-05);
+        color: #c6c6c6;
+        text-decoration: none;
+        font-size: 0.875rem;
+      }
+
+      .nav-links a:hover {
+        background: #262626;
+        color: white;
+      }
+
+      .shell-cta {
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 var(--spacing-05);
+        background: var(--interactive);
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      main {
+        overflow: hidden;
+      }
+
+      section {
+        padding: var(--layout-05) 0;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .hero {
+        padding: var(--layout-05) 0 var(--spacing-09);
+        background:
+          linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,.92) 48%, rgba(255,255,255,.7)),
+          var(--background);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, .95fr) minmax(24rem, .7fr);
+        gap: var(--spacing-09);
+        align-items: center;
+      }
+
+      .eyebrow {
+        margin: 0 0 var(--spacing-05);
+        color: var(--interactive);
+        font-size: 0.875rem;
+        font-weight: 700;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: var(--spacing-07);
+        max-width: 52rem;
+        font-size: clamp(3.3rem, 8vw, 7rem);
+        line-height: .95;
+        font-weight: 400;
+      }
+
+      h2 {
+        margin-bottom: var(--spacing-05);
+        max-width: 58rem;
+        font-size: clamp(2.2rem, 5vw, 4.75rem);
+        line-height: 1;
+        font-weight: 400;
+      }
+
+      h3 {
+        margin-bottom: var(--spacing-03);
+        font-size: 1.35rem;
+        font-weight: 500;
+      }
+
+      .lead {
+        max-width: 48rem;
+        color: var(--text-secondary);
+        font-size: 1.25rem;
+        line-height: 1.55;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1px;
+        margin-top: var(--spacing-07);
+      }
+
+      .btn {
+        min-width: 13rem;
+        min-height: 3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-05);
+        border: 1px solid var(--interactive);
+        background: var(--interactive);
+        color: white;
+        padding: 0 var(--spacing-05);
+        cursor: pointer;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background: var(--interactive-hover);
+      }
+
+      .btn.secondary {
+        background: white;
+        color: var(--interactive);
+      }
+
+      .btn.secondary:hover {
+        background: #edf5ff;
+      }
+
+      .poster-frame {
+        background: var(--layer-01);
+        border: 1px solid var(--border-subtle);
+        padding: var(--spacing-05);
+      }
+
+      .poster-frame img {
+        width: 100%;
+        display: block;
+      }
+
+      .price-tile {
+        margin-top: var(--spacing-05);
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--spacing-05);
+        align-items: center;
+        padding: var(--spacing-05);
+        background: #edf5ff;
+        border-left: 4px solid var(--interactive);
+      }
+
+      .price {
+        font-size: 3rem;
+        font-weight: 400;
+      }
+
+      .section-head {
+        max-width: 58rem;
+        margin-bottom: var(--spacing-09);
+      }
+
+      .section-head p {
+        color: var(--text-secondary);
+        font-size: 1.125rem;
+        line-height: 1.55;
+      }
+
+      .tile-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--border-subtle);
+        background: var(--border-subtle);
+      }
+
+      .tile {
+        min-height: 13rem;
+        padding: var(--spacing-07);
+        background: var(--layer-01);
+      }
+
+      .tile p,
+      .tile li {
+        color: var(--text-secondary);
+        line-height: 1.55;
+      }
+
+      .style-card {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-height: 100%;
+        background: white;
+      }
+
+      .style-card img {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        background: var(--layer-01);
+      }
+
+      .style-card-body {
+        padding: var(--spacing-05);
+        display: grid;
+        gap: var(--spacing-05);
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-03);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2rem;
+        padding: 0 var(--spacing-05);
+        background: #edf5ff;
+        color: #0043ce;
+        font-size: .875rem;
+      }
+
+      .tag.green {
+        background: #defbe6;
+        color: #0e6027;
+      }
+
+      .tag.magenta {
+        background: #fff0f7;
+        color: #9f1853;
+      }
+
+      .steps {
+        counter-reset: step;
+      }
+
+      .steps .tile::before {
+        counter-increment: step;
+        content: counter(step, decimal-leading-zero);
+        display: block;
+        margin-bottom: var(--spacing-07);
+        color: var(--interactive);
+        font-weight: 700;
+      }
+
+      .structured-list {
+        border-top: 1px solid #8d8d8d;
+      }
+
+      .structured-row {
+        display: grid;
+        grid-template-columns: minmax(13rem, .35fr) minmax(0, 1fr);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .structured-row > div {
+        padding: var(--spacing-05);
+        border-right: 1px solid var(--border-subtle);
+      }
+
+      .structured-row > div:last-child {
+        border-right: 0;
+      }
+
+      .row-label {
+        color: var(--text-secondary);
+        font-weight: 700;
+      }
+
+      form {
+        display: grid;
+        gap: var(--spacing-07);
+      }
+
+      fieldset {
+        margin: 0;
+        padding: var(--spacing-07);
+        border: 1px solid var(--border-subtle);
+        background: var(--layer-01);
+      }
+
+      legend {
+        padding: 0 var(--spacing-03);
+        font-weight: 700;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-05);
+      }
+
+      label {
+        display: grid;
+        gap: .35rem;
+        color: var(--text-primary);
+        font-size: .9rem;
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 3rem;
+        border: 1px solid #8d8d8d;
+        background: white;
+        color: var(--text-primary);
+        padding: .75rem;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 8rem;
+        resize: vertical;
+      }
+
+      input[type="file"] {
+        padding: .65rem;
+      }
+
+      .check-list {
+        display: grid;
+        gap: var(--spacing-03);
+      }
+
+      .check-list label {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--spacing-03);
+        font-weight: 500;
+      }
+
+      .check-list input {
+        width: 1.25rem;
+        min-height: 1.25rem;
+        margin-top: .1rem;
+      }
+
+      .page {
+        display: none;
+      }
+
+      .page.active {
+        display: block;
+      }
+
+      .summary-panel,
+      .notification {
+        padding: var(--spacing-07);
+        border: 1px solid var(--border-subtle);
+        background: var(--layer-01);
+      }
+
+      .notification {
+        border-left: 4px solid var(--support-success);
+      }
+
+      .code-output {
+        max-height: 22rem;
+        overflow: auto;
+        padding: var(--spacing-05);
+        background: #161616;
+        color: white;
+        font: 600 .875rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .faq details {
+        border-top: 1px solid var(--border-subtle);
+        padding: var(--spacing-05) 0;
+      }
+
+      .faq details:last-child {
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .faq summary {
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .faq p {
+        color: var(--text-secondary);
+        line-height: 1.55;
+      }
+
+      footer {
+        padding: var(--spacing-07);
+        color: var(--text-secondary);
+        font-size: .875rem;
+      }
+
+      @media (max-width: 1056px) {
+        .hero-grid,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .tile-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 672px) {
+        .shell {
+          padding: 0 var(--spacing-05);
+        }
+
+        .ui-shell {
+          flex-wrap: wrap;
+        }
+
+        .brand,
+        .shell-cta {
+          width: 100%;
+          min-height: 3rem;
+          margin-left: 0;
+        }
+
+        .nav-links {
+          width: 100%;
+          overflow-x: auto;
+        }
+
+        h1 {
+          font-size: 3.1rem;
+        }
+
+        .tile-grid,
+        .structured-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="ui-shell">
+      <a class="brand" href="#home" data-route="home">The <span>Navery</span></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#gallery" data-route="gallery">Style gallery</a>
+        <a href="#order" data-route="order">Order form</a>
+        <a href="#checkout" data-route="checkout">Dummy checkout</a>
+      </nav>
+      <a class="shell-cta" href="#order" data-route="order">Start Your Poster</a>
+    </header>
+
+    <main id="main">
+      <div id="home" class="page active">
+        <section class="hero">
+          <div class="shell hero-grid">
+            <div>
+              <p class="eyebrow">Personalized AI graduation posters with optional printed keepsakes.</p>
+              <h1>Custom AI Graduation Posters</h1>
+              <p class="lead">Turn graduation photos and school details into a personalized digital poster, with optional printed and 3D keepsake upgrades.</p>
+              <div class="button-row">
+                <a class="btn" href="#order" data-route="order" data-track="start_order">Start Your Poster <span aria-hidden="true">-></span></a>
+                <a class="btn secondary" href="#gallery" data-route="gallery">Choose a style <span aria-hidden="true">-></span></a>
+              </div>
+            </div>
+            <div>
+              <div class="poster-frame">
+                <img src="assets/poster-modern.svg" alt="Sample modern illustration graduation poster">
+              </div>
+              <div class="price-tile">
+                <div class="price">$59</div>
+                <div><strong>Digital Graduation Poster Package</strong><br><span>Proof, 2 revision rounds, and final print-ready files.</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="shell">
+            <div class="section-head">
+              <p class="eyebrow">Four art styles</p>
+              <h2>Choose the look that fits the graduate.</h2>
+              <p>Each style includes a sample image, a short description, and a single-select action that carries into the order form.</p>
+            </div>
+            <div class="tile-grid" id="home-style-grid"></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="shell">
+            <div class="section-head">
+              <p class="eyebrow">What's included</p>
+              <h2>$59 digital-first package.</h2>
+            </div>
+            <div class="structured-list">
+              <div class="structured-row"><div class="row-label">Included</div><div>1 personalized AI-generated graduation poster, digital proof, 2 revision rounds, final print-ready files, graduate name, school name, class year, 1-3 photos, 1 selected style, and optional short message.</div></div>
+              <div class="structured-row"><div class="row-label">Not included by default</div><div>Physical print, shipping, 3D printed product, unlimited revisions, full redesigns, exact facial likeness guarantee, heavy retouching, or photo-to-3D likeness work.</div></div>
+              <div class="structured-row"><div class="row-label">Upgrade inquiry</div><div>After digital proof approval, customers can request optional 11x14 print, magnet, keychain, coaster, or simple 3D printed keepsake quotes.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="shell">
+            <div class="section-head">
+              <p class="eyebrow">How it works</p>
+              <h2>Simple test order flow.</h2>
+            </div>
+            <div class="tile-grid steps">
+              <div class="tile"><h3>Choose an art style</h3><p>Select Pop Art, Modern Illustration, Retro Poster, or Clean Editorial Collage.</p></div>
+              <div class="tile"><h3>Submit details and photos</h3><p>Add graduate name, school, year, colors, message, deadline, and 1-3 photos.</p></div>
+              <div class="tile"><h3>Place a test order</h3><p>Review the $59 dummy checkout. No real card details are collected.</p></div>
+              <div class="tile"><h3>Receive a proof</h3><p>Approve, request up to 2 revision rounds, then receive final print-ready files.</p></div>
+              <div class="tile"><h3>Ask about upgrades</h3><p>Request a physical poster, magnet, keychain, coaster, or simple 3D keepsake quote.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="faq">
+          <div class="shell">
+            <div class="section-head">
+              <p class="eyebrow">FAQ</p>
+              <h2>Set expectations before checkout.</h2>
+            </div>
+            <div id="faq-list"></div>
+          </div>
+        </section>
+      </div>
+
+      <div id="gallery" class="page">
+        <section>
+          <div class="shell">
+            <div class="section-head">
+              <p class="eyebrow">Style gallery</p>
+              <h1>Pick one poster direction.</h1>
+              <p class="lead">Your selected style carries into the intake form and checkout summary.</p>
+            </div>
+            <div class="tile-grid" id="gallery-style-grid"></div>
+          </div>
+        </section>
+      </div>
+
+      <div id="order" class="page">
+        <section>
+          <div class="shell">
+            <div class="section-head">
+              <p class="eyebrow">Order intake</p>
+              <h1>Start Your Poster</h1>
+              <p class="lead">Submit the details needed to test demand and prepare the next step for your digital proof.</p>
+            </div>
+            <form id="order-form">
+              <fieldset>
+                <legend>Customer</legend>
+                <div class="form-grid">
+                  <label>Customer name<input name="customerName" required autocomplete="name"></label>
+                  <label>Email<input name="email" type="email" required autocomplete="email"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Graduate details</legend>
+                <div class="form-grid">
+                  <label>Graduate name<input name="graduateName" required></label>
+                  <label>School name<input name="schoolName" required></label>
+                  <label>Class year<input name="classYear" required placeholder="2026"></label>
+                  <label>Delivery deadline<input name="deadline" type="date"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Poster direction</legend>
+                <div class="form-grid">
+                  <label>Preferred style<select name="style" id="style-select" required></select></label>
+                  <label>Preferred colors<input name="colors" placeholder="Blue and gold, school colors, etc."></label>
+                  <label style="grid-column: 1 / -1;">Optional short message<textarea name="shortMessage" placeholder="Proud of you, Class of 2026!"></textarea></label>
+                  <label style="grid-column: 1 / -1;">Notes<textarea name="notes" placeholder="Anything else we should know?"></textarea></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Photos and permission</legend>
+                <div class="form-grid">
+                  <label>Upload 1-3 photos<input name="photos" type="file" accept="image/*" multiple></label>
+                  <div class="check-list">
+                    <label><input name="permission" type="checkbox" required> I confirm I have permission to use the uploaded photos for this custom artwork.</label>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Upgrade interest</legend>
+                <div class="check-list">
+                  <label><input name="digitalOnly" value="digital_only" type="checkbox"> Digital only</label>
+                  <label><input name="physicalPrintInterest" type="checkbox"> Ask about physical print</label>
+                  <label><input name="magnetInterest" type="checkbox"> Ask about magnet</label>
+                  <label><input name="threeDPrintInterest" type="checkbox"> Ask about keychain, coaster, or 3D keepsake</label>
+                </div>
+              </fieldset>
+              <div class="button-row">
+                <button class="btn" type="submit">Review dummy checkout <span aria-hidden="true">-></span></button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <div id="checkout" class="page">
+        <section>
+          <div class="shell">
+            <div class="section-head">
+              <p class="eyebrow">Dummy checkout</p>
+              <h1>Review your test order.</h1>
+              <p class="lead">This validates order intent only. No real card details are collected.</p>
+            </div>
+            <div class="summary-panel">
+              <div id="checkout-summary"></div>
+              <div class="button-row">
+                <button class="btn" id="place-order" type="button">Place Test Order <span aria-hidden="true">-></span></button>
+                <a class="btn secondary" href="#order" data-route="order">Edit details</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="confirmation" class="page">
+        <section>
+          <div class="shell">
+            <div class="notification">
+              <p class="eyebrow">Confirmation</p>
+              <h1>Your test order has been received.</h1>
+              <p class="lead">We'll review your details and prepare the next step for your proof.</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="shell">
+            <div class="section-head">
+              <p class="eyebrow">Operator record</p>
+              <h2>Stored local order payload.</h2>
+            </div>
+            <pre class="code-output" id="order-record">{}</pre>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>Built as an AIX Carbon-guided MVP prototype for The Navery. Submissions are stored locally in this browser.</footer>
+
+    <script>
+      const styles = [
+        { id: "Pop Art", image: "assets/poster-pop-art.svg", desc: "Bold, colorful, high-energy." },
+        { id: "Modern Illustration", image: "assets/poster-modern.svg", desc: "Polished, clean, giftable." },
+        { id: "Retro Poster", image: "assets/poster-retro.svg", desc: "Vintage-inspired graduation keepsake." },
+        { id: "Clean Editorial Collage", image: "assets/poster-editorial.svg", desc: "Photo-forward, premium layout." }
+      ];
+
+      const faq = [
+        ["Is this digital or physical?", "The $59 package is digital-first. It includes your custom poster design, proof, 2 revision rounds, and final print-ready files. Physical prints and 3D keepsakes are optional upgrades quoted separately."],
+        ["What is included for $59?", "One personalized AI-generated graduation poster, digital proof, two revision rounds, and final print-ready digital files."],
+        ["How many revisions are included?", "Two revision rounds are included. Full redesigns and unlimited revisions are not part of the MVP package."],
+        ["Can I order a physical print?", "Yes. After your digital proof is approved, request an optional 11x14 physical print quote."],
+        ["Can I request a magnet, keychain, coaster, or 3D print?", "Yes. These are inquiry-based upgrades after proof approval, not part of the default $59 package."],
+        ["Will it look exactly like my photo?", "No exact facial likeness guarantee is included. Upload clear photos to help guide the custom artwork."],
+        ["What photos should I upload?", "Upload 1-3 clear photos where the graduate is easy to see. Avoid blurry screenshots or heavily filtered images."],
+        ["How long does it take?", "This MVP captures test orders. We will review your details and prepare the next step for your proof."],
+        ["Can I change styles after seeing the proof?", "Style changes after proof may be treated as a redesign and are not included by default."]
+      ];
+
+      const metricsKey = "naveryMvpMetrics";
+      const draftKey = "naveryCurrentDraft";
+      const ordersKey = "naveryOrders";
+
+      function getMetrics() {
+        return JSON.parse(localStorage.getItem(metricsKey) || '{"productPageVisits":0,"startOrderClicks":0,"styleSelections":{},"completedDummyCheckouts":0,"upgradeInterest":0,"digitalOnlyAcceptance":0}');
+      }
+
+      function saveMetrics(metrics) {
+        localStorage.setItem(metricsKey, JSON.stringify(metrics));
+      }
+
+      function track(metric, detail) {
+        const metrics = getMetrics();
+        if (metric === "style") {
+          metrics.styleSelections[detail] = (metrics.styleSelections[detail] || 0) + 1;
+        } else {
+          metrics[metric] = (metrics[metric] || 0) + 1;
+        }
+        saveMetrics(metrics);
+      }
+
+      function styleCard(style) {
+        return `<article class="style-card">
+          <img src="${style.image}" alt="${style.id} graduation poster sample">
+          <div class="style-card-body">
+            <div>
+              <h3>${style.id}</h3>
+              <p>${style.desc}</p>
+            </div>
+            <button class="btn secondary" type="button" data-style="${style.id}">Choose this style</button>
+          </div>
+        </article>`;
+      }
+
+      function renderStyles() {
+        document.querySelectorAll("#home-style-grid, #gallery-style-grid").forEach((node) => {
+          node.innerHTML = styles.map(styleCard).join("");
+        });
+        const select = document.querySelector("#style-select");
+        select.innerHTML = `<option value="">Select a style</option>` + styles.map((style) => `<option>${style.id}</option>`).join("");
+      }
+
+      function renderFaq() {
+        document.querySelector("#faq-list").innerHTML = faq.map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join("");
+      }
+
+      function setRoute(route) {
+        document.querySelectorAll(".page").forEach((page) => page.classList.toggle("active", page.id === route));
+        window.scrollTo({ top: 0, behavior: "auto" });
+        if (route === "checkout") renderCheckout();
+      }
+
+      function getDraft() {
+        return JSON.parse(localStorage.getItem(draftKey) || "{}");
+      }
+
+      function saveDraft(record) {
+        localStorage.setItem(draftKey, JSON.stringify(record));
+      }
+
+      function buildRecord(form) {
+        const data = new FormData(form);
+        const photos = form.elements.photos.files || [];
+        return {
+          product: "the_navery_graduation_poster",
+          price: 59,
+          paymentMode: "dummy",
+          customer: {
+            name: data.get("customerName") || "",
+            email: data.get("email") || ""
+          },
+          graduate: {
+            name: data.get("graduateName") || "",
+            school: data.get("schoolName") || "",
+            classYear: data.get("classYear") || ""
+          },
+          poster: {
+            style: data.get("style") || "",
+            colors: data.get("colors") || "",
+            shortMessage: data.get("shortMessage") || "",
+            photoCount: Math.min(photos.length, 3)
+          },
+          upgrades: {
+            physicalPrintInterest: data.get("physicalPrintInterest") === "on",
+            magnetInterest: data.get("magnetInterest") === "on",
+            threeDPrintInterest: data.get("threeDPrintInterest") === "on",
+            notes: data.get("notes") || ""
+          },
+          fulfillment: {
+            status: "intake_received",
+            includedRevisions: 2
+          },
+          metadata: {
+            deliveryDeadline: data.get("deadline") || "",
+            digitalOnly: data.get("digitalOnly") === "digital_only",
+            receivedAt: new Date().toISOString()
+          }
+        };
+      }
+
+      function renderCheckout() {
+        const record = getDraft();
+        const upgrades = [];
+        if (record.upgrades?.physicalPrintInterest) upgrades.push("Physical print");
+        if (record.upgrades?.magnetInterest) upgrades.push("Magnet");
+        if (record.upgrades?.threeDPrintInterest) upgrades.push("Keychain, coaster, or 3D keepsake");
+        if (!upgrades.length) upgrades.push(record.metadata?.digitalOnly ? "Digital only" : "No upgrade interest selected");
+        document.querySelector("#checkout-summary").innerHTML = `
+          <div class="structured-list">
+            <div class="structured-row"><div class="row-label">Product</div><div>$59 Digital Graduation Poster Package</div></div>
+            <div class="structured-row"><div class="row-label">Customer</div><div>${record.customer?.name || "Not provided"} (${record.customer?.email || "No email"})</div></div>
+            <div class="structured-row"><div class="row-label">Graduate</div><div>${record.graduate?.name || "Not provided"} - ${record.graduate?.school || "No school"} - Class of ${record.graduate?.classYear || "Year missing"}</div></div>
+            <div class="structured-row"><div class="row-label">Selected style</div><div>${record.poster?.style || "No style selected"}</div></div>
+            <div class="structured-row"><div class="row-label">Photos</div><div>${record.poster?.photoCount || 0} selected for upload reference</div></div>
+            <div class="structured-row"><div class="row-label">Upgrade interest</div><div>${upgrades.join(", ")}</div></div>
+            <div class="structured-row"><div class="row-label">Payment mode</div><div>Dummy checkout. No card collection.</div></div>
+          </div>`;
+      }
+
+      function placeOrder() {
+        const record = getDraft();
+        const orders = JSON.parse(localStorage.getItem(ordersKey) || "[]");
+        orders.push(record);
+        localStorage.setItem(ordersKey, JSON.stringify(orders));
+        const metrics = getMetrics();
+        metrics.completedDummyCheckouts += 1;
+        const interested = record.upgrades?.physicalPrintInterest || record.upgrades?.magnetInterest || record.upgrades?.threeDPrintInterest;
+        if (interested) metrics.upgradeInterest += 1;
+        if (record.metadata?.digitalOnly) metrics.digitalOnlyAcceptance += 1;
+        saveMetrics(metrics);
+        document.querySelector("#order-record").textContent = JSON.stringify(record, null, 2);
+        location.hash = "confirmation";
+        setRoute("confirmation");
+      }
+
+      function init() {
+        renderStyles();
+        renderFaq();
+        track("productPageVisits");
+        document.body.addEventListener("click", (event) => {
+          const routeLink = event.target.closest("[data-route]");
+          if (routeLink) {
+            event.preventDefault();
+            const route = routeLink.getAttribute("data-route");
+            if (routeLink.dataset.track === "start_order") track("startOrderClicks");
+            location.hash = route;
+            setRoute(route);
+          }
+          const styleButton = event.target.closest("[data-style]");
+          if (styleButton) {
+            const style = styleButton.getAttribute("data-style");
+            document.querySelector("#style-select").value = style;
+            track("style", style);
+            location.hash = "order";
+            setRoute("order");
+          }
+        });
+        document.querySelector("#order-form").addEventListener("submit", (event) => {
+          event.preventDefault();
+          const record = buildRecord(event.currentTarget);
+          saveDraft(record);
+          location.hash = "checkout";
+          setRoute("checkout");
+        });
+        document.querySelector("#place-order").addEventListener("click", placeOrder);
+        const route = location.hash.replace("#", "") || "home";
+        setRoute(document.getElementById(route) ? route : "home");
+      }
+
+      init();
+    </script>
+  </body>
+</html>

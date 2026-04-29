@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Pop Art graduation poster sample</title>
+  <desc id="desc">A bold colorful graduation poster sample with geometric blocks, stars, and class year.</desc>
+  <rect width="900" height="1200" fill="#fff1f1"/>
+  <rect x="64" y="64" width="772" height="1072" fill="#ff4f9a"/>
+  <rect x="104" y="104" width="692" height="992" fill="#fff" opacity=".94"/>
+  <circle cx="664" cy="246" r="132" fill="#ffd60a"/>
+  <circle cx="236" cy="844" r="150" fill="#00d1ff"/>
+  <path d="M126 238h376v72H126zM126 330h482v72H126zM126 422h318v72H126z" fill="#111"/>
+  <text x="126" y="286" font-family="Arial, sans-serif" font-size="54" font-weight="900" fill="#fff">CLASS OF</text>
+  <text x="126" y="392" font-family="Arial, sans-serif" font-size="84" font-weight="900" fill="#fff">2026</text>
+  <text x="126" y="676" font-family="Arial, sans-serif" font-size="92" font-weight="900" fill="#111">MAYA</text>
+  <text x="126" y="756" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#111">NORTHVIEW HIGH</text>
+  <path d="m612 640 38 82 90 10-66 60 18 88-80-44-78 46 16-90-68-58 90-12z" fill="#ff4f9a" stroke="#111" stroke-width="10"/>
+  <path d="M0 1054h900v146H0z" fill="#111"/>
+  <text x="450" y="1138" text-anchor="middle" font-family="Arial, sans-serif" font-size="44" font-weight="900" fill="#fff">BOLD COLORFUL HIGH-ENERGY</text>
+</svg>

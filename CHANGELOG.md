@@ -12,12 +12,14 @@
 - Interface plan scorecard covering UX fit, design-system fit, research coverage, accessibility coverage, and generation readiness.
 - Paperclip product landing page prototype generated through the AIX interface orchestration workflow.
 - Carbon-based Paperclip landing page prototype and reusable Carbon marketing interface system.
+- The Navery graduation poster MVP prototype generated from the PRD using the Carbon interface system.
 
 ### Changed
 
 - Package allowlist now includes the `interface/` example artifacts.
 - Interface plan gaps now include severity, issue, and impact.
 - Interface plan inspection no longer applies contract-inspection hierarchy assumptions to unrelated screen types.
+- Carbon marketing system now covers consumer MVP intake, style selection, file upload, dummy checkout, and confirmation flows.
 
 ## v0.2.0
 
