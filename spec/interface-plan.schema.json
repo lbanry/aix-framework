@@ -46,7 +46,19 @@
     },
     "gaps": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "issue", "impact"],
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": ["blocking", "major", "minor"]
+          },
+          "issue": { "type": "string", "minLength": 1 },
+          "impact": { "type": "string", "minLength": 1 }
+        }
+      }
     },
     "validation_checks": {
       "type": "array",

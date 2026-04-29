@@ -103,6 +103,22 @@ export async function inspectInterfacePlan(planPath) {
   console.log(`Task type: ${plan.task_type}`);
   console.log(`Sections: ${plan.sections.length}`);
   console.log(`Research sources: ${plan.research_sources.length}`);
+  console.log(`Overall score: ${inspection.overallScore}/100`);
+
+  console.log("\nScorecard");
+  console.log(`- UX fit: ${inspection.scorecard.uxFit}/100`);
+  console.log(`- Design-system fit: ${inspection.scorecard.designSystemFit}/100`);
+  console.log(`- Research coverage: ${inspection.scorecard.researchCoverage}/100`);
+  console.log(`- Accessibility coverage: ${inspection.scorecard.accessibilityCoverage}/100`);
+  console.log(`- Generation readiness: ${inspection.scorecard.generationReadiness}/100`);
+
+  if (plan.gaps.length) {
+    console.log("\nGaps");
+    plan.gaps.forEach((gap) => {
+      console.log(`- [${gap.severity}] ${gap.issue}`);
+      console.log(`  Impact: ${gap.impact}`);
+    });
+  }
 
   if (inspection.warnings.length) {
     console.log("\nWarnings");
@@ -116,7 +132,10 @@ export async function inspectInterfacePlan(planPath) {
 
 function formatList(items = []) {
   if (!items.length) return "- None";
-  return items.map((item) => `- ${item}`).join("\n");
+  return items.map((item) => {
+    if (typeof item === "string") return `- ${item}`;
+    return `- [${item.severity}] ${item.issue}\n  Impact: ${item.impact}`;
+  }).join("\n");
 }
 
 export async function promptInterface(planPath) {

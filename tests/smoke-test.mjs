@@ -99,7 +99,7 @@ assert.match(interfacePlan.stdout, /ReadinessScore/);
 
 assertSuccess(
   ["./src/cli.js", "interface", "inspect-plan", "interface/plans/contract-inspection.plan.yaml"],
-  /Interface plan is ready for prompt generation/
+  /Overall score: 100\/100[\s\S]*Interface plan is ready for prompt generation/
 );
 
 assertSuccess(
@@ -170,6 +170,7 @@ const gapPlan = run([
 ]);
 assert.equal(gapPlan.status, 0, gapPlan.stderr || gapPlan.stdout);
 assert.match(gapPlan.stdout, /No approved component supports required information 'schema_errors'/);
+assert.match(gapPlan.stdout, /severity: blocking/);
 assert.doesNotMatch(gapPlan.stdout, /\n\s+- ValidationStatus/);
 fs.unlinkSync(missingComponentSystemPath);
 

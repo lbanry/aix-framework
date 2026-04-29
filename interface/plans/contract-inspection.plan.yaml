@@ -63,5 +63,6 @@ validation_checks:
   - Every required information item is mapped to an approved component.
   - Each section references an approved pattern.
   - Research-backed sections include finding IDs.
+  - Status is communicated with text and not color alone.
   - Gaps are listed instead of inventing components.
 generation_boundary: Generate implementation guidance only from this plan; do not invent new layout, components, or interaction patterns.

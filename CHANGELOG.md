@@ -9,10 +9,12 @@
 - AIX contract inspection review screen proof case.
 - Interface plan prompt generation with an explicit orchestration boundary.
 - Smoke tests for interface commands, invalid plans, and missing component gaps.
+- Interface plan scorecard covering UX fit, design-system fit, research coverage, accessibility coverage, and generation readiness.
 
 ### Changed
 
 - Package allowlist now includes the `interface/` example artifacts.
+- Interface plan gaps now include severity, issue, and impact.
 
 ## v0.2.0
 
