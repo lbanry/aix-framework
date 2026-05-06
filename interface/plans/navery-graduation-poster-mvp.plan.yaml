@@ -3,93 +3,107 @@ user_goal: Validate paid interest in a $59 personalized digital graduation
   poster while collecting clean order briefs and optional upgrade interest.
 task_type: consumer_mvp_landing
 risk_level: medium
-system: Carbon Marketing Interface System
+system: Shopify Imported Interface System
 research_sources:
   - navery-buyers-need-offer-clarity
   - navery-buyers-need-style-confidence
   - navery-buyers-need-low-risk-test-order
   - navery-buyers-need-upgrade-option-without-friction
+  - navery-external-research-supports-offer-validation
+  - navery-external-research-supports-keepsake-framing
+  - navery-external-research-supports-ai-trust-reassurance
+  - navery-external-research-supports-form-clarity
 sections:
   - id: headline
     title: Headline
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - UIShellHeader
+      - PageHeader
     requirements:
       - headline
     findings:
       - navery-buyers-need-offer-clarity
-    rationale: Use UIShellHeader to satisfy 'headline' within the
-      carbon_technical_product_landing pattern.
-  - id: primary-cta
-    title: Primary Cta
-    pattern: carbon_technical_product_landing
-    components:
-      - UIShellHeader
-    requirements:
-      - primary_cta
-    findings:
-      - navery-buyers-need-low-risk-test-order
-    rationale: Use UIShellHeader to satisfy 'primary_cta' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-offer-validation
+      - navery-external-research-supports-keepsake-framing
+    rationale: Use PageHeader to satisfy 'headline' within the
+      shopify_imported_commerce_flow pattern.
   - id: product-offer
     title: Product Offer
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - Tile
+      - PageHeader
     requirements:
       - product_offer
     findings:
       - navery-buyers-need-offer-clarity
-    rationale: Use Tile to satisfy 'product_offer' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-offer-validation
+      - navery-external-research-supports-keepsake-framing
+      - navery-external-research-supports-ai-trust-reassurance
+    rationale: Use PageHeader to satisfy 'product_offer' within the
+      shopify_imported_commerce_flow pattern.
+  - id: primary-cta
+    title: Primary Cta
+    pattern: shopify_imported_commerce_flow
+    components:
+      - PageHeader
+    requirements:
+      - primary_cta
+    findings:
+      - navery-buyers-need-low-risk-test-order
+      - navery-external-research-supports-form-clarity
+    rationale: Use PageHeader to satisfy 'primary_cta' within the
+      shopify_imported_commerce_flow pattern.
   - id: art-styles
     title: Art Styles
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - Tile
+      - Card
     requirements:
       - art_styles
     findings:
       - navery-buyers-need-style-confidence
-    rationale: Use Tile to satisfy 'art_styles' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-keepsake-framing
+    rationale: Use Card to satisfy 'art_styles' within the
+      shopify_imported_commerce_flow pattern.
   - id: included-package
     title: Included Package
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - Tile
+      - Card
     requirements:
       - included_package
     findings:
       - navery-buyers-need-offer-clarity
-    rationale: Use Tile to satisfy 'included_package' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-offer-validation
+      - navery-external-research-supports-ai-trust-reassurance
+    rationale: Use Card to satisfy 'included_package' within the
+      shopify_imported_commerce_flow pattern.
   - id: how-it-works
     title: How It Works
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - Tile
+      - Card
     requirements:
       - how_it_works
     findings:
       - navery-buyers-need-low-risk-test-order
-    rationale: Use Tile to satisfy 'how_it_works' within the
-      carbon_technical_product_landing pattern.
+    rationale: Use Card to satisfy 'how_it_works' within the
+      shopify_imported_commerce_flow pattern.
   - id: optional-upgrades
     title: Optional Upgrades
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - Tile
+      - Card
     requirements:
       - optional_upgrades
     findings:
       - navery-buyers-need-upgrade-option-without-friction
-    rationale: Use Tile to satisfy 'optional_upgrades' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-keepsake-framing
+    rationale: Use Card to satisfy 'optional_upgrades' within the
+      shopify_imported_commerce_flow pattern.
   - id: faq
     title: Faq
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
       - Accordion
     requirements:
@@ -97,108 +111,120 @@ sections:
     findings:
       - navery-buyers-need-offer-clarity
       - navery-buyers-need-upgrade-option-without-friction
+      - navery-external-research-supports-keepsake-framing
+      - navery-external-research-supports-ai-trust-reassurance
     rationale: Use Accordion to satisfy 'faq' within the
-      carbon_technical_product_landing pattern.
+      shopify_imported_commerce_flow pattern.
   - id: intake-form
     title: Intake Form
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - Form
+      - FormLayout
     requirements:
       - intake_form
     findings:
       - navery-buyers-need-low-risk-test-order
-    rationale: Use Form to satisfy 'intake_form' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-form-clarity
+    rationale: Use FormLayout to satisfy 'intake_form' within the
+      shopify_imported_commerce_flow pattern.
+  - id: style-selection
+    title: Style Selection
+    pattern: shopify_imported_commerce_flow
+    components:
+      - ChoiceList
+    requirements:
+      - style_selection
+    findings:
+      - navery-buyers-need-style-confidence
+    rationale: Use ChoiceList to satisfy 'style_selection' within the
+      shopify_imported_commerce_flow pattern.
   - id: photo-uploads
     title: Photo Uploads
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - FileUploader
+      - FileInput
     requirements:
       - photo_uploads
     findings:
       - navery-buyers-need-style-confidence
-    rationale: Use FileUploader to satisfy 'photo_uploads' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-ai-trust-reassurance
+      - navery-external-research-supports-form-clarity
+    rationale: Use FileInput to satisfy 'photo_uploads' within the
+      shopify_imported_commerce_flow pattern.
   - id: photo-permission
     title: Photo Permission
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
       - Checkbox
     requirements:
       - photo_permission
     findings:
       - navery-buyers-need-low-risk-test-order
+      - navery-external-research-supports-ai-trust-reassurance
     rationale: Use Checkbox to satisfy 'photo_permission' within the
-      carbon_technical_product_landing pattern.
+      shopify_imported_commerce_flow pattern.
+  - id: upgrade-interest
+    title: Upgrade Interest
+    pattern: shopify_imported_commerce_flow
+    components:
+      - ChoiceList
+    requirements:
+      - upgrade_interest
+    findings:
+      - navery-buyers-need-upgrade-option-without-friction
+      - navery-external-research-supports-form-clarity
+    rationale: Use ChoiceList to satisfy 'upgrade_interest' within the
+      shopify_imported_commerce_flow pattern.
   - id: order-summary
     title: Order Summary
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - StructuredList
+      - DescriptionList
     requirements:
       - order_summary
     findings:
       - navery-buyers-need-offer-clarity
       - navery-buyers-need-low-risk-test-order
-    rationale: Use StructuredList to satisfy 'order_summary' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-offer-validation
+      - navery-external-research-supports-form-clarity
+    rationale: Use DescriptionList to satisfy 'order_summary' within the
+      shopify_imported_commerce_flow pattern.
   - id: confirmation
     title: Confirmation
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - Tile
+      - Card
     requirements:
       - confirmation
     findings:
       - navery-buyers-need-low-risk-test-order
-    rationale: Use Tile to satisfy 'confirmation' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-ai-trust-reassurance
+      - navery-external-research-supports-form-clarity
+    rationale: Use Card to satisfy 'confirmation' within the
+      shopify_imported_commerce_flow pattern.
   - id: admin-order-record
     title: Admin Order Record
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - CodeSnippet
+      - DescriptionList
     requirements:
       - admin_order_record
     findings:
       - navery-buyers-need-low-risk-test-order
-    rationale: Use CodeSnippet to satisfy 'admin_order_record' within the
-      carbon_technical_product_landing pattern.
-  - id: style-selection
-    title: Style Selection
-    pattern: carbon_technical_product_landing
-    components:
-      - RadioTile
-    requirements:
-      - style_selection
-    findings:
-      - navery-buyers-need-style-confidence
-    rationale: Use RadioTile to satisfy 'style_selection' within the
-      carbon_technical_product_landing pattern.
-  - id: upgrade-interest
-    title: Upgrade Interest
-    pattern: carbon_technical_product_landing
-    components:
-      - Tag
-    requirements:
-      - upgrade_interest
-    findings:
-      - navery-buyers-need-upgrade-option-without-friction
-    rationale: Use Tag to satisfy 'upgrade_interest' within the
-      carbon_technical_product_landing pattern.
+    rationale: Use DescriptionList to satisfy 'admin_order_record' within the
+      shopify_imported_commerce_flow pattern.
   - id: success-metrics
     title: Success Metrics
-    pattern: carbon_technical_product_landing
+    pattern: shopify_imported_commerce_flow
     components:
-      - StructuredList
+      - DescriptionList
     requirements:
       - success_metrics
     findings:
       - navery-buyers-need-low-risk-test-order
-    rationale: Use StructuredList to satisfy 'success_metrics' within the
-      carbon_technical_product_landing pattern.
+      - navery-external-research-supports-offer-validation
+    rationale: Use DescriptionList to satisfy 'success_metrics' within the
+      shopify_imported_commerce_flow pattern.
 gaps: []
 validation_checks:
   - Every required information item is mapped to an approved component.

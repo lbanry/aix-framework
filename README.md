@@ -107,6 +107,12 @@ inspect-system -> plan -> inspect-plan -> prompt
 
 The interface workflow turns structured UX requirements, research findings, and design-system rules into a traceable interface plan. It chooses approved patterns and components first, flags gaps instead of inventing UI, and generates implementation guidance only after a valid plan exists.
 
+Design systems are variable. Use an existing AIX system YAML, or import a portable Open Design-style `DESIGN.md` into an AIX interface system:
+
+```bash
+node ./src/cli.js interface import-design-md path/to/DESIGN.md --name "Brand Interface System" --out interface/systems/brand-interface-system.yaml
+```
+
 The first included proof case is an AIX contract inspection review screen.
 
 ---

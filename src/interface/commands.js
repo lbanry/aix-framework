@@ -2,6 +2,7 @@ import fs from "fs";
 import YAML from "yaml";
 import { validateInterfaceArtifact } from "./validation.js";
 import { buildInterfacePlan, inspectInterfacePlan as inspectPlanReadiness } from "./planner.js";
+import { importDesignMarkdown } from "./design-md.js";
 
 function readYaml(filePath) {
   return YAML.parse(fs.readFileSync(filePath, "utf8"));
@@ -25,6 +26,7 @@ function assertValid(type, value) {
 
 function writeYamlOrPrint(value, options = {}) {
   const output = YAML.stringify(value);
+  const outputLabel = options.outputLabel || "interface plan";
 
   if (options.out) {
     if (fs.existsSync(options.out) && !options.force) {
@@ -33,7 +35,7 @@ function writeYamlOrPrint(value, options = {}) {
     }
 
     fs.writeFileSync(options.out, output, { flag: options.force ? "w" : "wx" });
-    console.log(`Wrote interface plan: ${options.out}`);
+    console.log(`Wrote ${outputLabel}: ${options.out}`);
     return;
   }
 
@@ -70,6 +72,19 @@ export async function inspectInterfaceSystem(systemPath) {
 
   console.log("\nResult");
   console.log("✓ Interface system is ready for orchestration.");
+}
+
+export async function importInterfaceDesignSystem(designPath, options = {}) {
+  const markdown = fs.readFileSync(designPath, "utf8");
+  const system = importDesignMarkdown(markdown, {
+    name: options.name,
+    patternId: options.patternId,
+    taskType: options.taskType,
+    sourceName: designPath.split(/[\\/]/).pop()
+  });
+
+  assertValid("system", system);
+  writeYamlOrPrint(system, { ...options, outputLabel: "interface system" });
 }
 
 export async function planInterface(requirementPath, options = {}) {

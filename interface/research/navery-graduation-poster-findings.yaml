@@ -59,3 +59,65 @@ findings:
       - faq
     evidence:
       - The PRD says upgrades should be mentioned but inquiry-based instead of fully priced/configured.
+  - id: navery-external-research-supports-offer-validation
+    user_goal: Quickly understand whether the $59 product is worth starting without confusing category interest with proven demand.
+    pain_point: Personalized gift market growth can create false confidence if the page does not validate this specific digital-first offer.
+    implication: The offer, included package, and order summary should make the digital deliverable, proof, revisions, and exclusions explicit.
+    supports_task_types:
+      - consumer_mvp_landing
+      - test_order_flow
+    supports_information:
+      - headline
+      - product_offer
+      - included_package
+      - order_summary
+      - success_metrics
+    evidence:
+      - Research and Markets reports personalized gift category growth, but The Navery still needs first-party validation for its $59 digital graduation poster.
+  - id: navery-external-research-supports-keepsake-framing
+    user_goal: Feel that the poster is a meaningful graduation keepsake rather than a generic AI image.
+    pain_point: A purely AI-led message may underplay the emotional reason buyers purchase graduation gifts.
+    implication: The page should frame the product as a personalized graduation keepsake with AI-assisted creation and proofing.
+    supports_task_types:
+      - consumer_mvp_landing
+      - test_order_flow
+    supports_information:
+      - headline
+      - product_offer
+      - art_styles
+      - optional_upgrades
+      - faq
+    evidence:
+      - Current graduation gift coverage emphasizes personal meaning, memories, encouragement, and milestone keepsakes.
+  - id: navery-external-research-supports-ai-trust-reassurance
+    user_goal: Know what AI-generated artwork can and cannot promise before uploading personal photos.
+    pain_point: AI artwork can raise concerns about likeness, authorship, effort, privacy, and whether the final result will be giftable.
+    implication: The upload, FAQ, included-package, and confirmation areas should reinforce proofing, 2 revisions, permission, and likeness limitations.
+    supports_task_types:
+      - consumer_mvp_landing
+      - test_order_flow
+    supports_information:
+      - product_offer
+      - included_package
+      - photo_uploads
+      - photo_permission
+      - faq
+      - confirmation
+    evidence:
+      - AI-generated art perception research shows that AI authorship can affect trust and value judgments, especially when personalization and emotional value matter.
+  - id: navery-external-research-supports-form-clarity
+    user_goal: Complete the intake and dummy checkout without uncertainty about required details, uploaded photos, upgrade interest, or next steps.
+    pain_point: Long forms and checkout-like flows can lose users when labels, required fields, button intent, or order summaries are unclear.
+    implication: The intake and dummy checkout should use persistent labels, explicit required and optional states, descriptive CTAs, and a clear no-card order summary.
+    supports_task_types:
+      - consumer_mvp_landing
+      - test_order_flow
+    supports_information:
+      - primary_cta
+      - intake_form
+      - photo_uploads
+      - upgrade_interest
+      - order_summary
+      - confirmation
+    evidence:
+      - Baymard ecommerce UX research emphasizes persistent labels, clear required and optional fields, natural typing flow, descriptive buttons, and checkout clarity.

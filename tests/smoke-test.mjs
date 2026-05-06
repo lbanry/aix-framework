@@ -83,6 +83,33 @@ assertSuccess(
   /Interface system is ready for orchestration/
 );
 
+const importedDesignSystemPath = new URL("./tmp-imported-design-system.yaml", import.meta.url);
+if (fs.existsSync(importedDesignSystemPath)) {
+  fs.unlinkSync(importedDesignSystemPath);
+}
+
+assertSuccess(
+  [
+    "./src/cli.js",
+    "interface",
+    "import-design-md",
+    "tests/fixtures/shopify-design.md",
+    "--name",
+    "Imported Shopify Test System",
+    "--pattern-id",
+    "imported_shopify_test_flow",
+    "--out",
+    "tests/tmp-imported-design-system.yaml"
+  ],
+  /Wrote interface system: tests\/tmp-imported-design-system\.yaml/
+);
+
+assertSuccess(
+  ["./src/cli.js", "interface", "inspect-system", "tests/tmp-imported-design-system.yaml"],
+  /Imported Shopify Test System[\s\S]*Interface system is ready for orchestration/
+);
+fs.unlinkSync(importedDesignSystemPath);
+
 const interfacePlan = run([
   "./src/cli.js",
   "interface",

@@ -8,6 +8,7 @@ import { initContract } from "./init.js";
 import {
   inspectInterfaceSystem,
   inspectInterfacePlan,
+  importInterfaceDesignSystem,
   planInterface,
   promptInterface
 } from "./interface/commands.js";
@@ -64,6 +65,19 @@ interfaceCommand
   .description("Inspect whether an interface system is ready for orchestration")
   .action(async (systemPath) => {
     await inspectInterfaceSystem(systemPath);
+  });
+
+interfaceCommand
+  .command("import-design-md")
+  .argument("<designMd>", "Path to an Open Design-style DESIGN.md file")
+  .option("-o, --out <file>", "Write the imported AIX interface system YAML to a file")
+  .option("--force", "Overwrite the output file if it already exists")
+  .option("--name <name>", "Name for the imported AIX interface system")
+  .option("--task-type <taskType>", "Task type this system pattern should support", "consumer_mvp_landing")
+  .option("--pattern-id <patternId>", "Pattern id for the imported system")
+  .description("Import a portable DESIGN.md into an AIX interface system YAML")
+  .action(async (designPath, options) => {
+    await importInterfaceDesignSystem(designPath, options);
   });
 
 interfaceCommand

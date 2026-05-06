@@ -17,6 +17,17 @@ node ./src/cli.js interface inspect-plan interface/plans/contract-inspection.pla
 node ./src/cli.js interface prompt interface/plans/contract-inspection.plan.yaml
 ```
 
+## Variable Design Systems
+
+AIX does not require one fixed design-system library. Teams can use any compatible AIX interface system YAML and can generate one from a portable Open Design-style `DESIGN.md`:
+
+```bash
+node ./src/cli.js interface import-design-md path/to/DESIGN.md --name "Brand Interface System" --out interface/systems/brand-interface-system.yaml
+node ./src/cli.js interface inspect-system interface/systems/brand-interface-system.yaml
+```
+
+The importer preserves the AIX orchestration boundary: it converts the design reference into tokens, components, patterns, and accessibility rules, then the normal `plan` command still decides whether a requirement can be satisfied by that system.
+
 ## Artifacts
 
 Interface systems define approved tokens, components, patterns, and accessibility rules.

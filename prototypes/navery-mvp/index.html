@@ -7,27 +7,29 @@
     <meta name="description" content="Personalized AI graduation posters with optional printed keepsakes. $59 digital-first MVP package.">
     <style>
       :root {
-        color-scheme: light;
-        --background: #ffffff;
-        --layer-01: #f4f4f4;
-        --layer-02: #e0e0e0;
-        --text-primary: #161616;
-        --text-secondary: #525252;
-        --border-subtle: #c6c6c6;
-        --interactive: #0f62fe;
-        --interactive-hover: #0353e9;
-        --focus: #0f62fe;
-        --support-success: #198038;
-        --support-warning: #f1c21b;
-        --support-error: #da1e28;
-        --accent-magenta: #ee5396;
-        --accent-purple: #8a3ffc;
+        color-scheme: dark;
+        --background: #000000;
+        --layer-01: #02090a;
+        --layer-02: #061a1c;
+        --layer-03: #102620;
+        --text-primary: #ffffff;
+        --text-secondary: #a1a1aa;
+        --border-subtle: #1e2c31;
+        --interactive: #ffffff;
+        --interactive-hover: #d4f9e0;
+        --focus: #36f4a4;
+        --support-success: #36f4a4;
+        --support-warning: #c1fbd4;
+        --support-error: #d72c0d;
+        --accent-magenta: #d4f9e0;
+        --accent-purple: #36f4a4;
+        --shadow-stack: rgba(0,0,0,.1) 0 0 0 1px, rgba(0,0,0,.1) 0 2px 2px, rgba(0,0,0,.1) 0 4px 4px, rgba(0,0,0,.1) 0 8px 8px, rgba(255,255,255,.03) 0 1px 0 inset;
         --spacing-03: 0.5rem;
         --spacing-05: 1rem;
         --spacing-07: 2rem;
         --spacing-09: 4rem;
         --layout-05: 6rem;
-        font-family: "IBM Plex Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
       * {
@@ -67,7 +69,8 @@
         z-index: 20;
         padding: 0.75rem 1rem;
         background: var(--interactive);
-        color: white;
+        color: #000000;
+        border-radius: 9999px;
       }
 
       .skip-link:focus {
@@ -75,7 +78,7 @@
       }
 
       .shell {
-        width: min(100%, 1584px);
+        width: min(100%, 1280px);
         margin: 0 auto;
         padding: 0 var(--spacing-07);
       }
@@ -84,25 +87,26 @@
         position: sticky;
         top: 0;
         z-index: 10;
-        min-height: 3rem;
+        min-height: 4rem;
         display: flex;
         align-items: stretch;
-        background: #161616;
-        color: white;
+        background: rgba(2, 9, 10, .92);
+        color: var(--text-primary);
+        border-bottom: 1px solid var(--border-subtle);
+        backdrop-filter: blur(18px);
       }
 
       .brand {
         display: flex;
         align-items: center;
-        min-width: 16rem;
+        min-width: 14rem;
         padding: 0 var(--spacing-05);
-        border-right: 1px solid #393939;
         font-weight: 700;
         text-decoration: none;
       }
 
       .brand span {
-        color: var(--accent-magenta);
+        color: var(--accent-purple);
       }
 
       .nav-links {
@@ -114,25 +118,27 @@
         display: inline-flex;
         align-items: center;
         padding: 0 var(--spacing-05);
-        color: #c6c6c6;
+        color: var(--text-secondary);
         text-decoration: none;
         font-size: 0.875rem;
       }
 
       .nav-links a:hover {
-        background: #262626;
-        color: white;
+        background: rgba(255, 255, 255, .08);
+        color: var(--text-primary);
       }
 
       .shell-cta {
         margin-left: auto;
         display: inline-flex;
         align-items: center;
+        margin: .75rem var(--spacing-05) .75rem auto;
         padding: 0 var(--spacing-05);
         background: var(--interactive);
-        color: white;
+        color: #000000;
         font-weight: 700;
         text-decoration: none;
+        border-radius: 9999px;
       }
 
       main {
@@ -141,14 +147,14 @@
 
       section {
         padding: var(--layout-05) 0;
-        border-bottom: 1px solid var(--border-subtle);
       }
 
       .hero {
         padding: var(--layout-05) 0 var(--spacing-09);
         background:
-          linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,.92) 48%, rgba(255,255,255,.7)),
-          var(--background);
+          radial-gradient(circle at 85% 20%, rgba(54, 244, 164, .18), rgba(54, 244, 164, 0) 28rem),
+          radial-gradient(circle at 8% 85%, rgba(193, 251, 212, .08), rgba(193, 251, 212, 0) 24rem),
+          linear-gradient(180deg, #061a1c 0%, #000000 70%);
       }
 
       .hero-grid {
@@ -160,7 +166,7 @@
 
       .eyebrow {
         margin: 0 0 var(--spacing-05);
-        color: var(--interactive);
+        color: var(--support-success);
         font-size: 0.875rem;
         font-weight: 700;
       }
@@ -175,17 +181,17 @@
       h1 {
         margin-bottom: var(--spacing-07);
         max-width: 52rem;
-        font-size: clamp(3.3rem, 8vw, 7rem);
-        line-height: .95;
-        font-weight: 400;
+        font-size: clamp(3rem, 7vw, 6rem);
+        line-height: .96;
+        font-weight: 330;
       }
 
       h2 {
         margin-bottom: var(--spacing-05);
         max-width: 58rem;
-        font-size: clamp(2.2rem, 5vw, 4.75rem);
-        line-height: 1;
-        font-weight: 400;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.05;
+        font-weight: 360;
       }
 
       h3 {
@@ -215,10 +221,11 @@
         align-items: center;
         justify-content: space-between;
         gap: var(--spacing-05);
-        border: 1px solid var(--interactive);
+        border: 2px solid transparent;
+        border-radius: 9999px;
         background: var(--interactive);
-        color: white;
-        padding: 0 var(--spacing-05);
+        color: #000000;
+        padding: 0 1.625rem 0 var(--spacing-05);
         cursor: pointer;
         font-weight: 700;
         text-decoration: none;
@@ -229,18 +236,22 @@
       }
 
       .btn.secondary {
-        background: white;
-        color: var(--interactive);
+        border-color: var(--text-primary);
+        background: transparent;
+        color: var(--text-primary);
       }
 
       .btn.secondary:hover {
-        background: #edf5ff;
+        background: var(--text-primary);
+        color: #000000;
       }
 
       .poster-frame {
         background: var(--layer-01);
         border: 1px solid var(--border-subtle);
         padding: var(--spacing-05);
+        border-radius: 12px;
+        box-shadow: var(--shadow-stack);
       }
 
       .poster-frame img {
@@ -255,8 +266,11 @@
         gap: var(--spacing-05);
         align-items: center;
         padding: var(--spacing-05);
-        background: #edf5ff;
-        border-left: 4px solid var(--interactive);
+        background: var(--layer-01);
+        border: 1px solid var(--border-subtle);
+        border-left: 4px solid var(--support-success);
+        border-radius: 8px;
+        box-shadow: var(--shadow-stack);
       }
 
       .price {
@@ -278,15 +292,16 @@
       .tile-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 1px;
-        border: 1px solid var(--border-subtle);
-        background: var(--border-subtle);
+        gap: var(--spacing-05);
       }
 
       .tile {
         min-height: 13rem;
         padding: var(--spacing-07);
         background: var(--layer-01);
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        box-shadow: var(--shadow-stack);
       }
 
       .tile p,
@@ -299,7 +314,11 @@
         display: grid;
         grid-template-rows: auto 1fr;
         min-height: 100%;
-        background: white;
+        background: var(--layer-01);
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--shadow-stack);
       }
 
       .style-card img {
@@ -326,23 +345,25 @@
         align-items: center;
         min-height: 2rem;
         padding: 0 var(--spacing-05);
-        background: #edf5ff;
-        color: #0043ce;
+        background: rgba(255, 255, 255, .16);
+        color: var(--text-primary);
         font-size: .875rem;
+        border-radius: 999px;
       }
 
       .tag.green {
-        background: #defbe6;
-        color: #0e6027;
+        background: rgba(54, 244, 164, .18);
+        color: var(--support-success);
       }
 
       .tag.magenta {
-        background: #fff0f7;
-        color: #9f1853;
+        background: rgba(193, 251, 212, .16);
+        color: var(--accent-magenta);
       }
 
       .steps {
         counter-reset: step;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .steps .tile::before {
@@ -355,7 +376,11 @@
       }
 
       .structured-list {
-        border-top: 1px solid #8d8d8d;
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--layer-01);
+        box-shadow: var(--shadow-stack);
       }
 
       .structured-row {
@@ -388,6 +413,8 @@
         padding: var(--spacing-07);
         border: 1px solid var(--border-subtle);
         background: var(--layer-01);
+        border-radius: 8px;
+        box-shadow: var(--shadow-stack);
       }
 
       legend {
@@ -409,13 +436,21 @@
         font-weight: 700;
       }
 
+      .field-help {
+        color: var(--text-secondary);
+        font-size: .85rem;
+        font-weight: 500;
+        line-height: 1.45;
+      }
+
       input,
       select,
       textarea {
         width: 100%;
         min-height: 3rem;
-        border: 1px solid #8d8d8d;
-        background: white;
+        border: 1px solid #3f3f46;
+        border-radius: 8px;
+        background: var(--layer-02);
         color: var(--text-primary);
         padding: .75rem;
         font: inherit;
@@ -461,6 +496,8 @@
         padding: var(--spacing-07);
         border: 1px solid var(--border-subtle);
         background: var(--layer-01);
+        border-radius: 8px;
+        box-shadow: var(--shadow-stack);
       }
 
       .notification {
@@ -471,14 +508,18 @@
         max-height: 22rem;
         overflow: auto;
         padding: var(--spacing-05);
-        background: #161616;
+        background: #02090a;
         color: white;
         font: 600 .875rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       }
 
       .faq details {
-        border-top: 1px solid var(--border-subtle);
-        padding: var(--spacing-05) 0;
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        padding: var(--spacing-05);
+        background: var(--layer-01);
+        margin-bottom: var(--spacing-03);
+        box-shadow: var(--shadow-stack);
       }
 
       .faq details:last-child {
@@ -551,7 +592,7 @@
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#gallery" data-route="gallery">Style gallery</a>
         <a href="#order" data-route="order">Order form</a>
-        <a href="#checkout" data-route="checkout">Dummy checkout</a>
+        <a href="#checkout" data-route="checkout">Test checkout</a>
       </nav>
       <a class="shell-cta" href="#order" data-route="order">Start Your Poster</a>
     </header>
@@ -561,9 +602,9 @@
         <section class="hero">
           <div class="shell hero-grid">
             <div>
-              <p class="eyebrow">Personalized AI graduation posters with optional printed keepsakes.</p>
+              <p class="eyebrow">Personalized graduation keepsakes with AI-assisted artwork and proofing.</p>
               <h1>Custom AI Graduation Posters</h1>
-              <p class="lead">Turn graduation photos and school details into a personalized digital poster, with optional printed and 3D keepsake upgrades.</p>
+              <p class="lead">Turn graduation photos and school details into a $59 digital poster package with a proof, 2 included revision rounds, and optional printed or 3D keepsake upgrades by request.</p>
               <div class="button-row">
                 <a class="btn" href="#order" data-route="order" data-track="start_order">Start Your Poster <span aria-hidden="true">-></span></a>
                 <a class="btn secondary" href="#gallery" data-route="gallery">Choose a style <span aria-hidden="true">-></span></a>
@@ -571,11 +612,11 @@
             </div>
             <div>
               <div class="poster-frame">
-                <img src="assets/poster-modern.svg" alt="Sample modern illustration graduation poster">
+                <img src="assets/celina-martin-modern-illustration.png" alt="Sample modern illustration graduation poster">
               </div>
               <div class="price-tile">
                 <div class="price">$59</div>
-                <div><strong>Digital Graduation Poster Package</strong><br><span>Proof, 2 revision rounds, and final print-ready files.</span></div>
+                <div><strong>Digital Graduation Poster Package</strong><br><span>Digital-first: proof, 2 revision rounds, and final print-ready files. No physical product is included by default.</span></div>
               </div>
             </div>
           </div>
@@ -586,7 +627,7 @@
             <div class="section-head">
               <p class="eyebrow">Four art styles</p>
               <h2>Choose the look that fits the graduate.</h2>
-              <p>Each style includes a sample image, a short description, and a single-select action that carries into the order form.</p>
+              <p>Each style uses a sample poster so buyers can choose a controlled direction before uploading photos or writing custom notes.</p>
             </div>
             <div class="tile-grid" id="home-style-grid"></div>
           </div>
@@ -599,9 +640,9 @@
               <h2>$59 digital-first package.</h2>
             </div>
             <div class="structured-list">
-              <div class="structured-row"><div class="row-label">Included</div><div>1 personalized AI-generated graduation poster, digital proof, 2 revision rounds, final print-ready files, graduate name, school name, class year, 1-3 photos, 1 selected style, and optional short message.</div></div>
+              <div class="structured-row"><div class="row-label">Included</div><div>1 personalized AI-assisted graduation poster, digital proof, 2 revision rounds, final print-ready files, graduate name, school name, class year, 1-3 photos, 1 selected style, and optional short message.</div></div>
               <div class="structured-row"><div class="row-label">Not included by default</div><div>Physical print, shipping, 3D printed product, unlimited revisions, full redesigns, exact facial likeness guarantee, heavy retouching, or photo-to-3D likeness work.</div></div>
-              <div class="structured-row"><div class="row-label">Upgrade inquiry</div><div>After digital proof approval, customers can request optional 11x14 print, magnet, keychain, coaster, or simple 3D printed keepsake quotes.</div></div>
+              <div class="structured-row"><div class="row-label">Upgrade inquiry</div><div>After digital proof approval, customers can ask for optional 11x14 print, magnet, keychain, coaster, or simple 3D printed keepsake quotes. Upgrade interest does not change the $59 digital test order.</div></div>
             </div>
           </div>
         </section>
@@ -617,6 +658,7 @@
               <div class="tile"><h3>Submit details and photos</h3><p>Add graduate name, school, year, colors, message, deadline, and 1-3 photos.</p></div>
               <div class="tile"><h3>Place a test order</h3><p>Review the $59 dummy checkout. No real card details are collected.</p></div>
               <div class="tile"><h3>Receive a proof</h3><p>Approve, request up to 2 revision rounds, then receive final print-ready files.</p></div>
+              <div class="tile"><h3>Approve final files</h3><p>Confirm the final digital poster and receive print-ready files for your own use.</p></div>
               <div class="tile"><h3>Ask about upgrades</h3><p>Request a physical poster, magnet, keychain, coaster, or simple 3D keepsake quote.</p></div>
             </div>
           </div>
@@ -652,38 +694,38 @@
             <div class="section-head">
               <p class="eyebrow">Order intake</p>
               <h1>Start Your Poster</h1>
-              <p class="lead">Submit the details needed to test demand and prepare the next step for your digital proof.</p>
+              <p class="lead">Submit the details needed for a digital proof. Required fields are labeled by the browser; optional notes, colors, upgrades, and deadlines help shape the first concept.</p>
             </div>
             <form id="order-form">
               <fieldset>
                 <legend>Customer</legend>
                 <div class="form-grid">
-                  <label>Customer name<input name="customerName" required autocomplete="name"></label>
-                  <label>Email<input name="email" type="email" required autocomplete="email"></label>
+                  <label>Customer name<span class="field-help">Required for the test order record.</span><input name="customerName" required autocomplete="name"></label>
+                  <label>Email<span class="field-help">Required so the next proof step can be coordinated.</span><input name="email" type="email" required autocomplete="email"></label>
                 </div>
               </fieldset>
               <fieldset>
                 <legend>Graduate details</legend>
                 <div class="form-grid">
-                  <label>Graduate name<input name="graduateName" required></label>
-                  <label>School name<input name="schoolName" required></label>
-                  <label>Class year<input name="classYear" required placeholder="2026"></label>
-                  <label>Delivery deadline<input name="deadline" type="date"></label>
+                  <label>Graduate name<span class="field-help">Required. This appears in the poster artwork.</span><input name="graduateName" required></label>
+                  <label>School name<span class="field-help">Required. Use the school name as you want it shown.</span><input name="schoolName" required></label>
+                  <label>Class year<span class="field-help">Required. Example: 2026.</span><input name="classYear" required placeholder="2026"></label>
+                  <label>Delivery deadline<span class="field-help">Optional. Add a date if this is for a party or announcement.</span><input name="deadline" type="date"></label>
                 </div>
               </fieldset>
               <fieldset>
                 <legend>Poster direction</legend>
                 <div class="form-grid">
-                  <label>Preferred style<select name="style" id="style-select" required></select></label>
-                  <label>Preferred colors<input name="colors" placeholder="Blue and gold, school colors, etc."></label>
-                  <label style="grid-column: 1 / -1;">Optional short message<textarea name="shortMessage" placeholder="Proud of you, Class of 2026!"></textarea></label>
-                  <label style="grid-column: 1 / -1;">Notes<textarea name="notes" placeholder="Anything else we should know?"></textarea></label>
+                  <label>Preferred style<span class="field-help">Required. One selected style keeps the first proof focused.</span><select name="style" id="style-select" required></select></label>
+                  <label>Preferred colors<span class="field-help">Optional. School colors or favorite colors are helpful.</span><input name="colors" placeholder="Blue and gold, school colors, etc."></label>
+                  <label style="grid-column: 1 / -1;">Optional short message<span class="field-help">Short messages work best for a poster layout.</span><textarea name="shortMessage" placeholder="Proud of you, Class of 2026!"></textarea></label>
+                  <label style="grid-column: 1 / -1;">Notes<span class="field-help">Optional. Add context, must-use details, or concerns about the sample style.</span><textarea name="notes" placeholder="Anything else we should know?"></textarea></label>
                 </div>
               </fieldset>
               <fieldset>
                 <legend>Photos and permission</legend>
                 <div class="form-grid">
-                  <label>Upload 1-3 photos<input name="photos" type="file" accept="image/*" multiple></label>
+                  <label>Upload 1-3 photos<span class="field-help">Use clear, lightly filtered photos where the graduate is easy to see. Photos guide the artwork; exact facial likeness is not guaranteed.</span><input name="photos" type="file" accept="image/*" multiple></label>
                   <div class="check-list">
                     <label><input name="permission" type="checkbox" required> I confirm I have permission to use the uploaded photos for this custom artwork.</label>
                   </div>
@@ -691,11 +733,12 @@
               </fieldset>
               <fieldset>
                 <legend>Upgrade interest</legend>
+                <p class="field-help">Optional. These choices only signal interest for a later quote after the digital proof is approved.</p>
                 <div class="check-list">
                   <label><input name="digitalOnly" value="digital_only" type="checkbox"> Digital only</label>
-                  <label><input name="physicalPrintInterest" type="checkbox"> Ask about physical print</label>
-                  <label><input name="magnetInterest" type="checkbox"> Ask about magnet</label>
-                  <label><input name="threeDPrintInterest" type="checkbox"> Ask about keychain, coaster, or 3D keepsake</label>
+                  <label><input name="physicalPrintInterest" type="checkbox"> Ask about a physical 11x14 print quote</label>
+                  <label><input name="magnetInterest" type="checkbox"> Ask about a matching magnet quote</label>
+                  <label><input name="threeDPrintInterest" type="checkbox"> Ask about keychain, coaster, or simple 3D keepsake quotes</label>
                 </div>
               </fieldset>
               <div class="button-row">
@@ -712,7 +755,7 @@
             <div class="section-head">
               <p class="eyebrow">Dummy checkout</p>
               <h1>Review your test order.</h1>
-              <p class="lead">This validates order intent only. No real card details are collected.</p>
+              <p class="lead">This validates order intent only. Review the $59 digital package, selected style, photo count, and upgrade interest before placing the test order. No real card details are collected.</p>
             </div>
             <div class="summary-panel">
               <div id="checkout-summary"></div>
@@ -731,7 +774,7 @@
             <div class="notification">
               <p class="eyebrow">Confirmation</p>
               <h1>Your test order has been received.</h1>
-              <p class="lead">We'll review your details and prepare the next step for your proof.</p>
+              <p class="lead">We'll review your details, confirm the selected style, and prepare the next step for your digital proof. Optional upgrade interest will be handled after the proof is approved.</p>
             </div>
           </div>
         </section>
@@ -747,23 +790,23 @@
       </div>
     </main>
 
-    <footer>Built as an AIX Carbon-guided MVP prototype for The Navery. Submissions are stored locally in this browser.</footer>
+    <footer>Built as an AIX Shopify Polaris-guided MVP prototype for The Navery. Submissions are stored locally in this browser.</footer>
 
     <script>
       const styles = [
-        { id: "Pop Art", image: "assets/poster-pop-art.svg", desc: "Bold, colorful, high-energy." },
-        { id: "Modern Illustration", image: "assets/poster-modern.svg", desc: "Polished, clean, giftable." },
-        { id: "Retro Poster", image: "assets/poster-retro.svg", desc: "Vintage-inspired graduation keepsake." },
-        { id: "Clean Editorial Collage", image: "assets/poster-editorial.svg", desc: "Photo-forward, premium layout." }
+        { id: "Pop Art", image: "assets/celina-martin-pop-art.png", desc: "Bold, colorful, high-energy for party displays and social posts." },
+        { id: "Modern Illustration", image: "assets/celina-martin-modern-illustration.png", desc: "Polished, clean, giftable for a broad family audience." },
+        { id: "Retro Poster", image: "assets/celina-martin-retro-poster.png", desc: "Vintage-inspired keepsake with a classic graduation feel." },
+        { id: "Clean Editorial Collage", image: "assets/celina-martin-clean-editorial-collage.png", desc: "Photo-forward, premium layout for a refined announcement." }
       ];
 
       const faq = [
         ["Is this digital or physical?", "The $59 package is digital-first. It includes your custom poster design, proof, 2 revision rounds, and final print-ready files. Physical prints and 3D keepsakes are optional upgrades quoted separately."],
-        ["What is included for $59?", "One personalized AI-generated graduation poster, digital proof, two revision rounds, and final print-ready digital files."],
+        ["What is included for $59?", "One personalized AI-assisted graduation poster, digital proof, two revision rounds, and final print-ready digital files."],
         ["How many revisions are included?", "Two revision rounds are included. Full redesigns and unlimited revisions are not part of the MVP package."],
         ["Can I order a physical print?", "Yes. After your digital proof is approved, request an optional 11x14 physical print quote."],
         ["Can I request a magnet, keychain, coaster, or 3D print?", "Yes. These are inquiry-based upgrades after proof approval, not part of the default $59 package."],
-        ["Will it look exactly like my photo?", "No exact facial likeness guarantee is included. Upload clear photos to help guide the custom artwork."],
+        ["Will it look exactly like my photo?", "No exact facial likeness guarantee is included. The uploaded photos guide the custom artwork, and the digital proof plus 2 included revision rounds help refine the result."],
         ["What photos should I upload?", "Upload 1-3 clear photos where the graduate is easy to see. Avoid blurry screenshots or heavily filtered images."],
         ["How long does it take?", "This MVP captures test orders. We will review your details and prepare the next step for your proof."],
         ["Can I change styles after seeing the proof?", "Style changes after proof may be treated as a redesign and are not included by default."]

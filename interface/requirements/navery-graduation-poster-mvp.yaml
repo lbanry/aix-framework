@@ -29,9 +29,13 @@ screen:
     - place_test_order
     - store_order_record
   constraints:
-    - Use Carbon-inspired structure and components.
+    - Use Shopify Polaris-inspired commerce structure and components.
     - Make clear that the $59 offer is digital-first.
+    - Frame the product as a personalized graduation keepsake before emphasizing AI generation.
+    - Explain proofing, 2 included revisions, photo permission, and exact-likeness limitations before or during the photo upload path.
+    - Use persistent labels, explicit required and optional field treatment, and descriptive primary buttons in the intake and dummy checkout flow.
     - Do not collect real card details or imply real payment processing.
     - Do not build customer accounts, automated generation, shipping, or 3D configuration.
     - Store a structured local order record matching the PRD fields.
     - Mention physical print and 3D keepsake upgrades as inquiry-based only.
+    - Treat external research as design hypotheses that must be validated by first-party Navery buyer tests.
