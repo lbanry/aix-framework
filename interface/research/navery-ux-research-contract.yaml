@@ -1,0 +1,57 @@
+intent:
+  objective: Determine the highest-value UX research and testing plan for The Navery MVP, a $59 personalized AI graduation poster product with optional print and 3D keepsake upgrades.
+  success_criteria:
+    - Identify the most useful research questions before launch.
+    - Prioritize research methods by speed, cost, and decision value.
+    - Find current external research that matches personalized gifts, AI-generated art, ecommerce customization, graduation gifts, and checkout UX.
+    - Convert findings into actionable product, website, pricing, and intake-form recommendations.
+
+context:
+  project: The Navery Graduation Poster MVP
+  inputs:
+    - "Product offer: $59 digital-first custom AI graduation poster."
+    - "Included package: digital proof, 2 revision rounds, and final print-ready files."
+    - "Buyer audience: parents, grandparents, graduates, family members, and friends buying graduation gifts."
+    - "Core flow: product page, style gallery, intake form, dummy checkout, confirmation."
+    - "Current AIX plan: interface/plans/navery-graduation-poster-mvp.plan.yaml"
+    - "Current prototype: prototypes/navery-mvp/index.html"
+  prior_decisions:
+    - The MVP should validate demand before real payment, automated generation, or full 3D configuration.
+    - Research should inform offer clarity, style confidence, AI trust, intake usability, checkout confidence, and upgrade demand.
+    - External research should guide hypotheses, but first-party testing should decide The Navery-specific choices.
+
+constraints:
+  rules:
+    - Focus on MVP validation, not broad brand strategy.
+    - Prioritize research that changes product, pricing, messaging, form design, or conversion.
+    - Separate external market evidence from first-party findings.
+    - Treat AI-art trust and likeness expectations as core risk areas.
+    - Do not assume optional physical or 3D upgrades are worth building until interest is measured.
+  tools_allowed:
+    - Chat interface
+    - File analysis
+    - Web search
+    - Local prototype review
+  disallowed:
+    - Unsupported market claims
+    - Treating generic personalized gift growth as proof of The Navery demand
+    - Recommending real checkout, automation, or upgrade configuration before MVP evidence supports it
+    - Presenting speculative buyer psychology as validated research
+
+execution:
+  mode: analyze
+  output_format: prioritized_research_plan
+  verbosity: medium
+
+validation:
+  checks:
+    - research_questions_map_to_mvp_decisions
+    - external_sources_are_named
+    - first_party_tests_are_small_and_actionable
+    - risks_and_unknowns_are_explicit
+    - recommendations_are_prioritized
+  definition_of_done:
+    - A prioritized research plan exists.
+    - A current external research summary exists.
+    - Each research activity states the decision it informs.
+    - The next MVP test can be run without new product infrastructure.

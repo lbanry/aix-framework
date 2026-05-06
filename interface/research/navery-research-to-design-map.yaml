@@ -1,0 +1,94 @@
+project: The Navery graduation poster MVP
+purpose: Map current external research into concrete design decisions for the Navery MVP interface plan.
+principle: External research creates hypotheses and design constraints; first-party testing with target buyers validates The Navery-specific decisions.
+sources:
+  - id: personalized-gifts-market-growth
+    source: Research and Markets personalized gifts market report 2026
+    finding: The personalized gifts category is large and growing, but category growth does not prove demand for a specific digital-first poster offer.
+    navery_implication: The page must validate willingness to place a test order instead of treating market size as proof.
+    design_rule: Explain the $59 digital package, proof, revisions, and final files before asking users to start.
+    applies_to:
+      - headline
+      - product_offer
+      - included_package
+      - order_summary
+    validation_method: Five-second offer clarity test and dummy checkout confidence test.
+  - id: graduation-gifts-are-sentimental
+    source: Current 2026 graduation gift guides and personalized keepsake examples
+    finding: Graduation gifts are often evaluated for personal meaning, encouragement, and memory value, not only utility.
+    navery_implication: The interface should lead with keepsake value and graduation milestone relevance.
+    design_rule: Frame the product as a personalized graduation keepsake first and an AI-generated artifact second.
+    applies_to:
+      - headline
+      - product_offer
+      - art_styles
+      - optional_upgrades
+      - faq
+    validation_method: Offer clarity test and style confidence test.
+  - id: ai-art-trust-risk
+    source: AI-generated art perception and personalization research
+    finding: AI-created artwork can trigger concerns about authorship, effort, likeness, and reliability.
+    navery_implication: Buyers need reassurance before uploading photos or believing the final result will be giftable.
+    design_rule: Pair AI language with proofing, 2 revisions, photo permission, and clear limitations around exact likeness.
+    applies_to:
+      - product_offer
+      - included_package
+      - photo_uploads
+      - photo_permission
+      - faq
+      - confirmation
+    validation_method: AI trust interview and intake form usability test.
+  - id: style-choice-reduces-uncertainty
+    source: Navery PRD and AI-art trust research
+    finding: Buyers need concrete examples and bounded choices when an AI-assisted custom artwork outcome could otherwise feel unpredictable.
+    navery_implication: The four style previews should make the custom result feel controllable without forcing customers to write art direction.
+    design_rule: Use visual style cards with short best-fit descriptions and one clear style-selection action.
+    applies_to:
+      - art_styles
+      - style_selection
+      - photo_uploads
+    validation_method: Style confidence test.
+  - id: checkout-form-clarity
+    source: Baymard checkout and ecommerce form UX research
+    finding: Checkout and form flows perform better when labels remain visible, required and optional fields are clear, and primary buttons state the next action.
+    navery_implication: The intake and dummy checkout must reduce hesitation, especially around photo upload, upgrade interest, and no-payment submission.
+    design_rule: Use persistent labels, explicit required and optional field treatment, one dominant next action, and a clear order summary before submission.
+    applies_to:
+      - intake_form
+      - photo_uploads
+      - upgrade_interest
+      - order_summary
+      - primary_cta
+    validation_method: Intake form usability test and dummy checkout confidence test.
+  - id: upgrades-are-unvalidated
+    source: Navery PRD and MVP validation strategy
+    finding: Physical print and 3D keepsake upgrades are interest signals, not core MVP commitments.
+    navery_implication: Upgrade UI should capture demand without shifting the product from the $59 digital offer.
+    design_rule: Present upgrades as inquiry-based options after the digital proof is understood, not as priced configuration.
+    applies_to:
+      - optional_upgrades
+      - upgrade_interest
+      - faq
+      - order_summary
+    validation_method: Upgrade interest probe and completed dummy checkout review.
+design_decisions:
+  - decision: Keep the hero focused on "Custom AI Graduation Posters" but make the supporting copy and offer block clarify digital-first delivery.
+    backed_by:
+      - personalized-gifts-market-growth
+      - graduation-gifts-are-sentimental
+      - ai-art-trust-risk
+  - decision: Keep the style gallery as four bounded choices with sample images and short descriptions.
+    backed_by:
+      - style-choice-reduces-uncertainty
+      - ai-art-trust-risk
+  - decision: Keep optional upgrades secondary and inquiry-based.
+    backed_by:
+      - upgrades-are-unvalidated
+  - decision: Treat intake and dummy checkout as the main validation surface, not just a form.
+    backed_by:
+      - checkout-form-clarity
+      - personalized-gifts-market-growth
+  - decision: Require proofing, revisions, photo permission, and likeness limitations to appear before or during the photo upload path.
+    backed_by:
+      - ai-art-trust-risk
+      - checkout-form-clarity

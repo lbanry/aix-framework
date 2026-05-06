@@ -1,0 +1,210 @@
+name: Shopify Polaris Commerce Interface System
+version: 0.1.0
+tokens:
+  color:
+    - p-color-bg
+    - p-color-bg-surface
+    - p-color-bg-surface-secondary
+    - p-color-text
+    - p-color-text-secondary
+    - p-color-border
+    - p-color-border-focus
+    - p-color-bg-fill-brand
+    - p-color-bg-fill-brand-hover
+    - p-color-bg-fill-success-secondary
+    - p-color-bg-fill-warning-secondary
+  spacing:
+    - p-space-100
+    - p-space-200
+    - p-space-300
+    - p-space-400
+    - p-space-600
+    - p-space-800
+components:
+  - id: TopBar
+    purpose: Provide persistent store or product orientation with short task navigation.
+    supports:
+      - headline
+      - primary_cta
+    states:
+      - default
+      - focus
+    rules:
+      - Keep navigation task-oriented and predictable.
+      - Preserve a clear primary action for the current commerce workflow.
+  - id: PageHeader
+    purpose: Introduce the page task, offer, and most important action.
+    supports:
+      - headline
+      - product_offer
+      - primary_cta
+    states:
+      - default
+    rules:
+      - State the merchant or buyer outcome before supporting detail.
+      - Pair one primary action with secondary navigation only when useful.
+  - id: Button
+    purpose: Trigger explicit actions such as starting, saving, selecting, or placing an order.
+    supports:
+      - primary_cta
+      - secondary_cta
+      - choose_style
+      - place_test_order
+    states:
+      - primary
+      - secondary
+      - plain
+      - disabled
+      - focus
+    rules:
+      - Use clear sentence-case action labels.
+      - Use buttons for actions and links for navigation.
+      - Avoid competing primary actions in the same decision area.
+  - id: Card
+    purpose: Group related commerce content into scannable surfaces.
+    supports:
+      - product_offer
+      - art_styles
+      - included_package
+      - how_it_works
+      - optional_upgrades
+      - confirmation
+    states:
+      - default
+      - selected
+      - focus
+    rules:
+      - One card should communicate one decision, offer, or status.
+      - Cards must not hide required pricing, delivery, or revision limits.
+  - id: ChoiceList
+    purpose: Let users choose one style or express upgrade interest from known options.
+    supports:
+      - art_styles
+      - style_selection
+      - upgrade_interest
+    states:
+      - selected
+      - unselected
+      - focus
+    rules:
+      - Use single-select behavior when exactly one choice is allowed.
+      - Each visual style needs a preview, name, and short fit description.
+  - id: FormLayout
+    purpose: Collect structured customer, graduate, and fulfillment details.
+    supports:
+      - intake_form
+      - customer_details
+      - graduate_details
+      - delivery_deadline
+    states:
+      - default
+      - error
+      - focus
+    rules:
+      - Group related fields so the customer understands why each field is needed.
+      - Required fields must use visible labels and validation-friendly controls.
+  - id: DropZone
+    purpose: Collect customer photos for custom artwork.
+    supports:
+      - photo_uploads
+    states:
+      - default
+      - selected
+      - error
+    rules:
+      - State the required photo count before upload.
+      - Do not imply exact likeness is guaranteed.
+  - id: Checkbox
+    purpose: Capture consent and optional upgrade interest.
+    supports:
+      - photo_permission
+      - upgrade_interest
+    states:
+      - checked
+      - unchecked
+      - focus
+    rules:
+      - Consent language must be explicit and human-readable.
+      - Optional upgrade choices must remain inquiry-based for MVP.
+  - id: DescriptionList
+    purpose: Summarize order details, success metrics, and operator records in labeled rows.
+    supports:
+      - order_summary
+      - success_metrics
+      - admin_order_record
+    states:
+      - default
+    rules:
+      - Keep labels parallel and values concise.
+      - Do not rely on color alone to communicate status.
+  - id: Accordion
+    purpose: Present customer objections and policy questions in a compact surface.
+    supports:
+      - faq
+    states:
+      - expanded
+      - collapsed
+      - focus
+    rules:
+      - Question labels must match likely buyer objections.
+      - Answers must stay specific to MVP scope and exclusions.
+  - id: Banner
+    purpose: Confirm submission state and call out important next-step expectations.
+    supports:
+      - confirmation
+      - product_offer
+    states:
+      - info
+      - success
+      - warning
+    rules:
+      - Banners must say what happened and what happens next.
+      - Use warning tone only for constraints that could change buyer expectations.
+patterns:
+  - id: polaris_commerce_mvp_flow
+    purpose: Present a commerce MVP offer and collect a clean order brief using Polaris admin and app patterns.
+    use_when:
+      - consumer_mvp_landing
+      - commerce_intake_flow
+    required_components:
+      - TopBar
+      - PageHeader
+      - Button
+      - Card
+      - ChoiceList
+      - FormLayout
+      - DropZone
+      - Checkbox
+      - DescriptionList
+      - Accordion
+      - Banner
+    information_order:
+      - headline
+      - product_offer
+      - primary_cta
+      - art_styles
+      - included_package
+      - how_it_works
+      - optional_upgrades
+      - faq
+      - intake_form
+      - style_selection
+      - photo_uploads
+      - photo_permission
+      - upgrade_interest
+      - order_summary
+      - confirmation
+      - admin_order_record
+      - success_metrics
+    rules:
+      - Use Polaris tokens and commerce task surfaces instead of enterprise technical tiles.
+      - Lead with offer clarity, then guide style choice, intake, checkout, and confirmation.
+      - Treat prompt generation as downstream from the approved interface plan.
+      - Flag missing coverage instead of inventing new components.
+accessibility_rules:
+  - Include a skip-to-main-content link.
+  - Preserve visible focus states on navigation, buttons, links, inputs, cards, and accordions.
+  - Use semantic headings in descending order.
+  - Do not rely on color alone for comparison, state, or status.
+  - Provide text alternatives for product and style imagery.
+  - Use native form controls for keyboard and assistive technology support.

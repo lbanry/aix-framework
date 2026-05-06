@@ -1,0 +1,269 @@
+name: Shopify Imported Interface System
+version: 0.1.0
+tokens:
+  color:
+    - "#FFFFFF"
+    - "#000000"
+    - "#36F4A4"
+    - "#C1FBD4"
+    - "#D4F9E0"
+    - "#02090A"
+    - "#061A1C"
+    - "#102620"
+    - "#1E2C31"
+    - "#D4D4D8"
+    - "#A1A1AA"
+    - "#71717A"
+    - "#52525B"
+    - "#3F3F46"
+    - "#E4E4E7"
+    - "#9797A2"
+  spacing:
+    - 8px
+    - space-1
+    - 4px
+    - space-2
+    - space-3
+    - 12px
+    - space-4
+    - 16px
+    - space-5
+    - 24px
+    - space-6
+    - 28px
+    - space-7
+    - 32px
+    - space-8
+    - 36px
+components:
+  - id: PageHeader
+    purpose: Introduce the interface goal, offer, and primary action.
+    supports:
+      - headline
+      - product_offer
+      - primary_cta
+    states:
+      - default
+      - focus
+    rules:
+      - Use the imported typography, color, and layout guidance for the first
+        viewport.
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+  - id: Button
+    purpose: Trigger explicit user actions.
+    supports:
+      - primary_cta
+      - secondary_cta
+      - choose_style
+      - place_test_order
+    states:
+      - primary
+      - secondary
+      - disabled
+      - focus
+    rules:
+      - Button labels must state the action that will occur.
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+  - id: Card
+    purpose: Group related content into a reusable surface.
+    supports:
+      - product_offer
+      - art_styles
+      - included_package
+      - how_it_works
+      - optional_upgrades
+      - confirmation
+    states:
+      - default
+      - selected
+      - focus
+    rules:
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+      - "Padding: 12px 26px 12px 16px (asymmetric — more right padding for
+        visual balance)"
+  - id: ChoiceList
+    purpose: Represent bounded single-select or multi-select choices.
+    supports:
+      - art_styles
+      - style_selection
+      - upgrade_interest
+    states:
+      - selected
+      - unselected
+      - focus
+    rules:
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+      - "Padding: 12px 26px 12px 16px (asymmetric — more right padding for
+        visual balance)"
+  - id: FormLayout
+    purpose: Collect structured user and fulfillment details.
+    supports:
+      - intake_form
+      - customer_details
+      - graduate_details
+      - delivery_deadline
+    states:
+      - default
+      - error
+      - focus
+    rules:
+      - Group related fields and preserve accessible labels, focus, and error
+        states.
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+  - id: FileInput
+    purpose: Collect files or images needed to complete a task.
+    supports:
+      - photo_uploads
+      - asset_uploads
+    states:
+      - default
+      - selected
+      - error
+      - focus
+    rules:
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+      - "Padding: 12px 26px 12px 16px (asymmetric — more right padding for
+        visual balance)"
+  - id: Checkbox
+    purpose: Capture consent and optional interest.
+    supports:
+      - photo_permission
+      - upgrade_interest
+    states:
+      - checked
+      - unchecked
+      - focus
+    rules:
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+      - "Padding: 12px 26px 12px 16px (asymmetric — more right padding for
+        visual balance)"
+  - id: DescriptionList
+    purpose: Summarize structured details in labeled rows.
+    supports:
+      - order_summary
+      - success_metrics
+      - admin_order_record
+    states:
+      - default
+    rules:
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+      - "Padding: 12px 26px 12px 16px (asymmetric — more right padding for
+        visual balance)"
+  - id: Accordion
+    purpose: Expose supporting questions without overwhelming the primary flow.
+    supports:
+      - faq
+    states:
+      - expanded
+      - collapsed
+      - focus
+    rules:
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+      - "Padding: 12px 26px 12px 16px (asymmetric — more right padding for
+        visual balance)"
+  - id: Banner
+    purpose: Communicate important status, constraints, and next steps.
+    supports:
+      - confirmation
+      - product_offer
+    states:
+      - info
+      - success
+      - warning
+      - error
+    rules:
+      - "*Primary (White Fill)**"
+      - "Background: White (`#FFFFFF`)"
+      - "Text: Black (`#000000`)"
+      - "Border: 2px solid transparent"
+      - "Border radius: full pill (9999px)"
+      - "Padding: 12px 26px 12px 16px (asymmetric — more right padding for
+        visual balance)"
+patterns:
+  - id: shopify_imported_commerce_flow
+    purpose: Orchestrate interfaces using Shopify Imported Interface System guidance
+      imported from DESIGN.md.
+    use_when:
+      - consumer_mvp_landing
+    required_components:
+      - PageHeader
+      - Button
+      - Card
+      - ChoiceList
+      - FormLayout
+      - FileInput
+      - Checkbox
+      - DescriptionList
+      - Accordion
+      - Banner
+    information_order:
+      - headline
+      - product_offer
+      - primary_cta
+      - art_styles
+      - included_package
+      - how_it_works
+      - optional_upgrades
+      - faq
+      - intake_form
+      - style_selection
+      - photo_uploads
+      - photo_permission
+      - upgrade_interest
+      - order_summary
+      - confirmation
+      - admin_order_record
+      - success_metrics
+    rules:
+      - Use the imported DESIGN.md as the active visual and interaction
+        reference.
+      - Choose approved components and patterns before generating interface
+        details.
+      - "### Spacing System"
+      - "Base unit: 8px"
+      - "| Token | Value | Use |"
+      - "|-------|-------|-----|"
+      - "| space-1 | 4px | Tight inline gaps |"
+      - "| space-2 | 8px | Base unit, icon gaps |"
+accessibility_rules:
+  - Preserve visible focus states for keyboard users.
+  - Use semantic headings and native form controls where possible.
+  - Do not rely on color alone for state, status, or comparison.
+  - Provide text alternatives for product and style imagery.
+  - Validate responsive behavior against the imported breakpoint guidance.
