@@ -1,0 +1,23 @@
+{
+  "name": "@aix/design",
+  "version": "0.2.0",
+  "description": "AIX design-system-aware interface orchestration module.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    "./commands": "./src/commands.js",
+    "./design-md": "./src/design-md.js",
+    "./planner": "./src/planner.js",
+    "./validation": "./src/validation.js"
+  },
+  "files": [
+    "src",
+    "spec",
+    "interface",
+    "README.md"
+  ],
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "yaml": "^2.8.3"
+  }
+}

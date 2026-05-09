@@ -13,7 +13,7 @@ context:
     - "Included package: digital proof, 2 revision rounds, and final print-ready files."
     - "Buyer audience: parents, grandparents, graduates, family members, and friends buying graduation gifts."
     - "Core flow: product page, style gallery, intake form, dummy checkout, confirmation."
-    - "Current AIX plan: interface/plans/navery-graduation-poster-mvp.plan.yaml"
+    - "Current AIX plan: packages/aix-design/interface/plans/navery-graduation-poster-mvp.plan.yaml"
     - "Current prototype: prototypes/navery-mvp/index.html"
   prior_decisions:
     - The MVP should validate demand before real payment, automated generation, or full 3D configuration.

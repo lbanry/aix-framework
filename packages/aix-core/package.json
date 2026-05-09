@@ -1,0 +1,25 @@
+{
+  "name": "@aix/framework",
+  "version": "0.2.0",
+  "description": "Core AIX contract validation, inspection, prompt, and run workflow.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    "./init": "./src/init.js",
+    "./inspect": "./src/inspect.js",
+    "./normalize": "./src/normalize.js",
+    "./prompt": "./src/prompt.js",
+    "./run": "./src/run.js",
+    "./validate": "./src/validate.js"
+  },
+  "files": [
+    "src",
+    "spec",
+    "examples",
+    "README.md"
+  ],
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "yaml": "^2.8.3"
+  }
+}

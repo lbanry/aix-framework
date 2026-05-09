@@ -5,7 +5,7 @@ import Ajv from "ajv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const specDir = path.resolve(__dirname, "../../spec");
+const specDir = path.resolve(__dirname, "../spec");
 
 const schemaFiles = {
   system: "interface-system.schema.json",

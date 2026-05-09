@@ -10,7 +10,7 @@ execution
 validation
 ```
 
-The schema lives at `spec/aix-contract.schema.json`.
+The schema lives at `packages/aix-core/spec/aix-contract.schema.json`.
 
 ## intent
 

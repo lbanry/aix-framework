@@ -7,7 +7,7 @@ The repo includes valid example contracts that demonstrate common AIX use cases.
 Path:
 
 ```txt
-examples/project-contract.yaml
+packages/aix-core/examples/project-contract.yaml
 ```
 
 Purpose:
@@ -31,7 +31,7 @@ Use this example when the human wants AI assistance with a project, task, or pla
 Path:
 
 ```txt
-examples/research-contract.yaml
+packages/aix-core/examples/research-contract.yaml
 ```
 
 Purpose:
@@ -51,7 +51,7 @@ Use this example when the human wants a source-grounded summary that separates f
 
 ## Test Fixtures
 
-The `tests/fixtures/` directory includes contracts for automated smoke testing:
+The `packages/aix-core/tests/fixtures/` directory includes contracts for automated smoke testing:
 
 - `strong-contract.yaml`
 - `weak-contract.yaml`

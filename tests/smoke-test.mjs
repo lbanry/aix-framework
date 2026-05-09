@@ -23,38 +23,38 @@ function assertFailure(args, expectedOutput) {
 }
 
 assertSuccess(
-  ["./src/cli.js", "inspect", "examples/project-contract.yaml"],
+  ["./src/cli.js", "inspect", "packages/aix-core/examples/project-contract.yaml"],
   /Contract readiness: 100\/100/
 );
 
 assertSuccess(
-  ["./src/cli.js", "inspect", "examples/research-contract.yaml"],
+  ["./src/cli.js", "inspect", "packages/aix-core/examples/research-contract.yaml"],
   /Strong contract/
 );
 
 assertSuccess(
-  ["./src/cli.js", "inspect", "tests/fixtures/strong-contract.yaml"],
+  ["./src/cli.js", "inspect", "packages/aix-core/tests/fixtures/strong-contract.yaml"],
   /Suggested Improvements\n- None\./
 );
 
 assertSuccess(
-  ["./src/cli.js", "inspect", "tests/fixtures/weak-contract.yaml"],
+  ["./src/cli.js", "inspect", "packages/aix-core/tests/fixtures/weak-contract.yaml"],
   /warning\(s\) found/
 );
 
 assertFailure(
-  ["./src/cli.js", "inspect", "tests/fixtures/invalid-contract.yaml"],
+  ["./src/cli.js", "inspect", "packages/aix-core/tests/fixtures/invalid-contract.yaml"],
   /intent\.objective must not be empty/
 );
 
-const jsonInspect = run(["./src/cli.js", "inspect", "examples/project-contract.yaml", "--json"]);
+const jsonInspect = run(["./src/cli.js", "inspect", "packages/aix-core/examples/project-contract.yaml", "--json"]);
 assert.equal(jsonInspect.status, 0, jsonInspect.stderr || jsonInspect.stdout);
 const inspection = JSON.parse(jsonInspect.stdout);
 assert.equal(inspection.valid, true);
 assert.equal(inspection.readinessScore, 100);
 
 assertSuccess(
-  ["./src/cli.js", "prompt", "examples/research-contract.yaml"],
+  ["./src/cli.js", "prompt", "packages/aix-core/examples/research-contract.yaml"],
   /Analyze source material to produce a concise research summary/
 );
 
@@ -64,7 +64,7 @@ if (fs.existsSync(promptOut)) {
 }
 
 assertSuccess(
-  ["./src/cli.js", "prompt", "examples/research-contract.yaml", "--out", "tests/tmp-prompt-output.md"],
+  ["./src/cli.js", "prompt", "packages/aix-core/examples/research-contract.yaml", "--out", "tests/tmp-prompt-output.md"],
   /Wrote prompt: tests\/tmp-prompt-output\.md/
 );
 assert.match(
@@ -74,12 +74,12 @@ assert.match(
 fs.unlinkSync(promptOut);
 
 assertSuccess(
-  ["./src/cli.js", "run", "examples/project-contract.yaml"],
+  ["./src/cli.js", "run", "packages/aix-core/examples/project-contract.yaml"],
   /AIX Execution Preparation[\s\S]*Prepared Prompt/
 );
 
 assertSuccess(
-  ["./src/cli.js", "interface", "inspect-system", "interface/systems/aix-interface-system.yaml"],
+  ["./src/cli.js", "interface", "inspect-system", "packages/aix-design/interface/systems/aix-interface-system.yaml"],
   /Interface system is ready for orchestration/
 );
 
@@ -93,7 +93,7 @@ assertSuccess(
     "./src/cli.js",
     "interface",
     "import-design-md",
-    "tests/fixtures/shopify-design.md",
+    "packages/aix-design/tests/fixtures/shopify-design.md",
     "--name",
     "Imported Shopify Test System",
     "--pattern-id",
@@ -114,43 +114,43 @@ const interfacePlan = run([
   "./src/cli.js",
   "interface",
   "plan",
-  "interface/requirements/contract-inspection.yaml",
+  "packages/aix-design/interface/requirements/contract-inspection.yaml",
   "--system",
-  "interface/systems/aix-interface-system.yaml",
+  "packages/aix-design/interface/systems/aix-interface-system.yaml",
   "--research",
-  "interface/research/aix-findings.yaml"
+  "packages/aix-design/interface/research/aix-findings.yaml"
 ]);
 assert.equal(interfacePlan.status, 0, interfacePlan.stderr || interfacePlan.stdout);
 assert.match(interfacePlan.stdout, /screen_id: contract-inspection-review/);
 assert.match(interfacePlan.stdout, /ReadinessScore/);
 
 assertSuccess(
-  ["./src/cli.js", "interface", "inspect-plan", "interface/plans/contract-inspection.plan.yaml"],
+  ["./src/cli.js", "interface", "inspect-plan", "packages/aix-design/interface/plans/contract-inspection.plan.yaml"],
   /Overall score: 100\/100[\s\S]*Interface plan is ready for prompt generation/
 );
 
 assertSuccess(
-  ["./src/cli.js", "interface", "prompt", "interface/plans/contract-inspection.plan.yaml"],
+  ["./src/cli.js", "interface", "prompt", "packages/aix-design/interface/plans/contract-inspection.plan.yaml"],
   /Do not invent layout, components, or interactions/
 );
 
 assertSuccess(
-  ["./src/cli.js", "interface", "inspect-plan", "interface/plans/paperclip-landing.plan.yaml"],
+  ["./src/cli.js", "interface", "inspect-plan", "packages/aix-design/interface/plans/paperclip-landing.plan.yaml"],
   /Overall score: 100\/100[\s\S]*Interface plan is ready for prompt generation/
 );
 
 assertSuccess(
-  ["./src/cli.js", "interface", "inspect-system", "interface/systems/carbon-marketing-system.yaml"],
+  ["./src/cli.js", "interface", "inspect-system", "packages/aix-design/interface/systems/carbon-marketing-system.yaml"],
   /Interface system is ready for orchestration/
 );
 
 assertSuccess(
-  ["./src/cli.js", "interface", "inspect-plan", "interface/plans/paperclip-carbon-landing.plan.yaml"],
+  ["./src/cli.js", "interface", "inspect-plan", "packages/aix-design/interface/plans/paperclip-carbon-landing.plan.yaml"],
   /Overall score: 100\/100[\s\S]*Interface plan is ready for prompt generation/
 );
 
 assertSuccess(
-  ["./src/cli.js", "interface", "inspect-plan", "interface/plans/navery-graduation-poster-mvp.plan.yaml"],
+  ["./src/cli.js", "interface", "inspect-plan", "packages/aix-design/interface/plans/navery-graduation-poster-mvp.plan.yaml"],
   /Overall score: 100\/100[\s\S]*Interface plan is ready for prompt generation/
 );
 
@@ -209,11 +209,11 @@ const gapPlan = run([
   "./src/cli.js",
   "interface",
   "plan",
-  "interface/requirements/contract-inspection.yaml",
+  "packages/aix-design/interface/requirements/contract-inspection.yaml",
   "--system",
   "tests/tmp-missing-component-system.yaml",
   "--research",
-  "interface/research/aix-findings.yaml"
+  "packages/aix-design/interface/research/aix-findings.yaml"
 ]);
 assert.equal(gapPlan.status, 0, gapPlan.stderr || gapPlan.stdout);
 assert.match(gapPlan.stdout, /No approved component supports required information 'schema_errors'/);

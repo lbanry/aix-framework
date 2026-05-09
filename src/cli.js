@@ -1,24 +1,24 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { runAIX } from "./run.js";
-import { generatePrompt } from "./prompt.js";
-import { inspectContract } from "./inspect.js";
-import { initContract } from "./init.js";
+import { runAIX } from "../packages/aix-core/src/run.js";
+import { generatePrompt } from "../packages/aix-core/src/prompt.js";
+import { inspectContract } from "../packages/aix-core/src/inspect.js";
+import { initContract } from "../packages/aix-core/src/init.js";
 import {
   inspectInterfaceSystem,
   inspectInterfacePlan,
   importInterfaceDesignSystem,
   planInterface,
   promptInterface
-} from "./interface/commands.js";
+} from "../packages/aix-design/src/commands.js";
 
 const program = new Command();
 
 program
   .name("aix")
   .description("AI Experience Framework CLI")
-  .version("0.1.0");
+  .version("0.2.0");
 
 program
   .command("run")

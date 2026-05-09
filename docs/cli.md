@@ -31,8 +31,8 @@ Safety behavior:
 Validates a contract and reports contract quality.
 
 ```bash
-node ./src/cli.js inspect examples/project-contract.yaml
-node ./src/cli.js inspect examples/project-contract.yaml --json
+node ./src/cli.js inspect packages/aix-core/examples/project-contract.yaml
+node ./src/cli.js inspect packages/aix-core/examples/project-contract.yaml --json
 ```
 
 `inspect` is read-only. It reports:
@@ -49,8 +49,8 @@ node ./src/cli.js inspect examples/project-contract.yaml --json
 Generates an AI-ready prompt from a valid contract.
 
 ```bash
-node ./src/cli.js prompt examples/project-contract.yaml
-node ./src/cli.js prompt examples/project-contract.yaml --out prompt.md
+node ./src/cli.js prompt packages/aix-core/examples/project-contract.yaml
+node ./src/cli.js prompt packages/aix-core/examples/project-contract.yaml --out prompt.md
 ```
 
 Use this when you want to copy the generated prompt into a chat or agent environment.
@@ -62,7 +62,7 @@ When `--out` is used, the CLI writes the prompt to a file. Existing files are no
 Prepares a complete local execution package.
 
 ```bash
-node ./src/cli.js run examples/project-contract.yaml
+node ./src/cli.js run packages/aix-core/examples/project-contract.yaml
 ```
 
 `run` performs:
@@ -78,7 +78,7 @@ It does not call an AI model.
 Validates whether an interface system can be used for orchestration.
 
 ```bash
-node ./src/cli.js interface inspect-system interface/systems/aix-interface-system.yaml
+node ./src/cli.js interface inspect-system packages/aix-design/interface/systems/aix-interface-system.yaml
 ```
 
 ### interface plan
@@ -86,7 +86,7 @@ node ./src/cli.js interface inspect-system interface/systems/aix-interface-syste
 Creates a structured interface plan from a requirement, design system, and UX research findings.
 
 ```bash
-node ./src/cli.js interface plan interface/requirements/contract-inspection.yaml --system interface/systems/aix-interface-system.yaml --research interface/research/aix-findings.yaml
+node ./src/cli.js interface plan packages/aix-design/interface/requirements/contract-inspection.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml --research packages/aix-design/interface/research/aix-findings.yaml
 ```
 
 Use `--out <file>` to write the generated plan. Existing files are not overwritten unless `--force` is also provided.
@@ -96,7 +96,7 @@ Use `--out <file>` to write the generated plan. Existing files are not overwritt
 Checks whether an interface plan is ready for prompt generation.
 
 ```bash
-node ./src/cli.js interface inspect-plan interface/plans/contract-inspection.plan.yaml
+node ./src/cli.js interface inspect-plan packages/aix-design/interface/plans/contract-inspection.plan.yaml
 ```
 
 `inspect-plan` reports unresolved design-system gaps, missing research links, and invalid plan structure.
@@ -106,7 +106,7 @@ node ./src/cli.js interface inspect-plan interface/plans/contract-inspection.pla
 Generates implementation guidance from an approved interface plan.
 
 ```bash
-node ./src/cli.js interface prompt interface/plans/contract-inspection.plan.yaml
+node ./src/cli.js interface prompt packages/aix-design/interface/plans/contract-inspection.plan.yaml
 ```
 
 This command does not render UI. It preserves the orchestration boundary by instructing implementers to use the approved plan, patterns, and components.
@@ -127,6 +127,6 @@ npm test
 When running from outside the project directory, use paths from your current location:
 
 ```bash
-node ./aix-framework/src/cli.js inspect aix-framework/examples/project-contract.yaml
-node ./aix-framework/src/cli.js interface inspect-system aix-framework/interface/systems/aix-interface-system.yaml
+node ./aix-framework/src/cli.js inspect aix-framework/packages/aix-core/examples/project-contract.yaml
+node ./aix-framework/src/cli.js interface inspect-system aix-framework/packages/aix-design/interface/systems/aix-interface-system.yaml
 ```

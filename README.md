@@ -41,21 +41,21 @@ Commands can be run from any current working directory when paths are provided c
 
 ```bash
 node ./src/cli.js init my-contract.yaml
-node ./src/cli.js inspect examples/project-contract.yaml
-node ./src/cli.js inspect examples/project-contract.yaml --json
-node ./src/cli.js prompt examples/project-contract.yaml
-node ./src/cli.js prompt examples/project-contract.yaml --out prompt.md
-node ./src/cli.js run examples/project-contract.yaml
-node ./src/cli.js interface inspect-system interface/systems/aix-interface-system.yaml
-node ./src/cli.js interface plan interface/requirements/contract-inspection.yaml --system interface/systems/aix-interface-system.yaml --research interface/research/aix-findings.yaml
-node ./src/cli.js interface inspect-plan interface/plans/contract-inspection.plan.yaml
-node ./src/cli.js interface prompt interface/plans/contract-inspection.plan.yaml
+node ./src/cli.js inspect packages/aix-core/examples/project-contract.yaml
+node ./src/cli.js inspect packages/aix-core/examples/project-contract.yaml --json
+node ./src/cli.js prompt packages/aix-core/examples/project-contract.yaml
+node ./src/cli.js prompt packages/aix-core/examples/project-contract.yaml --out prompt.md
+node ./src/cli.js run packages/aix-core/examples/project-contract.yaml
+node ./src/cli.js interface inspect-system packages/aix-design/interface/systems/aix-interface-system.yaml
+node ./src/cli.js interface plan packages/aix-design/interface/requirements/contract-inspection.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml --research packages/aix-design/interface/research/aix-findings.yaml
+node ./src/cli.js interface inspect-plan packages/aix-design/interface/plans/contract-inspection.plan.yaml
+node ./src/cli.js interface prompt packages/aix-design/interface/plans/contract-inspection.plan.yaml
 ```
 
 When running from outside the project directory, use paths from your current location:
 
 ```bash
-node ./aix-framework/src/cli.js inspect aix-framework/examples/project-contract.yaml
+node ./aix-framework/src/cli.js inspect aix-framework/packages/aix-core/examples/project-contract.yaml
 ```
 
 ---
@@ -64,8 +64,8 @@ node ./aix-framework/src/cli.js inspect aix-framework/examples/project-contract.
 
 The repo includes two valid example contracts:
 
-- `examples/project-contract.yaml` demonstrates a generic project-assistance contract.
-- `examples/research-contract.yaml` demonstrates a research-summary contract.
+- `packages/aix-core/examples/project-contract.yaml` demonstrates a generic project-assistance contract.
+- `packages/aix-core/examples/research-contract.yaml` demonstrates a research-summary contract.
 
 Run them with:
 
@@ -110,7 +110,7 @@ The interface workflow turns structured UX requirements, research findings, and 
 Design systems are variable. Use an existing AIX system YAML, or import a portable Open Design-style `DESIGN.md` into an AIX interface system:
 
 ```bash
-node ./src/cli.js interface import-design-md path/to/DESIGN.md --name "Brand Interface System" --out interface/systems/brand-interface-system.yaml
+node ./src/cli.js interface import-design-md path/to/DESIGN.md --name "Brand Interface System" --out packages/aix-design/interface/systems/brand-interface-system.yaml
 ```
 
 The first included proof case is an AIX contract inspection review screen.
@@ -133,6 +133,7 @@ An AIX contract has five core sections:
 
 - [CLI reference](docs/cli.md)
 - [Interface orchestration](docs/interface.md)
+- [Module architecture](docs/architecture.md)
 - [Contract schema](docs/schema.md)
 - [Examples](docs/examples.md)
 - [Principles](docs/principles.md)

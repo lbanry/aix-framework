@@ -15,11 +15,13 @@
     "cli",
     "validation"
   ],
+  "workspaces": [
+    "packages/aix-core",
+    "packages/aix-design"
+  ],
   "files": [
     "src",
-    "spec",
-    "interface",
-    "examples",
+    "packages",
     "docs",
     "README.md",
     "CHANGELOG.md",
@@ -31,11 +33,11 @@
   "scripts": {
     "aix": "node ./src/cli.js",
     "test": "node ./tests/smoke-test.mjs",
-    "test:project": "node ./src/cli.js run examples/project-contract.yaml",
-    "prompt:project": "node ./src/cli.js prompt examples/project-contract.yaml",
-    "inspect:project": "node ./src/cli.js inspect examples/project-contract.yaml",
-    "inspect:research": "node ./src/cli.js inspect examples/research-contract.yaml",
-    "prompt:research": "node ./src/cli.js prompt examples/research-contract.yaml"
+    "test:project": "node ./src/cli.js run packages/aix-core/examples/project-contract.yaml",
+    "prompt:project": "node ./src/cli.js prompt packages/aix-core/examples/project-contract.yaml",
+    "inspect:project": "node ./src/cli.js inspect packages/aix-core/examples/project-contract.yaml",
+    "inspect:research": "node ./src/cli.js inspect packages/aix-core/examples/research-contract.yaml",
+    "prompt:research": "node ./src/cli.js prompt packages/aix-core/examples/research-contract.yaml"
   },
   "dependencies": {
     "ajv": "^8.20.0",
