@@ -20,6 +20,13 @@ components:
       - strong
       - warning
       - blocked
+    render:
+      element: aside
+      role: status
+      variant: readiness-summary
+      layout: stack
+      emphasis: status
+      label_style: status
     rules:
       - Pair the numeric score with a plain-language status.
       - Place before detailed findings.
@@ -31,6 +38,13 @@ components:
     states:
       - pass
       - fail
+    render:
+      element: aside
+      role: status
+      variant: validation-status
+      layout: stack
+      emphasis: status
+      label_style: status
     rules:
       - Show failures before optional suggestions.
       - Use direct language for validation failures.
@@ -38,6 +52,13 @@ components:
     purpose: Show execution risks that need human review.
     supports:
       - warnings
+    render:
+      element: aside
+      role: status
+      variant: warning-list
+      layout: stack
+      emphasis: status
+      label_style: status
     rules:
       - Keep warnings separate from suggestions.
       - Sort warnings before lower-priority guidance.
@@ -45,12 +66,24 @@ components:
     purpose: Show optional improvements that can strengthen the contract.
     supports:
       - suggestions
+    render:
+      element: article
+      variant: suggestion-list
+      layout: stack
+      emphasis: secondary
+      label_style: heading
     rules:
       - Do not present optional suggestions as blockers.
   - id: ActionBar
     purpose: Present the next useful actions after review.
     supports:
       - next_actions
+    render:
+      element: button
+      variant: action-group
+      layout: inline
+      emphasis: primary
+      label_style: verb
     rules:
       - Actions must follow the inspection summary.
       - Prefer inspect, refine, prompt, and run actions.

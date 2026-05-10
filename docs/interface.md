@@ -80,6 +80,17 @@ components:
 
 The prototype scaffold uses `render` metadata when present and falls back to conservative semantic surfaces when it is absent.
 
+Prototype verification validates this bridge:
+
+- components without render metadata produce warnings and use a generic `article` fallback
+- unsupported render elements produce errors
+- render label and emphasis choices are checked against known element behavior
+- generated CSS must not reference unknown AIX token variables
+- hardcoded colors must be declared by the source interface system
+- statically detectable `DESIGN.md` generation constraints, such as avoiding gradients, are enforced
+
+Each finding includes a stable rule ID, category, source path, and suggested fix for agent-readable repair workflows.
+
 Research findings define user goals, pain points, implications, task coverage, and information coverage.
 
 Interface requirements define the screen goal, task type, risk level, required information, actions, and constraints.

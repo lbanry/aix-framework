@@ -19,6 +19,8 @@ It extends the AIX workflow for UX/UI planning while keeping interface-specific 
 
 Imported components may include optional `render` metadata. This keeps the interface system deterministic while giving prototype scaffolding enough information to choose semantic HTML elements and variants.
 
+Prototype validation treats render metadata as part of the design-system contract. Missing metadata is a warning, invalid metadata is an error, and findings include rule categories and suggested fixes for later AI-assisted repair.
+
 ## Prototypes
 
 Prototype scaffolding is deterministic and does not call an AI model. Generated files should be written under the repo-level `prototypes/` directory, which is local-only by default.

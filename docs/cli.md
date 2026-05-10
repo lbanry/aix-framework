@@ -143,6 +143,8 @@ node ./src/cli.js interface prototype verify prototypes/contract-inspection-revi
 
 Use `--json` for a machine-readable validation report.
 
+The validation report includes stable rule IDs, categories, source paths, and suggested fixes. It checks plan traceability, approved patterns/components, semantic HTML basics, token references, render metadata, and statically detectable design constraints.
+
 ### interface prototype dev
 
 Serves a generated prototype directory locally.

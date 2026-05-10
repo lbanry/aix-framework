@@ -13,8 +13,11 @@
         "required": ["rule_id", "severity", "message"],
         "properties": {
           "rule_id": { "type": "string", "minLength": 1 },
+          "category": { "type": "string", "minLength": 1 },
           "severity": { "type": "string", "enum": ["error", "warning", "info"] },
           "message": { "type": "string", "minLength": 1 },
+          "source_path": { "type": "string", "minLength": 1 },
+          "suggested_fix": { "type": "string", "minLength": 1 },
           "selector": { "type": "string", "minLength": 1 },
           "source": {
             "type": "object",

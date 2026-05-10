@@ -285,13 +285,15 @@ assert.equal(generatedManifest.source_system, "packages/aix-design/interface/sys
 assert.equal(generatedManifest.sections.length, 5);
 assert.ok(generatedManifest.validation_rules.includes("prototype.design.component-approved"));
 assert.equal(generatedManifest.sections[0].render[0].component, "ReadinessScore");
-assert.equal(generatedManifest.sections[0].render[0].element, "article");
+assert.equal(generatedManifest.sections[0].render[0].element, "aside");
+assert.equal(generatedManifest.sections[0].render[0].emphasis, "status");
 
 const generatedHtml = fs.readFileSync(new URL("./tmp-contract-prototype/index.html", import.meta.url), "utf8");
 assert.match(generatedHtml, /data-aix-screen="contract-inspection-review"/);
 assert.match(generatedHtml, /data-aix-section="readiness-score"/);
 assert.match(generatedHtml, /data-aix-component="ReadinessScore"/);
-assert.match(generatedHtml, /data-aix-render-element="article"/);
+assert.match(generatedHtml, /data-aix-render-element="aside"/);
+assert.match(generatedHtml, /data-aix-render-emphasis="status"/);
 assert.match(generatedHtml, /class="aix-rendered-component/);
 
 const prototypeVerify = run([
@@ -310,6 +312,7 @@ assert.equal(prototypeVerify.status, 0, prototypeVerify.stderr || prototypeVerif
 const prototypeReport = JSON.parse(prototypeVerify.stdout);
 assert.equal(prototypeReport.valid, true);
 assert.equal(prototypeReport.summary.errors, 0);
+assert.equal(prototypeReport.summary.warnings, 0);
 
 const sourceTracedSystemPath = new URL("./tmp-source-traced-system.yaml", import.meta.url);
 fs.writeFileSync(sourceTracedSystemPath, `name: Source Traced AIX Interface System
@@ -421,8 +424,161 @@ const tracedManifest = JSON.parse(fs.readFileSync(new URL("./tmp-traced-prototyp
 assert.equal(tracedManifest.design_source.path, "packages/aix-design/tests/fixtures/rich-design.md");
 assert.match(JSON.stringify(tracedManifest.design_context), /Calm operational clarity/);
 
+const tracedHtmlPath = new URL("./tmp-traced-prototype/index.html", import.meta.url);
+const originalTracedHtml = fs.readFileSync(tracedHtmlPath, "utf8");
+
+fs.writeFileSync(
+  tracedHtmlPath,
+  originalTracedHtml.replace("</style>", ".bad-gradient { background: linear-gradient(red, blue); }\n</style>")
+);
+
+const gradientVerify = run([
+  "./src/cli.js",
+  "interface",
+  "prototype",
+  "verify",
+  "tests/tmp-traced-prototype",
+  "--plan",
+  "packages/aix-design/interface/plans/contract-inspection.plan.yaml",
+  "--system",
+  "tests/tmp-source-traced-system.yaml",
+  "--json"
+]);
+assert.notEqual(gradientVerify.status, 0, "Expected gradient constraint verification to fail.");
+const gradientReport = JSON.parse(gradientVerify.stdout);
+assert.equal(gradientReport.valid, false);
+assert.ok(gradientReport.findings.some((finding) => {
+  return finding.rule_id === "prototype.design.constraint-followed"
+    && finding.category === "design"
+    && /Remove gradient CSS/.test(finding.suggested_fix);
+}));
+
+fs.writeFileSync(
+  tracedHtmlPath,
+  originalTracedHtml.replace("</style>", ".bad-token { color: var(--aix-color-unknown); }\n</style>")
+);
+
+const unknownTokenVerify = run([
+  "./src/cli.js",
+  "interface",
+  "prototype",
+  "verify",
+  "tests/tmp-traced-prototype",
+  "--plan",
+  "packages/aix-design/interface/plans/contract-inspection.plan.yaml",
+  "--system",
+  "tests/tmp-source-traced-system.yaml",
+  "--json"
+]);
+assert.notEqual(unknownTokenVerify.status, 0, "Expected unknown token verification to fail.");
+const unknownTokenReport = JSON.parse(unknownTokenVerify.stdout);
+assert.ok(unknownTokenReport.findings.some((finding) => {
+  return finding.rule_id === "prototype.tokens.no-unknown-token"
+    && finding.category === "tokens"
+    && /Replace the token reference/.test(finding.suggested_fix);
+}));
+
 fs.rmSync(tracedPrototypeOut, { recursive: true, force: true });
 fs.unlinkSync(sourceTracedSystemPath);
+
+const invalidRenderSystemPath = new URL("./tmp-invalid-render-system.yaml", import.meta.url);
+fs.writeFileSync(invalidRenderSystemPath, `name: Invalid Render AIX Interface System
+version: 0.1.0
+tokens:
+  color:
+    - status.pass
+    - status.warning
+    - status.error
+    - surface.default
+    - text.primary
+  spacing:
+    - compact
+    - regular
+    - section
+components:
+  - id: ReadinessScore
+    purpose: Show readiness.
+    supports:
+      - readiness_score
+    render:
+      element: marquee
+      label_style: heading
+      emphasis: secondary
+    rules:
+      - Show readiness first.
+  - id: ValidationStatus
+    purpose: Show validation.
+    supports:
+      - schema_errors
+    rules:
+      - Show failures before optional suggestions.
+  - id: WarningList
+    purpose: Show warnings.
+    supports:
+      - warnings
+    rules:
+      - Keep warnings separate from suggestions.
+  - id: SuggestionList
+    purpose: Show suggestions.
+    supports:
+      - suggestions
+    rules:
+      - Do not present optional suggestions as blockers.
+  - id: ActionBar
+    purpose: Present next actions.
+    supports:
+      - next_actions
+    rules:
+      - Actions must follow the inspection summary.
+patterns:
+  - id: inspection_results
+    purpose: Review inspection results.
+    use_when:
+      - validation_review
+    required_components:
+      - ReadinessScore
+      - ValidationStatus
+      - WarningList
+      - SuggestionList
+      - ActionBar
+    information_order:
+      - readiness_score
+      - schema_errors
+      - warnings
+      - suggestions
+      - next_actions
+    rules:
+      - Use approved components only.
+accessibility_rules:
+  - Do not rely on color alone.
+`);
+
+const invalidRenderOut = new URL("./tmp-invalid-render-prototype", import.meta.url);
+if (fs.existsSync(invalidRenderOut)) {
+  fs.rmSync(invalidRenderOut, { recursive: true, force: true });
+}
+
+const invalidRenderScaffold = run([
+  "./src/cli.js",
+  "interface",
+  "prototype",
+  "scaffold",
+  "packages/aix-design/interface/plans/contract-inspection.plan.yaml",
+  "--system",
+  "tests/tmp-invalid-render-system.yaml",
+  "--out",
+  "tests/tmp-invalid-render-prototype"
+]);
+assert.notEqual(invalidRenderScaffold.status, 0, "Expected invalid render scaffold to fail.");
+const invalidRenderReport = JSON.parse(fs.readFileSync(new URL("./tmp-invalid-render-prototype/validation-report.json", import.meta.url), "utf8"));
+assert.ok(invalidRenderReport.findings.some((finding) => {
+  return finding.rule_id === "prototype.render.element-allowed"
+    && finding.category === "render"
+    && /Use one of:/.test(finding.suggested_fix);
+}));
+
+fs.rmSync(invalidRenderOut, { recursive: true, force: true });
+fs.unlinkSync(invalidRenderSystemPath);
 
 assertFailure(
   [

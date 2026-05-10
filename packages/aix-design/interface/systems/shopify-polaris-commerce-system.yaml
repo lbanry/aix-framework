@@ -29,6 +29,12 @@ components:
     states:
       - default
       - focus
+    render:
+      element: header
+      variant: top-bar
+      layout: inline
+      emphasis: primary
+      label_style: heading
     rules:
       - Keep navigation task-oriented and predictable.
       - Preserve a clear primary action for the current commerce workflow.
@@ -40,6 +46,12 @@ components:
       - primary_cta
     states:
       - default
+    render:
+      element: header
+      variant: page-header
+      layout: stack
+      emphasis: primary
+      label_style: heading
     rules:
       - State the merchant or buyer outcome before supporting detail.
       - Pair one primary action with secondary navigation only when useful.
@@ -56,6 +68,12 @@ components:
       - plain
       - disabled
       - focus
+    render:
+      element: button
+      variant: polaris-button
+      layout: inline
+      emphasis: primary
+      label_style: verb
     rules:
       - Use clear sentence-case action labels.
       - Use buttons for actions and links for navigation.
@@ -73,6 +91,12 @@ components:
       - default
       - selected
       - focus
+    render:
+      element: article
+      variant: card
+      layout: stack
+      emphasis: secondary
+      label_style: heading
     rules:
       - One card should communicate one decision, offer, or status.
       - Cards must not hide required pricing, delivery, or revision limits.
@@ -86,6 +110,12 @@ components:
       - selected
       - unselected
       - focus
+    render:
+      element: fieldset
+      variant: choice-list
+      layout: stack
+      emphasis: input
+      label_style: option
     rules:
       - Use single-select behavior when exactly one choice is allowed.
       - Each visual style needs a preview, name, and short fit description.
@@ -100,6 +130,12 @@ components:
       - default
       - error
       - focus
+    render:
+      element: form
+      variant: form-layout
+      layout: stack
+      emphasis: input
+      label_style: label
     rules:
       - Group related fields so the customer understands why each field is needed.
       - Required fields must use visible labels and validation-friendly controls.
@@ -111,6 +147,13 @@ components:
       - default
       - selected
       - error
+    render:
+      element: input
+      role: file
+      variant: drop-zone
+      layout: stack
+      emphasis: input
+      label_style: label
     rules:
       - State the required photo count before upload.
       - Do not imply exact likeness is guaranteed.
@@ -123,6 +166,13 @@ components:
       - checked
       - unchecked
       - focus
+    render:
+      element: input
+      role: checkbox
+      variant: checkbox
+      layout: inline
+      emphasis: input
+      label_style: label
     rules:
       - Consent language must be explicit and human-readable.
       - Optional upgrade choices must remain inquiry-based for MVP.
@@ -134,6 +184,12 @@ components:
       - admin_order_record
     states:
       - default
+    render:
+      element: dl
+      variant: description-list
+      layout: stack
+      emphasis: data
+      label_style: term
     rules:
       - Keep labels parallel and values concise.
       - Do not rely on color alone to communicate status.
@@ -145,6 +201,12 @@ components:
       - expanded
       - collapsed
       - focus
+    render:
+      element: details
+      variant: accordion
+      layout: stack
+      emphasis: secondary
+      label_style: summary
     rules:
       - Question labels must match likely buyer objections.
       - Answers must stay specific to MVP scope and exclusions.
@@ -157,6 +219,13 @@ components:
       - info
       - success
       - warning
+    render:
+      element: aside
+      role: status
+      variant: banner
+      layout: stack
+      emphasis: status
+      label_style: status
     rules:
       - Banners must say what happened and what happens next.
       - Use warning tone only for constraints that could change buyer expectations.

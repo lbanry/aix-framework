@@ -11,6 +11,10 @@ const validationRules = [
   "prototype.html.heading-order",
   "prototype.html.button-name",
   "prototype.tokens.no-unknown-token",
+  "prototype.render.metadata-present",
+  "prototype.render.element-allowed",
+  "prototype.render.compatible-label",
+  "prototype.render.compatible-emphasis",
   "prototype.design.no-invented-colors",
   "prototype.design.component-approved",
   "prototype.design.constraint-followed",
@@ -23,6 +27,47 @@ const defaultComponentRender = {
   layout: "stack",
   emphasis: "secondary",
   label_style: "heading"
+};
+
+const allowedRenderElements = new Set([
+  "article",
+  "aside",
+  "button",
+  "details",
+  "div",
+  "dl",
+  "fieldset",
+  "form",
+  "header",
+  "input",
+  "section"
+]);
+
+const renderCompatibility = {
+  button: {
+    labelStyles: new Set(["verb"]),
+    emphases: new Set(["primary", "secondary"])
+  },
+  form: {
+    labelStyles: new Set(["label"]),
+    emphases: new Set(["input"])
+  },
+  fieldset: {
+    labelStyles: new Set(["label", "option"]),
+    emphases: new Set(["input"])
+  },
+  input: {
+    labelStyles: new Set(["label"]),
+    emphases: new Set(["input"])
+  },
+  dl: {
+    labelStyles: new Set(["term"]),
+    emphases: new Set(["data"])
+  },
+  details: {
+    labelStyles: new Set(["heading", "summary"]),
+    emphases: new Set(["secondary", "subtle"])
+  }
 };
 
 function escapeHtml(value) {
@@ -350,9 +395,85 @@ button {
 function addFinding(findings, ruleId, severity, message, extra = {}) {
   findings.push({
     rule_id: ruleId,
+    category: extra.category || ruleId.split(".")[1] || "prototype",
     severity,
     message,
-    ...extra
+    source_path: extra.source_path,
+    suggested_fix: extra.suggested_fix,
+    selector: extra.selector,
+    source: extra.source
+  });
+}
+
+function cleanFindings(findings) {
+  return findings.map((finding) => {
+    return Object.fromEntries(
+      Object.entries(finding).filter(([, value]) => value !== undefined)
+    );
+  });
+}
+
+function reportFor(prototypeDir, findings) {
+  const cleanedFindings = cleanFindings(findings);
+  const errors = cleanedFindings.filter((finding) => finding.severity === "error").length;
+  const warnings = cleanedFindings.filter((finding) => finding.severity === "warning").length;
+
+  return {
+    valid: errors === 0,
+    prototype_dir: prototypeDir,
+    findings: cleanedFindings,
+    summary: {
+      errors,
+      warnings
+    }
+  };
+}
+
+function renderSourcePath(system, componentId) {
+  if (system.source?.path) {
+    return `${system.source.path} -> components.${componentId}.render`;
+  }
+
+  return `interface-system -> components.${componentId}.render`;
+}
+
+function validateRenderMetadata(findings, system) {
+  system.components.forEach((component) => {
+    if (!component.render) {
+      addFinding(findings, "prototype.render.metadata-present", "warning", `Component '${component.id}' has no render metadata and will use the generic article fallback.`, {
+        source_path: renderSourcePath(system, component.id),
+        suggested_fix: "Add render.element, render.variant, render.layout, render.emphasis, and render.label_style to the component."
+      });
+      return;
+    }
+
+    const element = component.render.element;
+    if (element && !allowedRenderElements.has(element)) {
+      addFinding(findings, "prototype.render.element-allowed", "error", `Component '${component.id}' uses unsupported render element '${element}'.`, {
+        source_path: renderSourcePath(system, component.id),
+        suggested_fix: `Use one of: ${[...allowedRenderElements].join(", ")}.`,
+        source: { component: component.id, element }
+      });
+    }
+
+    const compatibility = renderCompatibility[element];
+    if (!compatibility) return;
+
+    if (component.render.label_style && !compatibility.labelStyles.has(component.render.label_style)) {
+      addFinding(findings, "prototype.render.compatible-label", "error", `Component '${component.id}' uses label style '${component.render.label_style}' that does not match render element '${element}'.`, {
+        source_path: renderSourcePath(system, component.id),
+        suggested_fix: `Use label_style ${[...compatibility.labelStyles].join(" or ")} for ${element} components.`,
+        source: { component: component.id, element, label_style: component.render.label_style }
+      });
+    }
+
+    if (component.render.emphasis && !compatibility.emphases.has(component.render.emphasis)) {
+      addFinding(findings, "prototype.render.compatible-emphasis", "error", `Component '${component.id}' uses emphasis '${component.render.emphasis}' that does not match render element '${element}'.`, {
+        source_path: renderSourcePath(system, component.id),
+        suggested_fix: `Use emphasis ${[...compatibility.emphases].join(" or ")} for ${element} components.`,
+        source: { component: component.id, element, emphasis: component.render.emphasis }
+      });
+    }
   });
 }
 
@@ -394,10 +515,13 @@ function allowedTokenVars(system) {
 
 function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
   const findings = [];
+  validateRenderMetadata(findings, system);
 
   if (!html.includes(`data-aix-screen="${plan.screen_id}"`)) {
     addFinding(findings, "prototype.plan.screen-mapped", "error", "Generated HTML does not map to the source plan screen.", {
       selector: "[data-aix-screen]",
+      source_path: manifest.source_plan,
+      suggested_fix: "Regenerate the prototype from the source plan or restore the expected data-aix-screen marker.",
       source: { screen_id: plan.screen_id }
     });
   }
@@ -407,6 +531,8 @@ function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
     if (countMatches(html, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) !== 1) {
       addFinding(findings, "prototype.plan.section-mapped", "error", `Section '${section.id}' is not rendered exactly once.`, {
         selector: `[data-aix-section="${section.id}"]`,
+        source_path: manifest.source_plan,
+        suggested_fix: "Regenerate the prototype or restore the missing section marker so every plan section appears exactly once.",
         source: { plan_section: section.id }
       });
     }
@@ -417,6 +543,8 @@ function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
     if (!approvedPatterns.has(patternId)) {
       addFinding(findings, "prototype.system.pattern-approved", "error", `Pattern '${patternId}' is not approved by the source system.`, {
         selector: `[data-aix-pattern="${patternId}"]`,
+        source_path: manifest.source_system,
+        suggested_fix: "Use a pattern listed in the source interface system or update the interface plan.",
         source: { pattern: patternId }
       });
     }
@@ -427,19 +555,26 @@ function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
     if (!approvedComponents.has(componentId)) {
       addFinding(findings, "prototype.system.component-approved", "error", `Component '${componentId}' is not approved by the source system.`, {
         selector: `[data-aix-component="${componentId}"]`,
+        source_path: manifest.source_system,
+        suggested_fix: "Use an approved component from the source interface system or update the system before scaffolding.",
         source: { component: componentId }
       });
     }
   });
 
   if (countMatches(html, /<main[\s>]/g) !== 1) {
-    addFinding(findings, "prototype.html.semantic-main", "error", "Generated HTML must contain exactly one main landmark.");
+    addFinding(findings, "prototype.html.semantic-main", "error", "Generated HTML must contain exactly one main landmark.", {
+      source_path: `${prototypeDir}/index.html`,
+      suggested_fix: "Keep one semantic main element around the prototype content."
+    });
   }
 
   const headingLevels = [...html.matchAll(/<h([1-6])[\s>]/g)].map((match) => Number(match[1]));
   headingLevels.forEach((level, index) => {
     if (index > 0 && level - headingLevels[index - 1] > 1) {
       addFinding(findings, "prototype.html.heading-order", "error", "Generated headings skip a level.", {
+        source_path: `${prototypeDir}/index.html`,
+        suggested_fix: "Adjust heading levels so they increase by no more than one level at a time.",
         source: { previous: headingLevels[index - 1], current: level }
       });
     }
@@ -447,14 +582,21 @@ function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
 
   [...html.matchAll(/<button\b[^>]*>(.*?)<\/button>/gis)].forEach((match) => {
     if (!match[1].replace(/<[^>]+>/g, "").trim()) {
-      addFinding(findings, "prototype.html.button-name", "error", "Button is missing accessible text.");
+      addFinding(findings, "prototype.html.button-name", "error", "Button is missing accessible text.", {
+        source_path: `${prototypeDir}/index.html`,
+        suggested_fix: "Add concise visible text to every button."
+      });
     }
   });
 
   const allowedVars = allowedTokenVars(system);
   extractTokenVars(html).forEach((tokenVar) => {
     if (!allowedVars.has(tokenVar)) {
-      addFinding(findings, "prototype.tokens.no-unknown-token", "error", `Unknown design token '${tokenVar}' is referenced.`);
+      addFinding(findings, "prototype.tokens.no-unknown-token", "error", `Unknown design token '${tokenVar}' is referenced.`, {
+        source_path: `${prototypeDir}/index.html`,
+        suggested_fix: "Replace the token reference with one generated from the source interface system tokens.",
+        source: { token: tokenVar }
+      });
     }
   });
 
@@ -462,7 +604,11 @@ function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
   const approvedColors = new Set((system.tokens.color || []).filter((token) => /^#[0-9a-f]{6}$/i.test(token)).map((token) => token.toLowerCase()));
   colorValues.forEach((color) => {
     if (!approvedColors.has(color)) {
-      addFinding(findings, "prototype.design.no-invented-colors", "error", `Color '${color}' is not declared in the source system.`);
+      addFinding(findings, "prototype.design.no-invented-colors", "error", `Color '${color}' is not declared in the source system.`, {
+        source_path: `${prototypeDir}/index.html`,
+        suggested_fix: "Use a declared color token or add the color to the interface system before scaffolding.",
+        source: { color }
+      });
     }
   });
 
@@ -470,6 +616,8 @@ function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
     section.components.forEach((componentId) => {
       if (!approvedComponents.has(componentId)) {
         addFinding(findings, "prototype.design.component-approved", "error", `Manifest references unapproved component '${componentId}'.`, {
+          source_path: `${prototypeDir}/prototype.json`,
+          suggested_fix: "Update the manifest by regenerating from a valid interface plan and system.",
           source: { component: componentId }
         });
       }
@@ -479,28 +627,23 @@ function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
   if (Array.isArray(system.generation_constraints)) {
     const forbiddenGradient = system.generation_constraints.some((constraint) => /gradient/i.test(constraint));
     if (forbiddenGradient && /linear-gradient|radial-gradient/i.test(html)) {
-      addFinding(findings, "prototype.design.constraint-followed", "error", "Generated HTML violates a gradient-related design constraint.");
+      addFinding(findings, "prototype.design.constraint-followed", "error", "Generated HTML violates a gradient-related design constraint.", {
+        source_path: system.source?.path || manifest.source_system,
+        suggested_fix: "Remove gradient CSS or revise the DESIGN.md generation constraint if gradients are intended."
+      });
     }
   }
 
   if (Array.isArray(system.accessibility_rules) && system.accessibility_rules.some((rule) => /color alone/i.test(rule))) {
     if (!/status|state|warning|error|success|validation|readiness/i.test(html)) {
-      addFinding(findings, "prototype.design.accessibility-rule-covered", "warning", "Accessibility rules mention status text, but no explicit status language was found.");
+      addFinding(findings, "prototype.design.accessibility-rule-covered", "warning", "Accessibility rules mention status text, but no explicit status language was found.", {
+        source_path: manifest.source_system,
+        suggested_fix: "Add explicit state or status language, or refine the accessibility rule if it does not apply."
+      });
     }
   }
 
-  const errors = findings.filter((finding) => finding.severity === "error").length;
-  const warnings = findings.filter((finding) => finding.severity === "warning").length;
-
-  return {
-    valid: errors === 0,
-    prototype_dir: prototypeDir,
-    findings,
-    summary: {
-      errors,
-      warnings
-    }
-  };
+  return reportFor(prototypeDir, findings);
 }
 
 export function verifyPrototypeDirectory(prototypeDir, plan, system) {
@@ -513,8 +656,11 @@ export function verifyPrototypeDirectory(prototypeDir, plan, system) {
       prototype_dir: prototypeDir,
       findings: [{
         rule_id: "prototype.manifest.exists",
+        category: "manifest",
         severity: "error",
-        message: "prototype.json is missing."
+        message: "prototype.json is missing.",
+        source_path: path.join(prototypeDir, "prototype.json"),
+        suggested_fix: "Run prototype scaffold again to regenerate prototype.json."
       }],
       summary: { errors: 1, warnings: 0 }
     };
@@ -526,8 +672,11 @@ export function verifyPrototypeDirectory(prototypeDir, plan, system) {
       prototype_dir: prototypeDir,
       findings: [{
         rule_id: "prototype.html.exists",
+        category: "html",
         severity: "error",
-        message: "index.html is missing."
+        message: "index.html is missing.",
+        source_path: path.join(prototypeDir, "index.html"),
+        suggested_fix: "Run prototype scaffold again to regenerate index.html."
       }],
       summary: { errors: 1, warnings: 0 }
     };

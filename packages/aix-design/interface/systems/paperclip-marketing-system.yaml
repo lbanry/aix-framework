@@ -22,6 +22,12 @@ components:
       - primary_cta
     states:
       - default
+    render:
+      element: header
+      variant: product-hero
+      layout: stack
+      emphasis: primary
+      label_style: heading
     rules:
       - Use the product name as the strongest first-viewport signal.
       - Pair the headline with one concrete operational outcome.
@@ -30,6 +36,12 @@ components:
     supports:
       - problem
       - solution
+    render:
+      element: dl
+      variant: problem-solution-grid
+      layout: grid
+      emphasis: data
+      label_style: term
     rules:
       - Keep problem statements specific to agent coordination, cost, context, and governance.
       - Show the solution immediately beside the problem.
@@ -37,6 +49,12 @@ components:
     purpose: Explain how the buyer starts using Paperclip.
     supports:
       - workflow
+    render:
+      element: section
+      variant: operating-model-steps
+      layout: stack
+      emphasis: secondary
+      label_style: heading
     rules:
       - Use three to five steps.
       - Start with goals, then team configuration, then monitored execution.
@@ -44,6 +62,12 @@ components:
     purpose: Show the core product capabilities without turning them into marketing fluff.
     supports:
       - capabilities
+    render:
+      element: dl
+      variant: capability-matrix
+      layout: grid
+      emphasis: data
+      label_style: term
     rules:
       - Group capabilities by operational job.
       - Keep labels short and scan-friendly.
@@ -51,6 +75,12 @@ components:
     purpose: Show that Paperclip coordinates multiple agent runtimes.
     supports:
       - integrations
+    render:
+      element: section
+      variant: integration-strip
+      layout: inline
+      emphasis: subtle
+      label_style: heading
     rules:
       - Use real supported runtimes from the Paperclip repo.
       - Do not imply Paperclip replaces the agent runtime.
@@ -58,12 +88,24 @@ components:
     purpose: Communicate deployment, control, and governance proof points.
     supports:
       - proof
+    render:
+      element: aside
+      variant: trust-proof-band
+      layout: grid
+      emphasis: status
+      label_style: status
     rules:
       - Include self-hosting, auditability, budget control, and approval gates.
   - id: ConversionPanel
     purpose: Close the page with the fastest path to trying Paperclip.
     supports:
       - secondary_cta
+    render:
+      element: button
+      variant: conversion-panel
+      layout: stack
+      emphasis: secondary
+      label_style: verb
     rules:
       - Use the documented quickstart command.
       - Make clear that no Paperclip account is required for local use.
