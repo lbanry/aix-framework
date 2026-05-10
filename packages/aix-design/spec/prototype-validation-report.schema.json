@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["valid", "prototype_dir", "findings", "summary"],
+  "properties": {
+    "valid": { "type": "boolean" },
+    "prototype_dir": { "type": "string", "minLength": 1 },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rule_id", "severity", "message"],
+        "properties": {
+          "rule_id": { "type": "string", "minLength": 1 },
+          "severity": { "type": "string", "enum": ["error", "warning", "info"] },
+          "message": { "type": "string", "minLength": 1 },
+          "selector": { "type": "string", "minLength": 1 },
+          "source": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["errors", "warnings"],
+      "properties": {
+        "errors": { "type": "integer", "minimum": 0 },
+        "warnings": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

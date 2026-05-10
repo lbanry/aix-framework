@@ -8,9 +8,12 @@ import { initContract } from "../packages/aix-core/src/init.js";
 import {
   inspectInterfaceSystem,
   inspectInterfacePlan,
+  devPrototype,
   importInterfaceDesignSystem,
   planInterface,
-  promptInterface
+  promptInterface,
+  scaffoldPrototype,
+  verifyPrototype
 } from "../packages/aix-design/src/commands.js";
 
 const program = new Command();
@@ -106,6 +109,41 @@ interfaceCommand
   .description("Generate an implementation prompt from an approved interface plan")
   .action(async (planPath) => {
     await promptInterface(planPath);
+  });
+
+const prototypeCommand = interfaceCommand
+  .command("prototype")
+  .description("Generate, verify, and preview local prototypes from AIX interface plans");
+
+prototypeCommand
+  .command("scaffold")
+  .argument("<plan>", "Path to an AIX interface plan YAML file")
+  .requiredOption("--system <system>", "Path to an AIX interface system YAML file")
+  .requiredOption("--out <dir>", "Local output directory for generated prototype files")
+  .option("--force", "Overwrite existing prototype files")
+  .description("Generate a deterministic static prototype from an interface plan")
+  .action(async (planPath, options) => {
+    await scaffoldPrototype(planPath, options);
+  });
+
+prototypeCommand
+  .command("verify")
+  .argument("<prototypeDir>", "Path to a generated prototype directory")
+  .requiredOption("--plan <plan>", "Path to the source AIX interface plan YAML file")
+  .requiredOption("--system <system>", "Path to the source AIX interface system YAML file")
+  .option("--json", "Output machine-readable JSON")
+  .description("Verify generated prototype traceability and design-system compliance")
+  .action(async (prototypeDir, options) => {
+    await verifyPrototype(prototypeDir, options);
+  });
+
+prototypeCommand
+  .command("dev")
+  .argument("<prototypeDir>", "Path to a generated prototype directory")
+  .option("--port <port>", "Port for the local preview server", "4173")
+  .description("Serve a generated prototype directory locally")
+  .action(async (prototypeDir, options) => {
+    await devPrototype(prototypeDir, options);
   });
 
 program.parse();

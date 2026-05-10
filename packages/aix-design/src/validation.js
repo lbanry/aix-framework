@@ -11,7 +11,9 @@ const schemaFiles = {
   system: "interface-system.schema.json",
   research: "research-findings.schema.json",
   requirement: "interface-requirement.schema.json",
-  plan: "interface-plan.schema.json"
+  plan: "interface-plan.schema.json",
+  prototypeManifest: "prototype-manifest.schema.json",
+  prototypeValidationReport: "prototype-validation-report.schema.json"
 };
 
 const ajv = new Ajv({ allErrors: true });

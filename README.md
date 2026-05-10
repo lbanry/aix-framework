@@ -99,19 +99,28 @@ init -> inspect -> prompt
 
 ## Interface Orchestration
 
-AIX also supports design-system-aware interface planning:
+AIX also supports design-system-aware interface planning and local deterministic prototype generation:
 
 ```txt
-inspect-system -> plan -> inspect-plan -> prompt
+DESIGN.md -> interface system YAML -> plan -> inspect-plan -> prompt/prototype
 ```
 
 The interface workflow turns structured UX requirements, research findings, and design-system rules into a traceable interface plan. It chooses approved patterns and components first, flags gaps instead of inventing UI, and generates implementation guidance only after a valid plan exists.
 
-Design systems are variable. Use an existing AIX system YAML, or import a portable Open Design-style `DESIGN.md` into an AIX interface system:
+Design systems are variable. Use an existing AIX system YAML, or import a portable `DESIGN.md` into an AIX interface system. `DESIGN.md` is the AI-readable visual and UX reasoning layer; the generated YAML is the normalized AIX execution contract:
 
 ```bash
 node ./src/cli.js interface import-design-md path/to/DESIGN.md --name "Brand Interface System" --out packages/aix-design/interface/systems/brand-interface-system.yaml
 ```
+
+Prototype generation is deterministic and local-only by default:
+
+```bash
+node ./src/cli.js interface prototype scaffold packages/aix-design/interface/plans/contract-inspection.plan.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml --out prototypes/contract-inspection-review
+node ./src/cli.js interface prototype verify prototypes/contract-inspection-review --plan packages/aix-design/interface/plans/contract-inspection.plan.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml
+```
+
+Generated prototype files under `prototypes/` are not framework source and remain out of Git unless explicitly approved.
 
 The first included proof case is an AIX contract inspection review screen.
 

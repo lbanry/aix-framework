@@ -3,6 +3,11 @@ import YAML from "yaml";
 import { validateInterfaceArtifact } from "./validation.js";
 import { buildInterfacePlan, inspectInterfacePlan as inspectPlanReadiness } from "./planner.js";
 import { importDesignMarkdown } from "./design-md.js";
+import {
+  scaffoldPrototypeFiles,
+  servePrototypeDirectory,
+  verifyPrototypeDirectory
+} from "./prototype.js";
 
 function readYaml(filePath) {
   return YAML.parse(fs.readFileSync(filePath, "utf8"));
@@ -80,7 +85,7 @@ export async function importInterfaceDesignSystem(designPath, options = {}) {
     name: options.name,
     patternId: options.patternId,
     taskType: options.taskType,
-    sourceName: designPath.split(/[\\/]/).pop()
+    sourceName: designPath
   });
 
   assertValid("system", system);
@@ -204,4 +209,96 @@ ${formatList(plan.validation_checks)}
 
 ${plan.generation_boundary}
 `);
+}
+
+export async function scaffoldPrototype(planPath, options = {}) {
+  if (!options.system) {
+    console.error("--system is required.");
+    process.exit(1);
+  }
+
+  if (!options.out) {
+    console.error("--out is required.");
+    process.exit(1);
+  }
+
+  const plan = readYaml(planPath);
+  const system = readYaml(options.system);
+
+  assertValid("plan", plan);
+  assertValid("system", system);
+
+  const inspection = inspectPlanReadiness(plan);
+  if (!inspection.valid) {
+    printErrors("Interface plan is not ready for prototype generation:", inspection.warnings);
+    process.exit(1);
+  }
+
+  try {
+    const { manifest, report } = scaffoldPrototypeFiles(plan, system, {
+      out: options.out,
+      force: options.force,
+      planPath,
+      systemPath: options.system
+    });
+
+    assertValid("prototypeManifest", manifest);
+    assertValid("prototypeValidationReport", report);
+
+    console.log(`Wrote prototype: ${options.out}`);
+    console.log(`Validation: ${report.summary.errors} error(s), ${report.summary.warnings} warning(s)`);
+
+    if (!report.valid) {
+      process.exit(1);
+    }
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+}
+
+export async function verifyPrototype(prototypeDir, options = {}) {
+  if (!options.plan || !options.system) {
+    console.error("Both --plan and --system are required.");
+    process.exit(1);
+  }
+
+  const plan = readYaml(options.plan);
+  const system = readYaml(options.system);
+
+  assertValid("plan", plan);
+  assertValid("system", system);
+
+  const report = verifyPrototypeDirectory(prototypeDir, plan, system);
+  assertValid("prototypeValidationReport", report);
+
+  if (options.json) {
+    console.log(JSON.stringify(report, null, 2));
+  } else {
+    console.log("\nAIX Prototype Verification");
+    console.log("--------------------------");
+    console.log(`Prototype: ${prototypeDir}`);
+    console.log(`Errors: ${report.summary.errors}`);
+    console.log(`Warnings: ${report.summary.warnings}`);
+
+    if (report.findings.length) {
+      console.log("\nFindings");
+      report.findings.forEach((finding) => {
+        console.log(`- [${finding.severity}] ${finding.rule_id}: ${finding.message}`);
+      });
+    }
+
+    if (report.valid) {
+      console.log("\nResult");
+      console.log("✓ Prototype is valid.");
+    }
+  }
+
+  if (!report.valid) {
+    process.exit(1);
+  }
+}
+
+export async function devPrototype(prototypeDir, options = {}) {
+  servePrototypeDirectory(prototypeDir, options);
 }
