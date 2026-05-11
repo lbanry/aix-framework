@@ -51,10 +51,13 @@ Prototype generation uses the normalized interface system YAML, not raw Markdown
 ```bash
 node ./src/cli.js interface prototype scaffold packages/aix-design/interface/plans/contract-inspection.plan.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml --out prototypes/contract-inspection-review
 node ./src/cli.js interface prototype verify prototypes/contract-inspection-review --plan packages/aix-design/interface/plans/contract-inspection.plan.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml --json
+node ./src/cli.js interface prototype context packages/aix-design/interface/plans/contract-inspection.plan.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml --prototype prototypes/contract-inspection-review --out prototypes/contract-inspection-review/prototype-context.json
 node ./src/cli.js interface prototype dev prototypes/contract-inspection-review --port 4173
 ```
 
 Scaffold writes `index.html`, `prototype.json`, and `validation-report.json`. Generated prototype files belong under gitignored `prototypes/` and are local-only unless explicitly approved for publishing.
+
+The `context` command writes an AI-oriented context artifact for later opt-in generation work. It includes the interface plan, interface system, prototype manifest, latest validation report when available, and source DESIGN.md sections when the normalized system was imported from Markdown. It does not call an AI model.
 
 ## Artifacts
 
@@ -98,6 +101,8 @@ Interface requirements define the screen goal, task type, risk level, required i
 Interface plans define selected patterns and components, information hierarchy, research traceability, gaps, validation checks, and the generation boundary.
 
 Prototype manifests define source plan/system paths, design-source traceability, rendered sections, approved components, approved patterns, tokens, and stable validation rule IDs.
+
+Prototype contexts define the assembled generation context and the explicit AI boundary. They are for review, prompt preparation, and future opt-in AI generation; deterministic scaffold remains the default generation path.
 
 ## Included Proof Case
 

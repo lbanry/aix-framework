@@ -646,6 +646,125 @@ function validatePrototypeHtml(html, manifest, plan, system, prototypeDir) {
   return reportFor(prototypeDir, findings);
 }
 
+function readJsonIfExists(filePath) {
+  if (!filePath || !fs.existsSync(filePath)) return undefined;
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+function sectionKey(title) {
+  return title
+    .toLowerCase()
+    .replace(/^\d+\.?\s*/, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_|_$/g, "");
+}
+
+function extractDesignMarkdownSections(markdown) {
+  const sections = {};
+  const headingPattern = /^##\s+(.+)$/gm;
+  const matches = [...markdown.matchAll(headingPattern)];
+
+  matches.forEach((match, index) => {
+    const start = match.index + match[0].length;
+    const end = matches[index + 1]?.index ?? markdown.length;
+    const key = sectionKey(match[1]);
+    const content = markdown.slice(start, end).trim();
+
+    if (key && content) {
+      sections[key] = content;
+    }
+  });
+
+  return sections;
+}
+
+function readDesignMarkdown(system) {
+  const designPath = system.source?.type === "design-md" ? system.source.path : undefined;
+  if (!designPath) return undefined;
+
+  const resolvedPath = path.resolve(designPath);
+  if (!fs.existsSync(resolvedPath)) {
+    return {
+      available: false,
+      path: designPath,
+      note: "DESIGN.md source path is recorded on the interface system, but the file was not found locally."
+    };
+  }
+
+  const markdown = fs.readFileSync(resolvedPath, "utf8");
+  return {
+    available: true,
+    path: designPath,
+    sections: extractDesignMarkdownSections(markdown)
+  };
+}
+
+function resolvePrototypeDir(plan, options = {}) {
+  if (options.prototypeDir) return options.prototypeDir;
+
+  const defaultDir = path.join("prototypes", plan.screen_id);
+  if (fs.existsSync(defaultDir)) return defaultDir;
+
+  return undefined;
+}
+
+export function assemblePrototypeContext(plan, system, options = {}) {
+  const prototypeDir = resolvePrototypeDir(plan, options);
+  const manifestPath = prototypeDir ? path.join(prototypeDir, "prototype.json") : undefined;
+  const reportPath = prototypeDir ? path.join(prototypeDir, "validation-report.json") : undefined;
+  const existingManifest = readJsonIfExists(manifestPath);
+  const validationReport = readJsonIfExists(reportPath) || null;
+  const prototypeManifest = existingManifest || createPrototypeManifest(plan, system, {
+    planPath: options.planPath,
+    systemPath: options.systemPath
+  });
+
+  const sources = {
+    plan: options.planPath,
+    system: options.systemPath
+  };
+
+  if (system.source) {
+    sources.design = system.source;
+  }
+
+  if (prototypeDir) {
+    sources.prototype = prototypeDir;
+  }
+
+  if (reportPath && fs.existsSync(reportPath)) {
+    sources.validation_report = reportPath;
+  }
+
+  const context = {
+    version: "0.1.0",
+    purpose: "AI-oriented context for prototype generation. This artifact prepares structured context only and does not call an AI model.",
+    generation_mode: "deterministic-context",
+    sources,
+    interface_plan: plan,
+    interface_system: system,
+    prototype_manifest: prototypeManifest,
+    validation_report: validationReport,
+    ai_boundary: {
+      model_calls: false,
+      default_generation: "deterministic",
+      allowed_use: [
+        "review interface plan traceability",
+        "prepare future opt-in AI generation prompts",
+        "explain design-system constraints",
+        "debug prototype validation findings"
+      ]
+    }
+  };
+
+  const designMarkdown = readDesignMarkdown(system);
+  if (designMarkdown) {
+    context.design_markdown = designMarkdown;
+  }
+
+  return context;
+}
+
 export function verifyPrototypeDirectory(prototypeDir, plan, system) {
   const manifestPath = path.join(prototypeDir, "prototype.json");
   const htmlPath = path.join(prototypeDir, "index.html");

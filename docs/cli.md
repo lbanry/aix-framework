@@ -145,6 +145,16 @@ Use `--json` for a machine-readable validation report.
 
 The validation report includes stable rule IDs, categories, source paths, and suggested fixes. It checks plan traceability, approved patterns/components, semantic HTML basics, token references, render metadata, and statically detectable design constraints.
 
+### interface prototype context
+
+Assembles AI-oriented prototype context without calling an AI model.
+
+```bash
+node ./src/cli.js interface prototype context packages/aix-design/interface/plans/contract-inspection.plan.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml --prototype prototypes/contract-inspection-review --out prototypes/contract-inspection-review/prototype-context.json
+```
+
+The context includes the interface plan, normalized interface system, prototype manifest, latest validation report when a prototype directory is supplied, DESIGN.md source sections when available, and an explicit `model_calls: false` boundary.
+
 ### interface prototype dev
 
 Serves a generated prototype directory locally.

@@ -1,0 +1,113 @@
+{
+  "title": "AIX Prototype Generation Context",
+  "type": "object",
+  "required": [
+    "version",
+    "purpose",
+    "generation_mode",
+    "sources",
+    "interface_plan",
+    "interface_system",
+    "prototype_manifest",
+    "ai_boundary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "generation_mode": {
+      "const": "deterministic-context"
+    },
+    "sources": {
+      "type": "object",
+      "required": ["plan", "system"],
+      "additionalProperties": false,
+      "properties": {
+        "plan": {
+          "type": "string"
+        },
+        "system": {
+          "type": "string"
+        },
+        "design": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            },
+            "imported_at": {
+              "type": "string"
+            }
+          }
+        },
+        "prototype": {
+          "type": "string"
+        },
+        "validation_report": {
+          "type": "string"
+        }
+      }
+    },
+    "interface_plan": {
+      "type": "object"
+    },
+    "interface_system": {
+      "type": "object"
+    },
+    "design_markdown": {
+      "type": "object",
+      "required": ["available"],
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "prototype_manifest": {
+      "type": "object"
+    },
+    "validation_report": {
+      "type": ["object", "null"]
+    },
+    "ai_boundary": {
+      "type": "object",
+      "required": ["model_calls", "default_generation", "allowed_use"],
+      "additionalProperties": false,
+      "properties": {
+        "model_calls": {
+          "const": false
+        },
+        "default_generation": {
+          "const": "deterministic"
+        },
+        "allowed_use": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

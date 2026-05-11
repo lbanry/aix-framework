@@ -7,6 +7,7 @@ import { inspectContract } from "../packages/aix-core/src/inspect.js";
 import { initContract } from "../packages/aix-core/src/init.js";
 import {
   inspectInterfaceSystem,
+  contextPrototype,
   inspectInterfacePlan,
   devPrototype,
   importInterfaceDesignSystem,
@@ -135,6 +136,18 @@ prototypeCommand
   .description("Verify generated prototype traceability and design-system compliance")
   .action(async (prototypeDir, options) => {
     await verifyPrototype(prototypeDir, options);
+  });
+
+prototypeCommand
+  .command("context")
+  .argument("<plan>", "Path to an AIX interface plan YAML file")
+  .requiredOption("--system <system>", "Path to an AIX interface system YAML file")
+  .option("--prototype <dir>", "Path to an existing generated prototype directory")
+  .option("-o, --out <file>", "Write the assembled context JSON to a file")
+  .option("--force", "Overwrite the output file if it already exists")
+  .description("Assemble deterministic AI-oriented prototype context without calling an AI model")
+  .action(async (planPath, options) => {
+    await contextPrototype(planPath, options);
   });
 
 prototypeCommand

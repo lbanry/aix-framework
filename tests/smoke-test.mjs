@@ -424,6 +424,38 @@ const tracedManifest = JSON.parse(fs.readFileSync(new URL("./tmp-traced-prototyp
 assert.equal(tracedManifest.design_source.path, "packages/aix-design/tests/fixtures/rich-design.md");
 assert.match(JSON.stringify(tracedManifest.design_context), /Calm operational clarity/);
 
+const prototypeContextPath = new URL("./tmp-prototype-context.json", import.meta.url);
+if (fs.existsSync(prototypeContextPath)) {
+  fs.unlinkSync(prototypeContextPath);
+}
+
+assertSuccess(
+  [
+    "./src/cli.js",
+    "interface",
+    "prototype",
+    "context",
+    "packages/aix-design/interface/plans/contract-inspection.plan.yaml",
+    "--system",
+    "tests/tmp-source-traced-system.yaml",
+    "--prototype",
+    "tests/tmp-traced-prototype",
+    "--out",
+    "tests/tmp-prototype-context.json"
+  ],
+  /Wrote prototype context: tests\/tmp-prototype-context\.json/
+);
+
+const prototypeContext = JSON.parse(fs.readFileSync(prototypeContextPath, "utf8"));
+assert.equal(prototypeContext.generation_mode, "deterministic-context");
+assert.equal(prototypeContext.ai_boundary.model_calls, false);
+assert.equal(prototypeContext.sources.validation_report, "tests/tmp-traced-prototype/validation-report.json");
+assert.equal(prototypeContext.validation_report.valid, true);
+assert.equal(prototypeContext.prototype_manifest.screen_id, "contract-inspection-review");
+assert.equal(prototypeContext.design_markdown.available, true);
+assert.match(prototypeContext.design_markdown.sections.design_philosophy, /Calm operational clarity/);
+fs.unlinkSync(prototypeContextPath);
+
 const tracedHtmlPath = new URL("./tmp-traced-prototype/index.html", import.meta.url);
 const originalTracedHtml = fs.readFileSync(tracedHtmlPath, "utf8");
 

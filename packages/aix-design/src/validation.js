@@ -13,7 +13,8 @@ const schemaFiles = {
   requirement: "interface-requirement.schema.json",
   plan: "interface-plan.schema.json",
   prototypeManifest: "prototype-manifest.schema.json",
-  prototypeValidationReport: "prototype-validation-report.schema.json"
+  prototypeValidationReport: "prototype-validation-report.schema.json",
+  prototypeContext: "prototype-context.schema.json"
 };
 
 const ajv = new Ajv({ allErrors: true });

@@ -4,6 +4,7 @@ import { validateInterfaceArtifact } from "./validation.js";
 import { buildInterfacePlan, inspectInterfacePlan as inspectPlanReadiness } from "./planner.js";
 import { importDesignMarkdown } from "./design-md.js";
 import {
+  assemblePrototypeContext,
   scaffoldPrototypeFiles,
   servePrototypeDirectory,
   verifyPrototypeDirectory
@@ -297,6 +298,41 @@ export async function verifyPrototype(prototypeDir, options = {}) {
   if (!report.valid) {
     process.exit(1);
   }
+}
+
+export async function contextPrototype(planPath, options = {}) {
+  if (!options.system) {
+    console.error("--system is required.");
+    process.exit(1);
+  }
+
+  const plan = readYaml(planPath);
+  const system = readYaml(options.system);
+
+  assertValid("plan", plan);
+  assertValid("system", system);
+
+  const context = assemblePrototypeContext(plan, system, {
+    planPath,
+    systemPath: options.system,
+    prototypeDir: options.prototype
+  });
+
+  assertValid("prototypeContext", context);
+
+  const output = `${JSON.stringify(context, null, 2)}\n`;
+  if (options.out) {
+    if (fs.existsSync(options.out) && !options.force) {
+      console.error(`Output file already exists. Use --force to overwrite: ${options.out}`);
+      process.exit(1);
+    }
+
+    fs.writeFileSync(options.out, output, { flag: options.force ? "w" : "wx" });
+    console.log(`Wrote prototype context: ${options.out}`);
+    return;
+  }
+
+  console.log(output.trimEnd());
 }
 
 export async function devPrototype(prototypeDir, options = {}) {
