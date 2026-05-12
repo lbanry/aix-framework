@@ -26,3 +26,5 @@ Prototype validation treats render metadata as part of the design-system contrac
 Prototype scaffolding is deterministic and does not call an AI model. Generated files should be written under the repo-level `prototypes/` directory, which is local-only by default.
 
 `interface prototype context` assembles the AI-oriented context artifact from the interface plan, normalized system, prototype manifest, validation report, and DESIGN.md source sections when available. This prepares future opt-in AI generation without changing the default deterministic scaffold path.
+
+The context includes an `ai_generation` contract with read-only review as the default phase. Repair, variant, and generate phases are named for future workflows, but writes require explicit approval and prototype outputs stay local-only by default.

@@ -449,6 +449,15 @@ assertSuccess(
 const prototypeContext = JSON.parse(fs.readFileSync(prototypeContextPath, "utf8"));
 assert.equal(prototypeContext.generation_mode, "deterministic-context");
 assert.equal(prototypeContext.ai_boundary.model_calls, false);
+assert.equal(prototypeContext.ai_generation.enabled, false);
+assert.equal(prototypeContext.ai_generation.provider_required, false);
+assert.deepEqual(prototypeContext.ai_generation.allowed_phases, ["review", "repair", "variant", "generate"]);
+assert.equal(prototypeContext.ai_generation.default_phase, "review");
+assert.equal(prototypeContext.ai_generation.write_policy.default, "read-only");
+assert.equal(prototypeContext.ai_generation.write_policy.requires_explicit_approval, true);
+assert.equal(prototypeContext.ai_generation.commit_policy.prototype_outputs, "local-only");
+assert.equal(prototypeContext.ai_generation.phase_contracts.review.writes_allowed, false);
+assert.equal(prototypeContext.ai_generation.phase_contracts.generate.writes_allowed, false);
 assert.equal(prototypeContext.sources.validation_report, "tests/tmp-traced-prototype/validation-report.json");
 assert.equal(prototypeContext.validation_report.valid, true);
 assert.equal(prototypeContext.prototype_manifest.screen_id, "contract-inspection-review");

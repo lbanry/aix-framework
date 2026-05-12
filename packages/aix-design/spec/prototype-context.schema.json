@@ -9,6 +9,7 @@
     "interface_plan",
     "interface_system",
     "prototype_manifest",
+    "ai_generation",
     "ai_boundary"
   ],
   "additionalProperties": false,
@@ -90,6 +91,79 @@
     "validation_report": {
       "type": ["object", "null"]
     },
+    "ai_generation": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "provider_required",
+        "allowed_phases",
+        "default_phase",
+        "write_policy",
+        "commit_policy",
+        "phase_contracts"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "const": false
+        },
+        "provider_required": {
+          "const": false
+        },
+        "allowed_phases": {
+          "type": "array",
+          "items": {
+            "enum": ["review", "repair", "variant", "generate"]
+          }
+        },
+        "default_phase": {
+          "const": "review"
+        },
+        "write_policy": {
+          "type": "object",
+          "required": ["default", "requires_explicit_approval", "allowed_roots"],
+          "additionalProperties": false,
+          "properties": {
+            "default": {
+              "const": "read-only"
+            },
+            "requires_explicit_approval": {
+              "const": true
+            },
+            "allowed_roots": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "commit_policy": {
+          "type": "object",
+          "required": ["prototype_outputs", "requires_explicit_approval"],
+          "additionalProperties": false,
+          "properties": {
+            "prototype_outputs": {
+              "const": "local-only"
+            },
+            "requires_explicit_approval": {
+              "const": true
+            }
+          }
+        },
+        "phase_contracts": {
+          "type": "object",
+          "required": ["review", "repair", "variant", "generate"],
+          "additionalProperties": false,
+          "properties": {
+            "review": { "$ref": "#/definitions/phaseContract" },
+            "repair": { "$ref": "#/definitions/phaseContract" },
+            "variant": { "$ref": "#/definitions/phaseContract" },
+            "generate": { "$ref": "#/definitions/phaseContract" }
+          }
+        }
+      }
+    },
     "ai_boundary": {
       "type": "object",
       "required": ["model_calls", "default_generation", "allowed_use"],
@@ -106,6 +180,33 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "phaseContract": {
+      "type": "object",
+      "required": ["purpose", "inputs", "outputs", "writes_allowed"],
+      "additionalProperties": false,
+      "properties": {
+        "purpose": {
+          "type": "string"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "writes_allowed": {
+          "type": "boolean"
         }
       }
     }

@@ -57,7 +57,7 @@ node ./src/cli.js interface prototype dev prototypes/contract-inspection-review 
 
 Scaffold writes `index.html`, `prototype.json`, and `validation-report.json`. Generated prototype files belong under gitignored `prototypes/` and are local-only unless explicitly approved for publishing.
 
-The `context` command writes an AI-oriented context artifact for later opt-in generation work. It includes the interface plan, interface system, prototype manifest, latest validation report when available, and source DESIGN.md sections when the normalized system was imported from Markdown. It does not call an AI model.
+The `context` command writes an AI-oriented context artifact for later opt-in generation work. It includes the interface plan, interface system, prototype manifest, latest validation report when available, source DESIGN.md sections when the normalized system was imported from Markdown, and an `ai_generation` contract. It does not call an AI model.
 
 ## Artifacts
 
@@ -102,7 +102,16 @@ Interface plans define selected patterns and components, information hierarchy, 
 
 Prototype manifests define source plan/system paths, design-source traceability, rendered sections, approved components, approved patterns, tokens, and stable validation rule IDs.
 
-Prototype contexts define the assembled generation context and the explicit AI boundary. They are for review, prompt preparation, and future opt-in AI generation; deterministic scaffold remains the default generation path.
+Prototype contexts define the assembled generation context, opt-in AI generation phases, write policy, commit policy, and the explicit AI boundary. They are for review, prompt preparation, and future opt-in AI generation; deterministic scaffold remains the default generation path.
+
+The initial AI contract is intentionally conservative:
+
+- `review` is the default phase and is read-only.
+- `repair`, `variant`, and `generate` are named but disabled for writes by default.
+- any write requires explicit approval.
+- generated prototype output remains local-only under `prototypes/` unless explicitly approved.
+
+See [Prototype AI Generation Contract](./prototype-ai-generation.md) for the context consumption order and prompt template.
 
 ## Included Proof Case
 

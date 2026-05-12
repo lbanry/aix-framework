@@ -153,7 +153,9 @@ Assembles AI-oriented prototype context without calling an AI model.
 node ./src/cli.js interface prototype context packages/aix-design/interface/plans/contract-inspection.plan.yaml --system packages/aix-design/interface/systems/aix-interface-system.yaml --prototype prototypes/contract-inspection-review --out prototypes/contract-inspection-review/prototype-context.json
 ```
 
-The context includes the interface plan, normalized interface system, prototype manifest, latest validation report when a prototype directory is supplied, DESIGN.md source sections when available, and an explicit `model_calls: false` boundary.
+The context includes the interface plan, normalized interface system, prototype manifest, latest validation report when a prototype directory is supplied, DESIGN.md source sections when available, an opt-in AI generation contract, and an explicit `model_calls: false` boundary.
+
+The `ai_generation` section is a contract for later AI-assisted workflows. It defines allowed phases (`review`, `repair`, `variant`, `generate`), keeps the default phase read-only review, requires explicit approval before writes, and preserves prototype output as local-only.
 
 ### interface prototype dev
 

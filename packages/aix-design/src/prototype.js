@@ -745,6 +745,47 @@ export function assemblePrototypeContext(plan, system, options = {}) {
     interface_system: system,
     prototype_manifest: prototypeManifest,
     validation_report: validationReport,
+    ai_generation: {
+      enabled: false,
+      provider_required: false,
+      allowed_phases: ["review", "repair", "variant", "generate"],
+      default_phase: "review",
+      write_policy: {
+        default: "read-only",
+        requires_explicit_approval: true,
+        allowed_roots: ["prototypes/"]
+      },
+      commit_policy: {
+        prototype_outputs: "local-only",
+        requires_explicit_approval: true
+      },
+      phase_contracts: {
+        review: {
+          purpose: "Review the assembled context, design-system fit, and validation findings without changing files.",
+          inputs: ["interface_plan", "interface_system", "prototype_manifest", "validation_report", "design_markdown"],
+          outputs: ["findings", "questions", "recommended_next_steps"],
+          writes_allowed: false
+        },
+        repair: {
+          purpose: "Propose or apply minimal repairs for validation findings after explicit approval.",
+          inputs: ["validation_report", "prototype_manifest", "interface_system"],
+          outputs: ["repair_plan", "changed_files", "updated_validation_report"],
+          writes_allowed: false
+        },
+        variant: {
+          purpose: "Draft an alternative prototype direction that preserves the normalized interface system contract.",
+          inputs: ["interface_plan", "interface_system", "design_markdown"],
+          outputs: ["variant_summary", "prototype_manifest_changes"],
+          writes_allowed: false
+        },
+        generate: {
+          purpose: "Generate prototype output only when AI generation is explicitly enabled in a future workflow.",
+          inputs: ["interface_plan", "interface_system", "design_markdown", "validation_report"],
+          outputs: ["index.html", "prototype.json", "validation-report.json"],
+          writes_allowed: false
+        }
+      }
+    },
     ai_boundary: {
       model_calls: false,
       default_generation: "deterministic",
